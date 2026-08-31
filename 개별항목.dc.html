@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./mobile-nav.js"></script>
+  <style>
+    body{margin:0;}
+    @font-face{font-family:'ArchivoExpandedBlack';src:url('./assets/fonts/Archivo_Expanded-Black.ttf') format('truetype');font-weight:900;}
+    a{text-decoration:none;color:inherit;}
+    a:hover{color:#2F6FED;}
+    @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+    @keyframes ringPulse{0%{transform:scale(1);opacity:.55;}70%{transform:scale(1.5);opacity:0;}100%{transform:scale(1.5);opacity:0;}}
+    [data-fab]{position:relative; width:66px; height:66px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:11.5px; font-weight:800; letter-spacing:-0.3px; line-height:1.2; text-align:center; box-shadow:0 14px 30px rgba(15,20,32,0.20); transition:transform .18s ease, box-shadow .18s ease; animation:floatY 3.4s ease-in-out infinite;}
+    [data-fab]:hover{transform:translateY(-4px) scale(1.05); box-shadow:0 20px 40px rgba(15,20,32,0.26);}
+    [data-fab] [data-ico]{font-size:17px; line-height:1;}
+    [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
+    @media (max-width: 720px){
+      [data-fabwrap]{right:12px !important;}
+      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
+      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+    }
+    @media (max-width: 1024px){
+      [style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr) !important;}
+      [style*="grid-template-columns: repeat(3"]{grid-template-columns:repeat(2,1fr) !important;}
+      nav{gap:14px !important;} nav a, nav div{font-size:13px !important;}
+    }
+    @media (max-width: 720px){
+      [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
+      header > nav{display:none !important;}
+      header > div{display:none !important;}
+      nav{flex-wrap:wrap !important; gap:10px !important;} nav a, nav div{font-size:12.5px !important;}
+      h1{font-size:22px !important;} h2{font-size:20px !important;} h3{font-size:18px !important;}
+      [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
+      [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
+    }
+  </style>
+</helmet>
+
+<div style="--bg:#FFFFFF;--ink:#111111;--ink-soft:#6B6B6B;--line:#E9E9E9;--accent:#2F6FED;--surface-dark:#0A0A0A;--surface-dark-2:#141824; background:var(--bg); color:var(--ink); font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased;">
+
+  <header style="border-bottom:1px solid var(--line); padding:18px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; z-index:20;">
+    <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+    <nav style="display:flex; gap:22px; align-items:center;">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+        <div onMouseEnter="{{ n.onEnter }}" onMouseLeave="{{ onNavLeave }}" style="position:relative; padding:6px 0;">
+          <a href="{{ n.href }}" style="{{ n.linkStyle }}">{{ n.label }}</a>
+          <sc-if value="{{ n.children }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ n.dropdownStyle }}">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="4">
+                <a href="{{ c.href }}" style="display:block; padding:9px 20px; font-size:13px; color:var(--ink-soft); white-space:nowrap;" style-hover="color:var(--accent);background:#F5F7FB;">{{ c.label }}</a>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </nav>
+    <div style="font-size:13px; color:var(--ink-soft);">전화상담 <b style="color:var(--ink);">010-9850-2293</b></div>
+    <mobile-nav current="개별항목"></mobile-nav>
+  </header>
+
+  <div data-fabwrap="1" style="position:fixed; right:26px; bottom:110px; z-index:55; display:flex; flex-direction:column; gap:12px; align-items:center;">
+    <a href="tel:010-9850-2293" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #2a3a63, #0E1526 72%); color:#fff; border:1px solid rgba(255,255,255,0.14);">
+      <span data-ring="1" style="color:rgba(255,255,255,0.35);"></span>
+      <span data-ico="1">📞</span>
+      <span>전화상담</span>
+    </a>
+    <a href="http://pf.kakao.com/_xdBVxaX/chat" target="_blank" rel="noopener" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #FFF4A0, #FFE94A 70%); color:#2C2200; border:1px solid rgba(0,0,0,0.08);">
+      <span data-ico="1">💬</span>
+      <span>카톡상담</span>
+    </a>
+    <a href="#" style="width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:16px; border:1px solid var(--line); background:rgba(255,255,255,0.92); box-shadow:0 10px 22px rgba(15,20,32,0.12);">↑</a>
+  </div>
+
+  <div style="max-width:1160px; margin:0 auto; padding:48px 24px 0;">
+    <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">PROR.CO SINGLE ITEMS</div>
+    <h1 style="font-size:30px; font-weight:800; margin:0 0 10px; line-height:1.3;">개별항목 — 필요한 것만 골라서</h1>
+    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.75; max-width:700px;">패키지 없이도 원하는 조명만 따로 시공하실 수 있습니다. 모든 항목은 정찰제 단가 그대로 공개되며, 표시 금액에는 자재비와 시공비가 모두 포함됩니다.</p>
+
+    <!-- category tabs -->
+    <div style="display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:24px;">
+      <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="5">
+        <div onClick="{{ tb.onClick }}" style="{{ tb.style }}">{{ tb.label }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ACTIVE CATEGORY -->
+  <div style="max-width:1160px; margin:0 auto; padding:44px 24px 0;">
+    <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">{{ active.eyebrow }}</div>
+    <h2 style="font-size:26px; font-weight:800; margin:0 0 10px; line-height:1.35;">{{ active.heading }}</h2>
+    <p style="color:var(--ink-soft); font-size:14px; margin:0; line-height:1.8; max-width:720px;">{{ active.intro }}</p>
+  </div>
+
+  <!-- VARIANT BLOCKS -->
+  <sc-for list="{{ active.variants }}" as="v" hint-placeholder-count="2">
+    <div style="max-width:1160px; margin:0 auto; padding:44px 24px 0;">
+      <sc-if value="{{ v.badge }}" hint-placeholder-val="{{ true }}">
+        <div style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:1px; color:#fff; background:var(--accent); padding:6px 14px; margin-bottom:16px;">{{ v.badge }}</div>
+      </sc-if>
+      <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:32px; align-items:start;">
+        <div style="position:relative; width:100%; min-width:0; aspect-ratio:16/10; overflow:hidden; background:#F2F4F7;">
+          <image-slot id="{{ v.photoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ v.photoHint }}"></image-slot>
+        </div>
+        <div style="display:flex; flex-direction:column; min-width:0;">
+          <h3 style="font-size:22px; font-weight:800; margin:0 0 6px;">{{ v.name }}</h3>
+          <div style="font-size:13.5px; color:var(--accent); font-weight:600; margin-bottom:14px;">{{ v.tagline }}</div>
+          <div style="font-size:13.5px; color:var(--ink-soft); line-height:1.85; margin-bottom:20px;">{{ v.desc }}</div>
+
+          <div style="border-top:1px solid var(--line);">
+            <sc-for list="{{ v.specs }}" as="sp" hint-placeholder-count="4">
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid var(--line); font-size:13px;">
+                <span style="color:var(--ink-soft); flex-shrink:0;">{{ sp.k }}</span>
+                <span style="font-weight:600; text-align:right;">{{ sp.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex; align-items:baseline; gap:10px; margin-top:20px;">
+            <div style="font-size:12px; color:var(--ink-soft);">시공비 포함</div>
+            <div style="font-size:26px; font-weight:800;">{{ v.price }}</div>
+            <div style="font-size:13px; color:var(--ink-soft);">{{ v.unit }}</div>
+          </div>
+
+          <div style="display:flex; gap:10px; padding-top:20px;">
+            <a href="./상세견적.dc.html" style="flex:1; text-align:center; background:var(--accent); color:#fff; padding:14px; font-size:13.5px; font-weight:700;">셀프견적에 담기 →</a>
+            <a href="tel:010-9850-2293" style="flex:0 0 auto; text-align:center; border:1px solid var(--line); color:var(--ink); padding:14px 22px; font-size:13.5px; font-weight:700;">전화문의</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-for>
+
+  <!-- ADD-ON (optional per category) -->
+  <sc-if value="{{ hasAddons }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:1160px; margin:0 auto; padding:56px 24px 0;">
+      <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">ADD-ON</div>
+      <h3 style="font-size:21px; font-weight:800; margin:0 0 10px;">{{ active.addonTitle }}</h3>
+      <p style="color:var(--ink-soft); font-size:13.5px; line-height:1.8; margin:0 0 22px; max-width:720px;">{{ active.addonIntro }}</p>
+      <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:32px; align-items:start;">
+        <div style="position:relative; width:100%; min-width:0; aspect-ratio:16/10; overflow:hidden; background:#F2F4F7;">
+          <image-slot id="{{ active.addonPhotoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ active.addonPhotoHint }}"></image-slot>
+        </div>
+        <div style="min-width:0;">
+          <div style="border-top:1px solid var(--line);">
+            <sc-for list="{{ active.addons }}" as="a" hint-placeholder-count="4">
+              <div style="display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--line);">
+                <div style="min-width:0;">
+                  <div style="font-size:14px; font-weight:700; margin-bottom:4px;">{{ a.title }}</div>
+                  <div style="font-size:12.8px; color:var(--ink-soft); line-height:1.6;">{{ a.desc }}</div>
+                </div>
+                <div style="font-size:14px; font-weight:800; color:var(--accent); white-space:nowrap;">{{ a.price }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ active.addonNote }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:12.5px; color:var(--ink-soft); margin-top:16px; line-height:1.75;">{{ active.addonNote }}</div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- PRICE TABLE -->
+  <div style="max-width:1160px; margin:0 auto; padding:56px 24px 0;">
+    <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">PRICE</div>
+    <h3 style="font-size:21px; font-weight:800; margin:0 0 20px;">{{ active.priceTitle }}</h3>
+    <div style="border:1px solid var(--line);">
+      <div style="display:grid; grid-template-columns:200px 1fr 150px; gap:16px; padding:14px 22px; background:#F7F8FA; border-bottom:1px solid var(--line); font-size:12px; font-weight:700; color:var(--ink-soft);">
+        <div>항목</div><div>내용</div><div style="text-align:right;">금액</div>
+      </div>
+      <sc-for list="{{ active.priceRows }}" as="r" hint-placeholder-count="5">
+        <div style="display:grid; grid-template-columns:200px 1fr 150px; gap:16px; padding:16px 22px; border-bottom:1px solid var(--line); align-items:center;">
+          <div style="font-size:13.5px; font-weight:700;">{{ r.item }}</div>
+          <div style="font-size:13px; color:var(--ink-soft); line-height:1.6;">{{ r.detail }}</div>
+          <div style="font-size:14px; font-weight:800; text-align:right; white-space:nowrap;">{{ r.price }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- COMMON NOTES -->
+  <div style="max-width:1160px; margin:0 auto; padding:56px 24px 0;">
+    <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">NOTICE</div>
+    <h3 style="font-size:21px; font-weight:800; margin:0 0 20px;">개별항목 시공 시 참고사항</h3>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+      <sc-for list="{{ notes }}" as="nt" hint-placeholder-count="3">
+        <div style="border:1px solid var(--line); padding:22px;">
+          <div style="font-size:15px; font-weight:800; margin-bottom:10px;">{{ nt.title }}</div>
+          <div style="font-size:13px; color:var(--ink-soft); line-height:1.75;">{{ nt.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:640px; margin:60px auto 0; padding:0 24px 90px; text-align:center;">
+    <div style="font-size:11px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">CONSULT</div>
+    <div style="font-size:22px; font-weight:800; margin-bottom:10px;">어떤 항목이 필요한지 헷갈리시나요?</div>
+    <div style="font-size:13.5px; color:var(--ink-soft); margin-bottom:22px; line-height:1.7;">공간 사진만 보내주시면 필요한 항목과 예상 금액을<br/>바로 정리해서 알려드립니다.</div>
+    <div style="display:flex; gap:12px; justify-content:center;">
+      <a href="./상세견적.dc.html" style="display:inline-block; background:var(--accent); color:#fff; padding:15px 26px; font-size:14px; font-weight:700;">셀프견적 시작하기</a>
+      <a href="tel:010-9850-2293" style="display:inline-block; background:var(--surface-dark); color:#fff; padding:15px 26px; font-size:14px; font-weight:700;">전화로 상담하기</a>
+    </div>
+  </div>
+
+  <footer style="background:var(--surface-dark); color:#B8B8B8; padding:30px 0;">
+    <div style="max-width:1160px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px;">
+      <a href="./PRORCO 홈페이지.dc.html" style="color:#fff; font-weight:900; font-size:15px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+      <span>상호 프로어앤코 · 대표 김동준 · 사업자등록번호 241-10-02476</span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { tab: 'umul' };
+
+  categories = [
+    {
+      key: 'umul', label: '우물천장조명',
+      eyebrow: 'INDIRECT LIGHTING',
+      heading: '우물천장 간접등 — 두 가지 방식',
+      intro: '프로어앤코는 중간 마감재 없이 깔끔하게 이어지는 고급 자재로 우물천장을 시공합니다. 코너는 라운드 마감으로 시공 가능하며, 조명은 최대 2줄까지 넣을 수 있습니다.',
+      variants: [
+        {
+          badge: '종류 1', name: '한방우물천장', tagline: '가운데 메인등 없이 우물박스에 은은한 간접등',
+          photoId: 'umul-type1-photo', photoHint: '한방우물천장 시공 사진',
+          desc: '가운데 메인등 없이 우물박스 안쪽 간접등만으로 공간을 밝히는 방식입니다. 기본 라운드 테두리에 중간 이음새가 없는 프리미엄 PVC 자재를 사용해, 마감선이 끊기지 않고 깔끔하게 이어집니다.',
+          price: '550,000원', unit: '부터 · 개별시공 가능',
+          specs: [
+            { k: '자재', v: '중간이음새 없는 프리미엄 PVC' },
+            { k: '코너마감', v: '라운드 마감 가능' },
+            { k: '조명 줄 수', v: '최대 2줄' },
+            { k: '한쪽면 길이 초과', v: '3.8m +100,000 · 5.6m +200,000' },
+          ],
+        },
+        {
+          badge: '종류 2', name: '목공 무몰딩 우물천장', tagline: '조명 박스를 목공으로 작업한 몰딩 없는 미니멀 간접등',
+          photoId: 'umul-type2-photo', photoHint: '목공 무몰딩 우물천장 시공 사진',
+          desc: '기존 우물천장의 몰딩을 완전히 제거하고 새 우물박스를 목공으로 제작합니다. 우물 바깥 폭까지 도배와 마감을 연결해 흔적을 남기지 않는 가장 깔끔한 방식이라, 입주 전 시공을 추천드립니다.',
+          price: '750,000원', unit: '부터 · 라운드 850,000원',
+          specs: [
+            { k: '직각 우물천장', v: '750,000원' },
+            { k: '라운드 우물천장', v: '850,000원' },
+            { k: '천장 전체도배', v: '필요 (마감 포함)' },
+            { k: '한쪽면 길이 초과', v: '3.8m +100,000 · 5.6m +200,000' },
+          ],
+        },
+      ],
+      addonTitle: '조명 추가 안내 — 2줄 시공 · 3색변환',
+      addonIntro: '한방우물천장, 무몰딩 목공우물천장 모두 조명 2줄까지 시공 가능합니다. 두 색을 함께 넣어두면 스위치로 분위기를 골라 켜실 수 있습니다.',
+      addonPhotoId: 'umul-addon-photo', addonPhotoHint: '2줄 시공 · 색상 조합 비교 사진',
+      addonNote: '색상 선택은 커스텀 가능합니다 — 예) 주백 + 주백, 주광 + 전구, 주백 + 전구',
+      addons: [
+        { title: '2줄 시공 진행', desc: '한방·목공 모두 조명 2줄까지 시공 가능합니다.', price: '+200,000원' },
+        { title: '한줄 점등', desc: '선택한 색상 조명만 ON — 원하는 분위기 하나만 켭니다.', price: '기본 포함' },
+        { title: '두줄 점등', desc: '두 조명 색상이 섞여서 ON — 더 밝고 중간 톤이 됩니다.', price: '기본 포함' },
+      ],
+      priceTitle: '우물천장 단품 가격 정리',
+      priceRows: [
+        { item: '한방 우물천장', detail: '기본 라운드 테두리, 중간이음새 없는 프리미엄 PVC 우물천장', price: '550,000원' },
+        { item: '목공 우물천장 직각', detail: '기존 몰딩 제거 후 일체형 우물등박스 제작 (천장 전체도배 필요)', price: '750,000원' },
+        { item: '목공 우물천장 라운드', detail: '기존 몰딩 제거 후 일체형 우물등박스 제작 (천장 전체도배 필요)', price: '850,000원' },
+        { item: '두줄조명 (3색변환)', detail: '원하는 두 색상 조명 자유롭게 선택', price: '+200,000원' },
+        { item: '한쪽면 길이 초과', detail: '3.8m 초과 +100,000 · 5.6m 초과 +200,000 (시공 당일 현장 실측)', price: '+10~20만원' },
+        { item: '개별시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
+      ],
+    },
+    {
+      key: 'curtain', label: '커튼조명',
+      eyebrow: 'CURTAIN LIGHTING',
+      heading: '커튼박스 무드등 — 분위기 있는 공간을 연출',
+      intro: '커튼박스 안쪽에 T5조명을 시공하여 분위기 있는 공간을 연출합니다. 조명기구는 드러내지 않고, 은은한 빛만 공간에 남깁니다.',
+      variants: [
+        {
+          badge: '일자형', name: '일자형 커튼박스 간접등', tagline: '한 면에 곧게 이어지는 기본 형태',
+          photoId: 'curtain-photo', photoHint: '커튼박스 무드등 사진',
+          desc: '커튼박스 안에 조명을 매립해 조명기구는 드러내지 않고, 은은한 빛만 공간에 남깁니다. 커튼을 따라 부드럽게 퍼지는 간접광은 직접적인 눈부심을 줄이고, 공간에 편안하고 깊이 있는 분위기를 만들어줍니다.',
+          price: '100,000원', unit: '부터 · 1곳 기준',
+          specs: [
+            { k: '조명방식', v: 'T5 조명 매립' },
+            { k: '시공위치', v: '커튼박스 내부' },
+            { k: '길이 초과', v: '5m 초과 +50,000 · 10m 초과 +100,000' },
+            { k: '참고', v: '커튼박스 없는 경우 별도 목공 필요' },
+          ],
+        },
+        {
+          badge: 'ㄱ자형', name: 'ㄱ자 커튼박스 간접등', tagline: '코너를 돌아 두 면으로 이어지는 형태',
+          photoId: 'curtain-photo-l', photoHint: 'ㄱ자 커튼박스 무드등 사진',
+          desc: '창이 코너로 이어진 구조에서 두 면을 하나의 라인으로 연결하는 방식입니다. 꺾이는 지점까지 빛이 끊기지 않게 시공해, 공간이 한층 넓어 보이는 효과가 있습니다.',
+          price: '150,000원', unit: '부터 · 1곳 기준',
+          specs: [
+            { k: '조명방식', v: 'T5 조명 매립' },
+            { k: '시공형태', v: '코너 연결 (두 면)' },
+            { k: '길이 초과', v: '5m 초과 +50,000 · 10m 초과 +100,000' },
+            { k: '참고', v: '꺾임 지점 빛 끊김 없이 시공' },
+          ],
+        },
+      ],
+      priceTitle: '커튼박스 단품 가격 정리',
+      priceRows: [
+        { item: '커튼박스 무드등', detail: '일자형 커튼박스 간접등 (T5 조명 매립)', price: '100,000원~' },
+        { item: 'ㄱ자형 커튼박스 무드등', detail: '코너를 돌아 두 면으로 이어지는 간접등', price: '150,000원~' },
+        { item: '길이 5m · 10m 초과', detail: '5m 초과 +50,000 · 10m 초과 +100,000', price: '(+) 50,000원~' },
+        { item: '3채널 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '70,000원~' },
+        { item: '개별 시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
+      ],
+    },
+    {
+      key: 'cob', label: '다운라이트 · COB',
+      eyebrow: 'DOWNLIGHT & COB',
+      heading: '다운라이트 — 확산형과 COB, 두 가지 방식',
+      intro: '넓게 밝히는 확산형과, 한 곳을 집중해 비추는 COB 두 종류로 나뉩니다. 생활공간은 확산형, 액자·아트월 같은 포인트 연출은 COB를 사용합니다.',
+      variants: [
+        {
+          badge: '종류 1', name: '확산형 다운라이트', tagline: '주광 · 주백 · 전구 — 일반 LED등처럼 확산되는 조명',
+          photoId: 'down-photo', photoHint: '확산형 다운라이트 무드 사진',
+          desc: '일반 LED 등처럼 확산되는 빛으로 공간을 고르게 밝히는 조명입니다. 주광·주백·전구 세 가지 컬러가 있으며, 매입되어 돌출이 없어 깔끔한 분위기를 연출합니다. 밝아야 하는 생활공간 거실 · 주방 · 방에 주로 사용합니다.',
+          price: '25,000원', unit: '/ 3인치 개당',
+          specs: [
+            { k: '3인치 다운라이트', v: '개당 25,000원' },
+            { k: '2인치 다운라이트', v: '개당 30,000원' },
+            { k: '컬러', v: '주광 · 주백 · 전구' },
+            { k: '참고', v: '2인치는 3인치보다 1.5~1.7배 개수 필요' },
+          ],
+        },
+        {
+          badge: '종류 2', name: 'COB 다운라이트', tagline: '포인트(스팟) 연출 — 액자 · 그림 등 벽에 빛을 주는 조명',
+          photoId: 'cob-photo', photoHint: 'COB 다운라이트 무드 사진',
+          desc: '빛 퍼짐이 보다 스포트라이트같이 집중되어 집중형 다운라이트로 불립니다. 액자, 쇼파원, 아트월, 복도, 그림, 액자에 빛을 주는데 주로 사용합니다. 내구서비 뛰어나고 범용성이 높은 디자인과, 나팔(호른) 형태의 곡선디자인 중 선택하실 수 있습니다.',
+          price: '25,000원', unit: '/ 3인치 개당',
+          specs: [
+            { k: '3인치 COB', v: '개당 25,000원' },
+            { k: '2인치 COB', v: '개당 30,000원' },
+            { k: '3인치 호른 COB', v: '개당 30,000원' },
+            { k: '2인치 호른 COB', v: '개당 35,000원' },
+          ],
+        },
+      ],
+      priceTitle: '다운라이트 단품 가격 정리',
+      priceRows: [
+        { item: '확산형 다운라이트', detail: '3인치 25,000원 · 2인치 30,000원', price: '25,000원~' },
+        { item: 'COB 다운라이트', detail: '3인치 25,000원 · 2인치 30,000원', price: '25,000원~' },
+        { item: 'COB 호른 다운라이트', detail: '3인치 30,000원 · 2인치 35,000원 (나팔 형태 곡선디자인)', price: '30,000원~' },
+        { item: '3채널 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '(+) 70,000원' },
+        { item: '4구 터치 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '(+) 90,000원' },
+        { item: '개별시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
+      ],
+    },
+    {
+      key: 'sensor', label: '욕실 · 현관 센서등',
+      eyebrow: 'SENSOR LIGHTING',
+      heading: '욕실 · 현관 센서 무드등',
+      intro: '스위치 없이 사람의 움직임을 감지해 자동으로 켜지는 무드센서입니다. 천장을 뚫지 않고 히든센서를 이용해 천장 내부에 설치하는 방식으로 진행합니다.',
+      variants: [
+        {
+          badge: '욕실', name: '욕실 센서 무드등', tagline: '기본 금액 90,000원~',
+          photoId: 'sensor-bath-photo', photoHint: '욕실센서 무드등 사진',
+          desc: '프리미엄 히든센서를 사용하여 욕실 천장을 뚫지 않고 내부 배선작업을 통해 은은한 간접조명 작업을 진행합니다.',
+          price: '90,000원', unit: '부터 · 1곳 기준',
+          specs: [
+            { k: '설치방식', v: '히든센서 · 천장 내부 설치' },
+            { k: '천장 타공', v: '없음 (내부 배선작업)' },
+            { k: '조명형태', v: '은은한 간접조명' },
+            { k: '작동방식', v: '움직임 감지 자동 점·소등' },
+          ],
+        },
+        {
+          badge: '현관', name: '현관 센서 무드등', tagline: '기본 금액 80,000원~',
+          photoId: 'sensor-entrance-photo', photoHint: '현관 센서 무드등 사진',
+          desc: '집안의 첫 인상이 달라지는 현관센서등입니다. 스위치 없이 사람의 움직임을 감지해 자동으로 켜지며, 공간의 아늑한 분위기를 완성하세요.',
+          price: '80,000원', unit: '부터 · 1곳 기준',
+          specs: [
+            { k: '설치방식', v: '기본 센서 / 히든센서 선택' },
+            { k: '히든센서 변경', v: '+20,000원' },
+            { k: '조명형태', v: '은은한 간접조명' },
+            { k: '작동방식', v: '움직임 감지 자동 점·소등' },
+          ],
+        },
+      ],
+      priceTitle: '센서등 단품 가격 정리',
+      priceRows: [
+        { item: '욕실센서 무드등', detail: '히든센서 사용, 천장 타공 없이 내부 배선 간접조명', price: '90,000원~' },
+        { item: '현관센서 무드등', detail: '움직임 감지 자동 점·소등 무드센서', price: '80,000원~' },
+        { item: '히든센서로 변경 시', detail: '현관센서 무드등을 프리미엄 히든센서로 변경', price: '(+) 20,000원' },
+        { item: '3채널 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '70,000원~' },
+        { item: '개별 시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
+      ],
+    },
+    {
+      key: 'fan', label: '실링팬',
+      eyebrow: 'CEILING FAN',
+      heading: '실링팬 — 사계절 공기 순환',
+      intro: '여름에는 에어컨 바람을 골고루 퍼뜨리고, 겨울에는 천장의 따뜻한 공기를 끌어내립니다. 조명 겸용 모델로 설치 가능하며, 천장 고정 구조라 보강 작업이 함께 진행됩니다.',
+      variants: [
+        {
+          badge: '기본', name: '실링팬 설치', tagline: '조명 겸용 / 팬 단독 선택',
+          photoId: 'fan-photo', photoHint: '실링팬 시공 사진',
+          desc: '천장에 고정하는 구조라 무게를 견딜 보강 작업이 함께 필요합니다. 조명 겸용 모델을 선택하면 별도 메인등 없이도 거실 밝기를 확보할 수 있습니다.',
+          price: '350,000원', unit: '/ 1개',
+          specs: [
+            { k: '설치형태', v: '조명 겸용 / 팬 단독' },
+            { k: '천장보강', v: '필수 +80,000원' },
+            { k: '작업시간', v: '약 3~4시간' },
+            { k: '참고', v: '천장 높이 2.3m 이상 권장' },
+          ],
+        },
+      ],
+      priceTitle: '실링팬 단품 가격 정리',
+      priceRows: [
+        { item: '실링팬 설치', detail: '조명 겸용 또는 팬 단독 (1개 기준)', price: '350,000원' },
+        { item: '천장 보강작업', detail: '실링팬 하중을 견디기 위한 필수 보강 (1곳)', price: '80,000원' },
+        { item: '다운라이트 추가', detail: '실링팬 주변 3인치 다운라이트 12개 추가', price: '120,000원' },
+        { item: '개별 시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
+      ],
+    },
+  ];
+
+  notes = [
+    { title: '스위치는 별도입니다', desc: '조명을 구역별로 나눠 켜고 끄는 터치스위치는 별도 항목입니다. 6채널 기준 120,000원이며, 시공 항목 수에 따라 채널을 조정합니다.' },
+    { title: '패키지가 더 저렴합니다', desc: '두 항목 이상 함께 시공하실 경우, 개별 합산보다 정찰제 패키지가 저렴한 경우가 많습니다. 견적 단계에서 비교해 안내드립니다.' },
+    { title: '최종 금액은 실측 후 확정', desc: '천장 구조와 기존 배선 상태에 따라 금액이 달라질 수 있습니다. 표시 금액은 표준 시공 기준이며, 실측 후 최종 확정됩니다.' },
+  ];
+
+  navData = [
+    { label: '시공패키지', href: './시공패키지.dc.html', children: [
+      { label: '간접조명 패키지', href: './간접조명패키지.dc.html' },
+      { label: '우물천장 패키지', href: './우물천장패키지.dc.html' },
+      { label: '우물천장 + 실링팬 패키지', href: './우물천장실링팬패키지.dc.html' },
+      { label: '실링팬 패키지', href: './실링팬패키지.dc.html' },
+    ]},
+    { label: '개별항목', href: './개별항목.dc.html', current: true, children: [
+      { label: '우물천장조명', href: './개별항목.dc.html' },
+      { label: '커튼조명', href: './개별항목.dc.html' },
+      { label: '다운라이트 · COB', href: './개별항목.dc.html' },
+      { label: '욕실·현관 센서등', href: './개별항목.dc.html' },
+      { label: '실링팬', href: './개별항목.dc.html' },
+    ]},
+    { label: '색상안내', href: './색상안내.dc.html', children: null },
+    { label: '셀프견적', href: './상세견적.dc.html', children: null },
+    { label: '시공사례', href: './시공사례.dc.html', children: null },
+    { label: '시공후기', href: './시공후기.dc.html', children: null },
+    { label: '고객센터', href: './고객센터.dc.html', children: null },
+  ];
+
+  renderVals() {
+    const openNav = this.state.openNav;
+    const navItems = this.navData.map((n, i) => ({
+      label: n.label,
+      href: n.href,
+      children: n.children,
+      onEnter: () => this.setState({ openNav: i }),
+      linkStyle: 'font-size:14px;' + (n.current ? 'color:var(--accent);font-weight:700;' : 'color:var(--ink-soft);'),
+      dropdownStyle: 'position:absolute;top:100%;left:-14px;padding:8px 0;background:#fff;border:1px solid var(--line);box-shadow:0 14px 34px rgba(10,15,31,0.12);min-width:190px;opacity:' + (openNav === i ? '1' : '0') + ';visibility:' + (openNav === i ? 'visible' : 'hidden') + ';transition:opacity .18s ease;z-index:40;',
+    }));
+
+    const active = this.categories.find(c => c.key === this.state.tab) || this.categories[0];
+    const tabStyle = (on) => 'font-size:13px;font-weight:600;padding:9px 18px;cursor:pointer;border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';' + (on ? 'background:var(--accent);color:#fff;' : 'color:var(--ink-soft);');
+    const tabs = this.categories.map(c => ({
+      label: c.label,
+      onClick: () => this.setState({ tab: c.key }),
+      style: tabStyle(c.key === active.key),
+    }));
+    return { tabs, active, hasAddons: !!active.addons, notes: this.notes, navItems, onNavLeave: () => this.setState({ openNav: null }) };
+  }
+}
+
+</script>
+</body>
+</html>

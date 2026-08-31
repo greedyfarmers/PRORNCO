@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap">
+  <script src="./mobile-nav.js"></script>
+  <style>
+    body{margin:0;}
+    @font-face{font-family:'ArchivoExpandedBlack';src:url('./assets/fonts/Archivo_Expanded-Black.ttf') format('truetype');font-weight:900;}
+    a{text-decoration:none;color:inherit;}
+    a:hover{color:#2F6FED;}
+    @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+    @keyframes ringPulse{0%{transform:scale(1);opacity:.55;}70%{transform:scale(1.5);opacity:0;}100%{transform:scale(1.5);opacity:0;}}
+    [data-fab]{position:relative; width:66px; height:66px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:11.5px; font-weight:800; letter-spacing:-0.3px; line-height:1.2; text-align:center; box-shadow:0 14px 30px rgba(15,20,32,0.20); transition:transform .18s ease, box-shadow .18s ease; animation:floatY 3.4s ease-in-out infinite;}
+    [data-fab]:hover{transform:translateY(-4px) scale(1.05); box-shadow:0 20px 40px rgba(15,20,32,0.26);}
+    [data-fab] [data-ico]{font-size:17px; line-height:1;}
+    [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
+    @media (max-width: 720px){
+      [data-fabwrap]{right:12px !important;}
+      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
+      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+    }
+    [data-gnb] > a{font-size:14px;color:var(--ink-soft);}
+    [data-gnb]:hover > a{color:var(--ink);}
+    [data-drop]{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:#fff;min-width:190px;padding:12px 0;border-radius:14px;border:1px solid #E8E6E0;box-shadow:0 18px 40px rgba(15,20,32,0.12);opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s ease;z-index:90;}
+    [data-gnb]:hover [data-drop]{opacity:1;visibility:visible;}
+    [data-drop] a{display:block;padding:9px 20px;font-size:13px;color:var(--ink-soft);white-space:nowrap;}
+    [data-drop] a:hover{color:var(--accent);background:rgba(47,111,237,0.06);}
+    @media (max-width: 1024px){
+      [style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr) !important;}
+      [style*="grid-template-columns: repeat(3"]{grid-template-columns:repeat(2,1fr) !important;}
+      nav{gap:14px !important;} nav a, nav div{font-size:13px !important;}
+    }
+    @media (max-width: 720px){
+      [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
+      header > nav{display:none !important;}
+      header > div{display:none !important;}
+      nav{flex-wrap:wrap !important; gap:10px !important;} nav a, nav div{font-size:12.5px !important;}
+      h1{font-size:22px !important;} h2{font-size:20px !important;} h3{font-size:18px !important;}
+      [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
+      [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
+    }
+  </style>
+</helmet>
+
+<div style="--bg:#FFFFFF;--ink:#111111;--ink-soft:#6B6B6B;--line:#E9E9E9;--accent:#2F6FED;--surface-dark:#0A0A0A;--surface-dark-2:#141824; background:var(--bg); color:var(--ink); font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased;">
+
+  <header style="border-bottom:1px solid var(--line); padding:18px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; z-index:50;">
+    <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+    <nav style="display:flex; gap:22px; align-items:center;">
+      <div data-gnb="1" style="position:relative; padding:6px 0;"><a href="./시공패키지.dc.html">시공패키지</a><div data-drop="1"><a href="./간접조명패키지.dc.html">간접조명 패키지</a><a href="./우물천장패키지.dc.html">우물천장 패키지</a><a href="./우물천장실링팬패키지.dc.html">우물천장 + 실링팬 패키지</a><a href="./실링팬패키지.dc.html">실링팬 패키지</a></div></div>
+      <div data-gnb="1" style="position:relative; padding:6px 0;"><a href="./개별항목.dc.html">개별항목</a><div data-drop="1"><a href="./개별항목.dc.html">우물천장조명</a><a href="./개별항목.dc.html">커튼조명</a><a href="./개별항목.dc.html">다운라이트 · COB</a><a href="./개별항목.dc.html">욕실·현관 센서등</a><a href="./개별항목.dc.html">실링팬</a></div></div>
+      <a href="./색상안내.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">색상안내</a>
+      <a href="./상세견적.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">셀프견적</a>
+      <a href="./시공사례.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">시공사례</a>
+      <a href="./시공후기.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">시공후기</a>
+      <a href="./고객센터.dc.html" style="font-size:14px; color:var(--accent); font-weight:700;">고객센터</a>
+    </nav>
+    <div style="font-size:13px; color:var(--ink-soft);">전화상담 <b style="color:var(--ink);">010-9850-2293</b></div>
+    <mobile-nav current="고객센터"></mobile-nav>
+  </header>
+
+  <div data-fabwrap="1" style="position:fixed; right:26px; bottom:110px; z-index:55; display:flex; flex-direction:column; gap:12px; align-items:center;">
+    <a href="tel:010-9850-2293" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #2a3a63, #0E1526 72%); color:#fff; border:1px solid rgba(255,255,255,0.14);">
+      <span data-ring="1" style="color:rgba(255,255,255,0.35);"></span>
+      <span data-ico="1">📞</span>
+      <span>전화상담</span>
+    </a>
+    <a href="http://pf.kakao.com/_xdBVxaX/chat" target="_blank" rel="noopener" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #FFF4A0, #FFE94A 70%); color:#2C2200; border:1px solid rgba(0,0,0,0.08);">
+      <span data-ico="1">💬</span>
+      <span>카톡상담</span>
+    </a>
+    <a href="#" style="width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:16px; border:1px solid var(--line); background:rgba(255,255,255,0.92); box-shadow:0 10px 22px rgba(15,20,32,0.12);">↑</a>
+  </div>
+
+  <div style="max-width:1160px; margin:0 auto; padding:48px 24px 0;">
+    <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">PROR.CO SUPPORT</div>
+    <h1 style="font-size:30px; font-weight:800; margin:0 0 10px; line-height:1.3;">고객센터</h1>
+    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 32px; line-height:1.75; max-width:660px;">문의 · 상담 · A/S를 한곳에서 안내드립니다. 급한 문의는 전화가 가장 빠르고, 사진을 보내실 때는 카카오톡이 편합니다.</p>
+
+    <!-- contact channels -->
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:44px;">
+      <sc-for list="{{ channels }}" as="ch" hint-placeholder-count="3">
+        <div style="border:1px solid var(--line); padding:26px; display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:11px; letter-spacing:1px; color:var(--accent); font-weight:700;">{{ ch.eyebrow }}</div>
+          <div style="font-size:18px; font-weight:800;">{{ ch.title }}</div>
+          <div style="font-size:12.8px; color:var(--ink-soft); line-height:1.7;">{{ ch.desc }}</div>
+          <div style="font-size:12.5px; color:var(--ink); font-weight:700; margin-top:2px;">{{ ch.hours }}</div>
+          <a href="{{ ch.href }}" style="{{ ch.btnStyle }}">{{ ch.cta }}</a>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- process -->
+    <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">PROCESS</div>
+    <h2 style="font-size:22px; font-weight:800; margin:0 0 20px;">상담부터 시공까지 4단계</h2>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:44px;">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+        <div style="border:1px solid var(--line); padding:24px;">
+          <div style="font-size:12px; font-weight:800; color:var(--accent); margin-bottom:10px;">STEP {{ st.n }}</div>
+          <div style="font-size:15px; font-weight:800; margin-bottom:8px;">{{ st.title }}</div>
+          <div style="font-size:12.8px; color:var(--ink-soft); line-height:1.75;">{{ st.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- FAQ -->
+    <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">FAQ</div>
+    <h2 style="font-size:22px; font-weight:800; margin:0 0 16px;">자주 묻는 질문</h2>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px;">
+      <sc-for list="{{ faqTabs }}" as="ft" hint-placeholder-count="4">
+        <div onClick="{{ ft.onClick }}" style="{{ ft.style }}">{{ ft.label }}</div>
+      </sc-for>
+    </div>
+    <div style="border-top:1px solid var(--line); margin-bottom:20px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+        <div onClick="{{ f.onClick }}" style="border-bottom:1px solid var(--line); padding:18px 0; cursor:pointer;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; font-size:14.5px; font-weight:700;">
+            <span>{{ f.q }}</span>
+            <span style="color:var(--ink-soft); flex-shrink:0;">{{ f.icon }}</span>
+          </div>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px; color:var(--ink-soft); line-height:1.85; margin-top:12px;">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- company info -->
+    <div style="background:#F5F7FB; padding:28px 32px; display:grid; grid-template-columns:repeat(2,1fr); gap:14px 32px; margin-bottom:20px;">
+      <sc-for list="{{ companyInfo }}" as="ci" hint-placeholder-count="6">
+        <div style="display:flex; gap:14px; font-size:13px;">
+          <span style="color:var(--ink-soft); flex:0 0 96px;">{{ ci.k }}</span>
+          <span style="font-weight:600;">{{ ci.v }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:640px; margin:60px auto 0; padding:0 24px 90px; text-align:center;">
+    <div style="font-size:11px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">CONSULT</div>
+    <div style="font-size:22px; font-weight:800; margin-bottom:10px;">궁금한 점이 해결되지 않으셨나요?</div>
+    <div style="font-size:13.5px; color:var(--ink-soft); margin-bottom:22px; line-height:1.7;">평형과 원하시는 항목만 알려주시면<br/>정찰제 금액 그대로 안내드립니다.</div>
+    <div style="display:flex; gap:12px; justify-content:center;">
+      <a href="./상세견적.dc.html" style="display:inline-block; background:var(--accent); color:#fff; padding:15px 26px; font-size:14px; font-weight:700;">셀프견적 시작하기</a>
+      <a href="tel:010-9850-2293" style="display:inline-block; background:var(--surface-dark); color:#fff; padding:15px 26px; font-size:14px; font-weight:700;">전화로 상담하기</a>
+    </div>
+  </div>
+
+  <footer style="background:var(--surface-dark); color:#B8B8B8; padding:30px 0;">
+    <div style="max-width:1160px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px;">
+      <a href="./PRORCO 홈페이지.dc.html" style="color:#fff; font-weight:900; font-size:15px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+      <span>상호 프로어앤코 · 대표 김동준 · 사업자등록번호 241-10-02476</span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { faqTab: '전체', openFaq: 0 };
+
+  channels = [
+    { eyebrow: 'PHONE', title: '전화상담', desc: '가장 빠르게 답을 드립니다. 시공 일정, 금액, A/S 모두 전화로 문의 가능합니다.', hours: '평일 09:00 – 17:30 (점심 12:30 – 13:30) · 주말·공휴일 휴무', cta: '010-9850-2293', href: 'tel:010-9850-2293', primary: true },
+    { eyebrow: 'KAKAO', title: '카카오톡 상담', desc: '공간 사진을 보내주시면 필요한 항목과 예상 금액을 정리해서 알려드립니다.', hours: '상시 접수 · 영업시간 내 순차 답변', cta: '카카오톡 문의하기', href: '#' },
+    { eyebrow: 'SELF', title: '셀프견적', desc: '원하는 항목을 직접 담으면 금액이 실시간으로 합산됩니다. 상담 없이도 확인 가능합니다.', hours: '24시간 이용 가능', cta: '셀프견적 시작하기', href: './상세견적.dc.html' },
+  ];
+
+  steps = [
+    { n: '01', title: '문의 · 상담', desc: '전화나 카카오톡으로 평형과 원하시는 항목을 알려주세요. 셀프견적을 먼저 해보셔도 좋습니다.' },
+    { n: '02', title: '견적 확정', desc: '정찰제 금액 그대로 안내드리고, 천장 구조에 따른 추가 항목이 있으면 미리 설명드립니다.' },
+    { n: '03', title: '일정 예약', desc: '원하시는 날짜로 시공 일정을 잡습니다. 입주 전 시공을 가장 추천드립니다.' },
+    { n: '04', title: '시공 · A/S', desc: '당일 실측 후 시공을 진행하고, 시공 후 1년간 무상 A/S를 보장합니다.' },
+  ];
+
+  notices = [
+    { badge: '이벤트', title: '입주 전 예약 시 개별시공 출장비 면제 (8월 한정)', date: '2026.08.20', type: 'event' },
+    { badge: '공지', title: '추석 연휴 시공 일정 안내 (9/28 – 10/1 휴무)', date: '2026.08.14', type: 'notice' },
+    { badge: '이벤트', title: '시공 후 사진 후기 등록 시 감사 쿠폰 지급', date: '2026.08.02', type: 'event' },
+    { badge: '공지', title: '3색변환 · 디밍 COB 자재 단가 조정 안내', date: '2026.07.21', type: 'notice' },
+    { badge: '공지', title: 'A/S 접수 절차 변경 안내 (전화 · 카카오톡 통합)', date: '2026.07.05', type: 'notice' },
+  ];
+
+  faqData = [
+    { cat: '견적', q: '견적은 무료인가요?', a: '네, 상담과 견적 안내는 모두 무료입니다. 셀프견적으로 미리 금액을 확인하실 수 있고, 정확한 최종 금액은 시공 당일 실측 후 확정됩니다.' },
+    { cat: '견적', q: '셀프견적 금액이 그대로 진행되나요?', a: '표시 금액은 표준 시공 기준입니다. 천장 구조와 기존 배선 상태에 따라 달라질 수 있으며, 변동이 생기는 경우 시공 전에 반드시 먼저 설명드립니다.' },
+    { cat: '시공', q: '시공은 며칠 걸리나요?', a: '대부분 당일 시공으로 마무리됩니다. 목공 우물천장처럼 도배가 함께 필요한 경우 2일 이상 소요될 수 있습니다.' },
+    { cat: '시공', q: '입주 후에도 시공이 가능한가요?', a: '가능합니다. 다만 목공 우물천장은 도배 연결이 필요해 입주 전 시공을 추천드립니다. 입주 후에는 가구를 보호한 상태로 진행합니다.' },
+    { cat: '시공', q: '개별항목 하나만 시공해도 되나요?', a: '됩니다. 다만 결제 금액이 50만원 미만인 경우 기본 출장비 50,000원이 발생합니다. 두 항목 이상은 패키지가 더 저렴한 경우가 많습니다.' },
+    { cat: 'A/S', q: 'A/S 기간은 어떻게 되나요?', a: '시공일로부터 1년간 무상 A/S를 보장합니다. 자재 불량은 즉시 교체해드리고, 사용 중 발생한 문제도 우선 점검해드립니다.' },
+    { cat: 'A/S', q: '조명 색을 나중에 바꿀 수 있나요?', a: '우물조명은 2줄 시공으로 두 색을 넣어두면 스위치로 고르실 수 있습니다. 3색변환·디밍 COB로 시공하면 등 하나로 색과 밝기를 모두 조절할 수 있습니다.' },
+    { cat: '결제', q: '결제는 어떻게 하나요?', a: '계약금 없이 시공 완료 후 결제하실 수 있습니다. 카드 결제와 현금영수증 발행 모두 가능합니다.' },
+    { cat: '결제', q: '세금계산서 발행이 되나요?', a: '가능합니다. 사업자 시공의 경우 사업자등록번호를 알려주시면 세금계산서를 발행해드립니다.' },
+  ];
+
+  companyInfo = [
+    { k: '상호', v: '프로어앤코' },
+    { k: '대표', v: '김동준' },
+    { k: '사업자등록번호', v: '241-10-02476' },
+    { k: '대표번호', v: '010-9850-2293' },
+    { k: '영업시간', v: '평일 09:00 – 17:30 (점심 12:30 – 13:30) / 주말·공휴일 휴무' },
+  ];
+
+  renderVals() {
+    const s = this.state;
+    const cats = ['전체', '견적', '시공', 'A/S', '결제'];
+    const chip = (on) => 'font-size:12.8px;font-weight:600;padding:8px 16px;cursor:pointer;border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';' + (on ? 'background:var(--accent);color:#fff;' : 'color:var(--ink-soft);');
+
+    const faqTabs = cats.map(c => ({
+      label: c,
+      onClick: () => this.setState({ faqTab: c, openFaq: 0 }),
+      style: chip(s.faqTab === c),
+    }));
+
+    const filtered = this.faqData.filter(f => s.faqTab === '전체' || f.cat === s.faqTab);
+    const faqs = filtered.map((f, i) => ({
+      q: f.q,
+      a: f.a,
+      open: s.openFaq === i,
+      icon: s.openFaq === i ? '−' : '+',
+      onClick: () => this.setState({ openFaq: s.openFaq === i ? null : i }),
+    }));
+
+    const channels = this.channels.map(c => ({
+      ...c,
+      btnStyle: 'margin-top:14px;text-align:center;padding:13px;font-size:13.5px;font-weight:700;' + (c.primary ? 'background:var(--accent);color:#fff;' : 'border:1px solid var(--line);color:var(--ink);'),
+    }));
+
+    const notices = this.notices.map(n => ({
+      ...n,
+      badgeStyle: 'font-size:11px;font-weight:700;text-align:center;padding:5px 0;' + (n.type === 'event' ? 'background:rgba(47,111,237,0.1);color:var(--accent);' : 'background:#EFF1F5;color:var(--ink-soft);'),
+    }));
+
+    return { channels, steps: this.steps, notices, faqTabs, faqs, companyInfo: this.companyInfo };
+  }
+}
+
+</script>
+</body>
+</html>

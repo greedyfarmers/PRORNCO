@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./mobile-nav.js"></script>
+  <style>
+    body{margin:0;}
+    @font-face{font-family:'ArchivoExpandedBlack';src:url('./assets/fonts/Archivo_Expanded-Black.ttf') format('truetype');font-weight:900;}
+    a{text-decoration:none;color:inherit;}
+    a:hover{color:#2F6FED;}
+    @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+    @keyframes ringPulse{0%{transform:scale(1);opacity:.55;}70%{transform:scale(1.5);opacity:0;}100%{transform:scale(1.5);opacity:0;}}
+    [data-fab]{position:relative; width:66px; height:66px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:11.5px; font-weight:800; letter-spacing:-0.3px; line-height:1.2; text-align:center; box-shadow:0 14px 30px rgba(15,20,32,0.20); transition:transform .18s ease, box-shadow .18s ease; animation:floatY 3.4s ease-in-out infinite;}
+    [data-fab]:hover{transform:translateY(-4px) scale(1.05); box-shadow:0 20px 40px rgba(15,20,32,0.26);}
+    [data-fab] [data-ico]{font-size:17px; line-height:1;}
+    [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
+    @media (max-width: 720px){
+      [data-fabwrap]{right:12px !important;}
+      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
+      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+    }
+    [data-gnb] > a{font-size:14px;color:var(--ink-soft);}
+    [data-gnb]:hover > a{color:var(--ink);}
+    [data-drop]{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:#fff;min-width:190px;padding:12px 0;border-radius:14px;border:1px solid #E8E6E0;box-shadow:0 18px 40px rgba(15,20,32,0.12);opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s ease;z-index:90;}
+    [data-gnb]:hover [data-drop]{opacity:1;visibility:visible;}
+    [data-drop] a{display:block;padding:9px 20px;font-size:13px;color:var(--ink-soft);white-space:nowrap;}
+    [data-drop] a:hover{color:var(--accent);background:rgba(47,111,237,0.06);}
+    @media (min-width: 721px) and (max-width: 1340px){
+      [data-r="summary"]{padding-right:112px !important;}
+    }
+    @media (max-width: 1024px){
+      [style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr) !important;}
+      [style*="grid-template-columns: repeat(3"]{grid-template-columns:repeat(2,1fr) !important;}
+      nav{gap:14px !important;} nav a, nav div{font-size:13px !important;}
+    }
+    @media (max-width: 720px){
+      [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
+      header > nav{display:none !important;}
+      header > div{display:none !important;}
+      nav{flex-wrap:wrap !important; gap:10px !important;} nav a, nav div{font-size:12.5px !important;}
+      h1{font-size:22px !important;} h2{font-size:20px !important;} h3{font-size:18px !important;}
+      [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
+      [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
+    }
+  </style>
+</helmet>
+
+<div style="--bg:#FFFFFF;--ink:#111111;--ink-soft:#6B6B6B;--line:#E9E9E9;--accent:#2F6FED;--surface-dark:#0A0A0A;--surface-dark-2:#141824; background:var(--bg); color:var(--ink); font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased;">
+
+  <header style="border-bottom:1px solid var(--line); padding:18px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; z-index:50;">
+    <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+    <nav style="display:flex; gap:22px; align-items:center;">
+      <div data-gnb="1" style="position:relative; padding:6px 0;"><a href="./시공패키지.dc.html">시공패키지</a><div data-drop="1"><a href="./간접조명패키지.dc.html">간접조명 패키지</a><a href="./우물천장패키지.dc.html">우물천장 패키지</a><a href="./우물천장실링팬패키지.dc.html">우물천장 + 실링팬 패키지</a><a href="./실링팬패키지.dc.html">실링팬 패키지</a></div></div>
+      <div data-gnb="1" style="position:relative; padding:6px 0;"><a href="./개별항목.dc.html">개별항목</a><div data-drop="1"><a href="./개별항목.dc.html">우물천장조명</a><a href="./개별항목.dc.html">커튼조명</a><a href="./개별항목.dc.html">다운라이트 · COB</a><a href="./개별항목.dc.html">욕실·현관 센서등</a><a href="./개별항목.dc.html">실링팬</a></div></div>
+      <a href="./색상안내.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">색상안내</a>
+      <a href="./상세견적.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">셀프견적</a>
+      <a href="./시공사례.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">시공사례</a>
+      <a href="./시공후기.dc.html" style="font-size:14px; color:var(--accent); font-weight:700;">시공후기</a>
+      <a href="./고객센터.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">고객센터</a>
+    </nav>
+    <div style="font-size:13px; color:var(--ink-soft);">전화상담 <b style="color:var(--ink);">010-9850-2293</b></div>
+    <mobile-nav current="시공후기"></mobile-nav>
+  </header>
+
+  <div data-fabwrap="1" style="position:fixed; right:26px; bottom:110px; z-index:55; display:flex; flex-direction:column; gap:12px; align-items:center;">
+    <a href="tel:010-9850-2293" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #2a3a63, #0E1526 72%); color:#fff; border:1px solid rgba(255,255,255,0.14);">
+      <span data-ring="1" style="color:rgba(255,255,255,0.35);"></span>
+      <span data-ico="1">📞</span>
+      <span>전화상담</span>
+    </a>
+    <a href="http://pf.kakao.com/_xdBVxaX/chat" target="_blank" rel="noopener" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #FFF4A0, #FFE94A 70%); color:#2C2200; border:1px solid rgba(0,0,0,0.08);">
+      <span data-ico="1">💬</span>
+      <span>카톡상담</span>
+    </a>
+    <a href="#" style="width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:16px; border:1px solid var(--line); background:rgba(255,255,255,0.92); box-shadow:0 10px 22px rgba(15,20,32,0.12);">↑</a>
+  </div>
+
+  <div style="max-width:1240px; margin:0 auto; padding:48px 32px 0;">
+    <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">PROR.CO REVIEW</div>
+    <h1 style="font-size:30px; font-weight:800; margin:0 0 10px; line-height:1.3;">시공후기</h1>
+    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 32px; line-height:1.75; max-width:660px;">시공을 마친 고객님들이 직접 남겨주신 후기입니다. 사진과 함께 올려주신 내용을 그대로 담았습니다.</p>
+
+    <!-- summary -->
+    <div data-r="summary" style="display:grid; grid-template-columns:260px 1fr; gap:32px; align-items:center; border:1px solid var(--line); padding:28px 32px; margin-bottom:36px;">
+      <div>
+        <div style="display:flex; align-items:baseline; gap:8px;">
+          <div style="font-size:44px; font-weight:900; line-height:1;">4.9</div>
+          <div style="font-size:14px; color:var(--ink-soft);">/ 5.0</div>
+        </div>
+        <div style="font-size:16px; color:var(--accent); letter-spacing:2px; margin:8px 0 4px;">★★★★★</div>
+        <div style="font-size:12.5px; color:var(--ink-soft);">총 {{ totalCount }}개의 후기</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <sc-for list="{{ distribution }}" as="d" hint-placeholder-count="5">
+          <div style="display:grid; grid-template-columns:44px 1fr 44px; gap:12px; align-items:center;">
+            <div style="font-size:12px; color:var(--ink-soft);">{{ d.label }}</div>
+            <div style="height:6px; background:#EFF1F5; position:relative;">
+              <div style="{{ d.barStyle }}"></div>
+            </div>
+            <div style="font-size:12px; color:var(--ink-soft); text-align:right;">{{ d.count }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- filters -->
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:20px 0; margin-bottom:32px;">
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
+          <div onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:flex; gap:14px; align-items:center;">
+        <sc-for list="{{ sorts }}" as="so" hint-placeholder-count="2">
+          <div onClick="{{ so.onClick }}" style="{{ so.style }}">{{ so.label }}</div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="font-size:14px; font-weight:700; margin-bottom:20px;">{{ resultLabel }}</div>
+  </div>
+
+  <!-- review list -->
+  <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="9">
+        <div style="border:1px solid var(--line); display:flex; flex-direction:column;">
+          <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7;">
+            <image-slot id="{{ r.photoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ r.photoHint }}"></image-slot>
+          </div>
+          <div style="padding:20px; display:flex; flex-direction:column; gap:10px; flex:1;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div style="font-size:14px; color:var(--accent); letter-spacing:1.5px;">{{ r.stars }}</div>
+              <div style="font-size:11.5px; color:#A8AEBA;">{{ r.date }}</div>
+            </div>
+            <div style="font-size:15px; font-weight:800; line-height:1.5;">{{ r.title }}</div>
+            <div style="font-size:12.8px; color:var(--ink-soft); line-height:1.85;">{{ r.body }}</div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;">
+              <sc-for list="{{ r.tags }}" as="tg" hint-placeholder-count="2">
+                <span style="font-size:11px; font-weight:700; color:var(--accent); background:rgba(47,111,237,0.08); padding:4px 10px;">{{ tg }}</span>
+              </sc-for>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; padding-top:14px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-soft);">
+              <span>{{ r.author }}</span>
+              <span>{{ r.meta }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1px solid var(--line); padding:60px; text-align:center; color:var(--ink-soft); font-size:13.5px;">선택한 조건의 후기가 아직 없습니다.</div>
+    </sc-if>
+
+    <sc-if value="{{ showPager }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:44px;">
+        <div onClick="{{ prev.onClick }}" style="{{ prev.style }}">{{ prev.label }}</div>
+        <sc-for list="{{ pageItems }}" as="pi" hint-placeholder-count="7">
+          <div onClick="{{ pi.onClick }}" style="{{ pi.style }}">{{ pi.label }}</div>
+        </sc-for>
+        <div onClick="{{ next.onClick }}" style="{{ next.style }}">{{ next.label }}</div>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="max-width:640px; margin:70px auto 0; padding:0 24px 90px; text-align:center;">
+    <div style="font-size:11px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">CONSULT</div>
+    <div style="font-size:22px; font-weight:800; margin-bottom:10px;">후기 보고 마음이 정하셨나요?</div>
+    <div style="font-size:13.5px; color:var(--ink-soft); margin-bottom:22px; line-height:1.7;">평형과 원하시는 항목만 알려주시면<br/>정찰제 금액 그대로 안내드립니다.</div>
+    <div style="display:flex; gap:12px; justify-content:center;">
+      <a href="./상세견적.dc.html" style="display:inline-block; background:var(--accent); color:#fff; padding:15px 26px; font-size:14px; font-weight:700;">셀프견적 시작하기</a>
+      <a href="tel:010-9850-2293" style="display:inline-block; background:var(--surface-dark); color:#fff; padding:15px 26px; font-size:14px; font-weight:700;">전화로 상담하기</a>
+    </div>
+  </div>
+
+  <footer style="background:var(--surface-dark); color:#B8B8B8; padding:30px 0;">
+    <div style="max-width:1240px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px;">
+      <a href="./PRORCO 홈페이지.dc.html" style="color:#fff; font-weight:900; font-size:15px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+      <span>상호 프로어앤코 · 대표 김동준 · 사업자등록번호 241-10-02476</span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { filter: '전체', sort: '최신순', page: 1 };
+  perPage = 9;
+
+  filterList = ['전체', '우물천장', '커튼조명', 'COB · 다운라이트', '센서등', '실링팬'];
+  sortList = ['최신순', '별점순'];
+
+  reviewData = [
+    { rating: 5, date: '2026.08.18', order: 12, cat: '우물천장', title: '메인등 없앴는데 오히려 더 밝아요', body: '한방우물천장으로 시공했는데 마감선이 정말 깔끔합니다. 처음엔 메인등 없이 어두울까 걱정했는데 2줄 넣으니 충분히 밝아요.', author: '서울 김○○님', meta: '34평 · 우물천장 패키지', tags: ['우물천장', '2줄 시공'] },
+    { rating: 5, date: '2026.08.14', order: 11, cat: 'COB · 다운라이트', title: '견적서에 나온 금액 그대로였어요', body: '다른 곳은 실측 후에 계속 금액이 올라갔는데, 여기는 안내받은 금액에서 변동이 없었습니다. 다운라이트 위치도 꼼꼼히 잡아주셨어요.', author: '인천 박○○님', meta: '25평 · 간접조명 패키지', tags: ['정찰제', '다운라이트'] },
+    { rating: 5, date: '2026.08.09', order: 10, cat: '커튼조명', title: '커튼조명이 제일 만족스러워요', body: '가장 저렴한 항목인데 체감은 가장 큽니다. 저녁에 커튼조명만 켜두면 카페 같은 분위기가 됩니다.', author: '부천 이○○님', meta: '33평 · 개별시공', tags: ['커튼조명', 'T5'] },
+    { rating: 5, date: '2026.08.03', order: 9, cat: '실링팬', title: '실링팬 조명 겸용으로 정답이었네요', body: '천장 보강까지 같이 해주셔서 흔들림이 전혀 없습니다. 여름에 에어컨 바람이 골고루 퍼져서 확실히 시원해요.', author: '남양주 최○○님', meta: '32평 · 우물천장 + 실링팬', tags: ['실링팬', '천장보강'] },
+    { rating: 4, date: '2026.07.29', order: 8, cat: '센서등', title: '현관 센서등, 왜 이제 했을까', body: '장 들고 들어올 때 스위치 찾을 필요가 없어졌습니다. 다만 감지 범위를 처음에 조정하는 데 시간이 조금 걸렸어요.', author: '성남 정○○님', meta: '41평 · 개별시공', tags: ['센서등', '현관'] },
+    { rating: 5, date: '2026.07.22', order: 7, cat: '우물천장', title: '입주 전에 목공으로 한 게 최선', body: '기존 몰딩을 전부 걷어내고 새로 만들어주셔서 흔적이 하나도 없습니다. 도배까지 연결해주셔서 마감이 완벽해요.', author: '수원 한○○님', meta: '45평 · 목공 무몰딩', tags: ['목공 우물천장', '무몰딩'] },
+    { rating: 5, date: '2026.07.15', order: 6, cat: 'COB · 다운라이트', title: '아트월 COB 스팟이 포인트', body: '그림 걸어둔 벽에 COB를 쏴주셨는데, 갤러리 온 것 같습니다. 호른형으로 골랐는데 디자인도 예뻐요.', author: '용인 오○○님', meta: '42평 · 개별시공', tags: ['COB', '호른형'] },
+    { rating: 5, date: '2026.07.08', order: 5, cat: '센서등', title: '욕실 히든센서 강력 추천', body: '천장을 뚫지 않고 내부에 넣는 방식이라 깔끔합니다. 밤에 화장실 갈 때 눈 부시지 않아서 좋아요.', author: '김포 서○○님', meta: '27평 · 개별시공', tags: ['히든센서', '욕실'] },
+    { rating: 4, date: '2026.06.30', order: 4, cat: '우물천장', title: '색온도 고민했는데 2줄이 답', body: '전구색과 주백색 두 줄로 넣어서 상황에 맞게 켭니다. 손님 오면 둘 다 켜고, 평소엔 전구색만 켜요.', author: '고양 윤○○님', meta: '31평 · 우물천장 패키지', tags: ['3색변환', '2줄 시공'] },
+    { rating: 5, date: '2026.06.24', order: 3, cat: '커튼조명', title: 'ㄱ자 커튼조명도 깔끔하게', body: '코너 창이라 걱정했는데 꺾이는 부분에서 빛이 끊기지 않게 시공해주셨습니다.', body2: '', author: '하남 강○○님', meta: '54평 · 개별시공', tags: ['ㄱ자형', '커튼조명'] },
+    { rating: 5, date: '2026.06.17', order: 2, cat: '실링팬', title: '팬 단독으로도 충분했어요', body: '서재라 조명은 기존 걸 유지하고 팬만 달았습니다. 소음이 거의 없어서 만족합니다.', author: '광명 임○○님', meta: '27평 · 실링팬 패키지', tags: ['실링팬', '팬 단독'] },
+    { rating: 5, date: '2026.06.10', order: 1, cat: 'COB · 다운라이트', title: '주방 하부등 만족도 최고', body: '싱크대 아래 조명 하나로 설거지할 때 훨씬 편해졌습니다. 금액도 부담 없었어요.', author: '안양 노○○님', meta: '25평 · 개별시공', tags: ['하부등', '주방'] },
+  ];
+
+  regions = ['서울 강서', '서울 노원', '서울 은평', '서울 관악', '인천 송도', '인천 계양', '수원 영통', '용인 기흥', '성남 분당', '고양 일산', '부천 상동', '안양 평촌', '광명 철산', '하남 미사', '남양주 다산', '김포 한강', '의정부 민락', '천안 불당', '청주 오창', '대전 도안', '세종 새롬', '대구 수성', '부산 해운대', '창원 성산', '광주 수완'];
+  surnames = ['김', '이', '박', '최', '정', '강', '조', '윤', '장', '임', '한', '오', '서', '신', '권', '황', '안', '송', '류', '전'];
+  sizes = ['24평', '25평', '27평', '31평', '32평', '33평', '34평', '38평', '41평', '45평', '49평', '54평'];
+
+  templates = {
+    '우물천장': {
+      pkg: ['우물천장 패키지', '목공 우물천장', '한방 우물천장'],
+      titles: ['천장 라인이 살아나니 집이 넓어 보여요', '메인등 떼고 우물조명으로 바꿨습니다', '마감선이 자로 잰 듯 반듯해요', '두 줄 시공, 안 했으면 후회할 뻔', '거실이 완전히 다른 집이 됐어요'],
+      bodies: ['시공 전에 천장 구조를 먼저 확인해주시고 가능한 라인을 그림으로 보여주셔서 이해가 쉬웠습니다. 결과물도 설명 그대로였어요.', '기존 몰딩을 걷어내고 새로 잡아주셔서 이전 흔적이 남지 않았습니다. 마감이 깔끔해서 만족합니다.', '조명을 켰을 때 빛이 끊기는 구간 없이 고르게 퍼집니다. 저녁에 거실에 앉아 있는 시간이 늘었어요.', '두 줄로 넣어두니 상황에 따라 밝기를 조절할 수 있어 편합니다. 평소엔 한 줄, 손님 오면 둘 다 켭니다.'],
+      tags: [['우물천장', '2줄 시공'], ['목공 우물천장', '무몰딩'], ['한방 우물천장', '몰딩'], ['우물천장', '거실']],
+    },
+    '커튼조명': {
+      pkg: ['개별시공', '간접조명 패키지'],
+      titles: ['커튼조명 하나로 분위기가 달라졌어요', '금액 대비 체감이 가장 큰 항목', '창가에 앉아 있는 시간이 늘었습니다', '커튼박스 라인이 예쁘게 나왔어요'],
+      bodies: ['가장 저렴한 항목인데 저녁 분위기는 가장 크게 바뀝니다. 커튼조명만 켜두면 조용한 카페 같아요.', '커튼 원단에 빛이 은은하게 번져서 눈이 편합니다. 색온도는 전구색으로 골랐는데 잘한 선택이었어요.', '코너 창이라 걱정했는데 꺾이는 구간에서도 빛이 끊기지 않게 잡아주셨습니다.'],
+      tags: [['커튼조명', 'T5'], ['커튼박스', '전구색'], ['ㄱ자형', '커튼조명']],
+    },
+    'COB · 다운라이트': {
+      pkg: ['개별시공', '간접조명 패키지'],
+      titles: ['다운라이트 위치를 꼼꼼히 잡아주셨어요', '아트월 COB가 이 집의 포인트', '주방 하부등, 왜 이제 했을까요', '견적 금액 그대로였습니다', '3인치로 통일하니 천장이 깔끔해요'],
+      bodies: ['가구 배치를 먼저 물어보시고 그에 맞춰 타공 위치를 잡아주셨습니다. 그림자 지는 자리가 없어요.', '그림 걸어둔 벽에 스팟을 쏴주셨는데 갤러리 같은 느낌이 납니다. 호른형이라 눈부심도 적어요.', '싱크대 아래를 비춰주니 설거지할 때 훨씬 편합니다. 금액도 부담 없었습니다.', '실측 후에도 안내받은 금액에서 변동이 없었습니다. 이 부분이 가장 신뢰가 갔어요.'],
+      tags: [['다운라이트', '3인치'], ['COB', '호른형'], ['하부등', '주방'], ['정찰제', '다운라이트']],
+    },
+    '센서등': {
+      pkg: ['개별시공'],
+      titles: ['현관 센서등, 손이 자유로워졌어요', '욕실 히든센서 강력 추천합니다', '밤중에 눈이 부시지 않아 좋아요', '복도 동선이 편해졌습니다'],
+      bodies: ['장을 들고 들어올 때 스위치를 찾을 필요가 없어졌습니다. 감지도 빠르고 오작동이 없어요.', '천장을 뚫지 않고 내부에 넣는 방식이라 외관이 깔끔합니다. 밤에도 눈이 편해요.', '감지 범위를 처음에 맞추는 데 시간이 조금 걸렸지만, 잡고 나니 아주 만족스럽습니다.'],
+      tags: [['센서등', '현관'], ['히든센서', '욕실'], ['센서등', '복도']],
+    },
+    '실링팬': {
+      pkg: ['실링팬 패키지', '우물천장 + 실링팬'],
+      titles: ['천장 보강까지 해주셔서 흔들림이 없어요', '여름 냉방비가 확실히 줄었습니다', '조명 겸용으로 고른 게 정답이었어요', '소음이 거의 없어서 만족합니다'],
+      bodies: ['설치 전에 천장 구조를 확인하고 보강 작업을 먼저 해주셨습니다. 돌려봐도 흔들림이 전혀 없어요.', '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', '서재라 조명은 그대로 두고 팬만 달았는데, 조용해서 일하는 데 방해가 되지 않습니다.'],
+      tags: [['실링팬', '천장보강'], ['실링팬', '조명 겸용'], ['실링팬', '팬 단독']],
+    },
+  };
+
+  buildReviews() {
+    const cats = Object.keys(this.templates);
+    const out = this.reviewData.slice();
+    let order = 0;
+    let d = new Date(2026, 5, 5);
+    const target = 99;
+    let i = 0;
+    while (out.length < target) {
+      const cat = cats[i % cats.length];
+      const t = this.templates[cat];
+      const pick = (arr, n) => arr[n % arr.length];
+      const rating = i % 9 === 4 ? 4 : 5;
+      const region = pick(this.regions, i * 7 + 3);
+      const name = pick(this.surnames, i * 5 + 1);
+      const size = pick(this.sizes, i * 3 + 2);
+      d = new Date(d.getTime() - (2 + (i % 4)) * 86400000);
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      out.push({
+        rating,
+        date: d.getFullYear() + '.' + mm + '.' + dd,
+        order: -(++order),
+        cat,
+        title: pick(t.titles, i * 2 + 1),
+        body: pick(t.bodies, i * 3 + 1),
+        author: region + ' ' + name + '○○님',
+        meta: size + ' · ' + pick(t.pkg, i),
+        tags: pick(t.tags, i * 2),
+      });
+      i++;
+    }
+    return out;
+  }
+
+  renderVals() {
+    const s = this.state;
+    if (!this._all) this._all = this.buildReviews();
+    const chip = (on) => 'font-size:12.8px;font-weight:600;padding:8px 16px;cursor:pointer;border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';' + (on ? 'background:var(--accent);color:#fff;' : 'color:var(--ink-soft);');
+    const sortStyle = (on) => 'font-size:12.8px;cursor:pointer;' + (on ? 'color:var(--ink);font-weight:800;' : 'color:var(--ink-soft);');
+
+    const filters = this.filterList.map(f => ({ label: f, onClick: () => this.setState({ filter: f, page: 1 }), style: chip(s.filter === f) }));
+    const sorts = this.sortList.map(v => ({ label: v, onClick: () => this.setState({ sort: v, page: 1 }), style: sortStyle(s.sort === v) }));
+
+    const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    this._all.forEach(r => { counts[r.rating] = (counts[r.rating] || 0) + 1; });
+    const total = this._all.length;
+    const distribution = [5, 4, 3, 2, 1].map(n => ({
+      label: n + '점',
+      count: counts[n] || 0,
+      barStyle: 'position:absolute;left:0;top:0;bottom:0;background:var(--accent);width:' + Math.round(((counts[n] || 0) / total) * 100) + '%;',
+    }));
+
+    let list = this._all.filter(r => s.filter === '전체' || r.cat === s.filter);
+    list = list.slice().sort((a, b) => s.sort === '별점순' ? (b.rating - a.rating || b.order - a.order) : (b.order - a.order));
+
+    const totalPages = Math.max(1, Math.ceil(list.length / this.perPage));
+    const page = Math.min(s.page, totalPages);
+    const start = (page - 1) * this.perPage;
+    const goTo = (p) => { this.setState({ page: Math.max(1, Math.min(totalPages, p)) }); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+    const pageBtn = (on, dim) => 'min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;cursor:' + (dim ? 'default' : 'pointer') + ';border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';padding:0 12px;' + (on ? 'background:var(--accent);color:#fff;' : 'color:' + (dim ? '#C7C7C7' : 'var(--ink)') + ';');
+    let from = Math.max(1, page - 3);
+    let to = Math.min(totalPages, from + 6);
+    from = Math.max(1, to - 6);
+    const pageItems = [];
+    for (let p = from; p <= to; p++) pageItems.push({ label: String(p), onClick: () => goTo(p), style: pageBtn(p === page, false) });
+
+    const reviews = list.slice(start, start + this.perPage).map((r, i) => ({
+      ...r,
+      stars: '★★★★★'.slice(0, r.rating) + '☆☆☆☆☆'.slice(0, 5 - r.rating),
+      photoId: r.order > 0 ? 'review-' + r.order : 'review-g' + (-r.order),
+      photoHint: r.meta + ' 후기 사진',
+    }));
+
+    return {
+      filters,
+      sorts,
+      distribution,
+      totalCount: total,
+      reviews,
+      isEmpty: reviews.length === 0,
+      resultLabel: (s.filter === '전체' ? '전체 후기 ' : s.filter + ' 후기 ') + list.length + '건'
+        + (list.length ? '  ·  ' + (start + 1) + '–' + Math.min(start + this.perPage, list.length) + ' / ' + list.length : ''),
+      showPager: totalPages > 1,
+      pageItems,
+      prev: { label: '‹ 이전', onClick: () => goTo(page - 1), style: pageBtn(false, page === 1) },
+      next: { label: '다음 ›', onClick: () => goTo(page + 1), style: pageBtn(false, page === totalPages) },
+    };
+  }
+}
+
+</script>
+</body>
+</html>

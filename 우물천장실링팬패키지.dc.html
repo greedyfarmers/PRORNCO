@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap">
+  <script src="./image-slot.js"></script>
+  <script src="./mobile-nav.js"></script>
+  <style>
+    body{margin:0;}
+    @font-face{font-family:'ArchivoExpandedBlack';src:url('./assets/fonts/Archivo_Expanded-Black.ttf') format('truetype');font-weight:900;}
+    a{text-decoration:none;color:inherit;}
+    a:hover{color:#2F6FED;}
+    @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+    @keyframes ringPulse{0%{transform:scale(1);opacity:.55;}70%{transform:scale(1.5);opacity:0;}100%{transform:scale(1.5);opacity:0;}}
+    [data-fab]{position:relative; width:66px; height:66px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:11.5px; font-weight:800; letter-spacing:-0.3px; line-height:1.2; text-align:center; box-shadow:0 14px 30px rgba(15,20,32,0.20); transition:transform .18s ease, box-shadow .18s ease; animation:floatY 3.4s ease-in-out infinite;}
+    [data-fab]:hover{transform:translateY(-4px) scale(1.05); box-shadow:0 20px 40px rgba(15,20,32,0.26);}
+    [data-fab] [data-ico]{font-size:17px; line-height:1;}
+    [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
+    @media (max-width: 720px){
+      [data-fabwrap]{right:12px !important;}
+      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
+      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+    }
+    [data-gnb] > a{font-size:14px;color:var(--ink-soft);}
+    [data-gnb]:hover > a{color:var(--ink);}
+    [data-drop]{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:#fff;min-width:190px;padding:12px 0;border-radius:14px;border:1px solid #E8E6E0;box-shadow:0 18px 40px rgba(15,20,32,0.12);opacity:0;visibility:hidden;transition:opacity .18s ease,visibility .18s ease;z-index:90;}
+    [data-gnb]:hover [data-drop]{opacity:1;visibility:visible;}
+    [data-drop] a{display:block;padding:9px 20px;font-size:13px;color:var(--ink-soft);white-space:nowrap;}
+    [data-drop] a:hover{color:var(--accent);background:rgba(47,111,237,0.06);}
+    @media (max-width: 1024px){
+      [style*="grid-template-columns: repeat(4"]{grid-template-columns:repeat(2,1fr) !important;}
+      [style*="grid-template-columns: repeat(3"]{grid-template-columns:repeat(2,1fr) !important;}
+      nav{gap:14px !important;} nav a, nav div{font-size:13px !important;}
+    }
+    @media (max-width: 720px){
+      [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
+      header > nav{display:none !important;}
+      header > div{display:none !important;}
+      nav{flex-wrap:wrap !important; gap:10px !important;} nav a, nav div{font-size:12.5px !important;}
+      h1{font-size:22px !important;} h2{font-size:20px !important;} h3{font-size:18px !important;}
+      [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
+      [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
+    }
+  </style>
+</helmet>
+
+<div style="--bg:#F5F8FF;--ink:#0E1526;--ink-soft:#5C6478;--line:#E3E9F7;--accent:#2F6FED;--surface-dark:#0A0F1F; background:var(--bg); color:var(--ink); font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased;">
+
+  <header style="border-bottom:1px solid var(--line); padding:18px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:rgba(245,248,255,0.85); backdrop-filter:blur(14px); z-index:20;">
+    <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+    <nav style="display:flex; gap:22px; align-items:center;">
+      <div data-gnb="1" style="position:relative; padding:6px 0;"><a href="./시공패키지.dc.html">시공패키지</a><div data-drop="1"><a href="./간접조명패키지.dc.html">간접조명 패키지</a><a href="./우물천장패키지.dc.html">우물천장 패키지</a><a href="./우물천장실링팬패키지.dc.html">우물천장 + 실링팬 패키지</a><a href="./실링팬패키지.dc.html">실링팬 패키지</a></div></div>
+      <div data-gnb="1" style="position:relative; padding:6px 0;"><a href="./개별항목.dc.html">개별항목</a><div data-drop="1"><a href="./개별항목.dc.html">우물천장조명</a><a href="./개별항목.dc.html">커튼조명</a><a href="./개별항목.dc.html">다운라이트 · COB</a><a href="./개별항목.dc.html">욕실·현관 센서등</a><a href="./개별항목.dc.html">실링팬</a></div></div>
+      <a href="./색상안내.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">색상안내</a>
+      <a href="./상세견적.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">셀프견적</a>
+      <a href="./시공사례.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">시공사례</a>
+      <a href="./시공후기.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">시공후기</a>
+      <a href="./고객센터.dc.html" style="font-size:14px; color:var(--ink-soft);" style-hover="color:var(--accent);">고객센터</a>
+    </nav>
+    <div style="font-size:13px; color:var(--ink-soft);">전화상담 <b style="color:var(--ink);">010-9850-2293</b></div>
+    <mobile-nav current="시공패키지"></mobile-nav>
+  </header>
+
+  <div data-fabwrap="1" style="position:fixed; right:26px; bottom:110px; z-index:55; display:flex; flex-direction:column; gap:12px; align-items:center;">
+    <a href="tel:010-9850-2293" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #2a3a63, #0E1526 72%); color:#fff; border:1px solid rgba(255,255,255,0.14);">
+      <span data-ring="1" style="color:rgba(255,255,255,0.35);"></span>
+      <span data-ico="1">📞</span>
+      <span>전화상담</span>
+    </a>
+    <a href="http://pf.kakao.com/_xdBVxaX/chat" target="_blank" rel="noopener" data-fab="1" style="background:radial-gradient(circle at 34% 26%, #FFF4A0, #FFE94A 70%); color:#2C2200; border:1px solid rgba(0,0,0,0.08);">
+      <span data-ico="1">💬</span>
+      <span>카톡상담</span>
+    </a>
+    <a href="#" style="width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink); font-size:16px; border:1px solid var(--line); background:rgba(255,255,255,0.92); box-shadow:0 10px 22px rgba(15,20,32,0.12);">↑</a>
+  </div>
+
+  <div style="max-width:1160px; margin:0 auto; padding:16px 24px 0; font-size:12.5px; color:var(--ink-soft);">
+    <a href="./PRORCO 홈페이지.dc.html" style="color:var(--ink-soft);">홈</a> / <a href="./시공패키지.dc.html" style="color:var(--ink-soft);">시공패키지</a> / <span style="color:var(--ink);">우물천장 + 실링팬 패키지</span>
+  </div>
+
+  <!-- HERO -->
+  <div style="max-width:1160px; margin:0 auto; padding:24px 24px 0;">
+    <div style="background:var(--surface-dark); border-radius:24px; overflow:hidden; color:#fff;">
+      <div style="padding:52px 56px 40px; display:grid; grid-template-columns:1.3fr 1fr; gap:48px; align-items:end;">
+        <div>
+          <div style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:1px; color:#9ab4ff; border:1px solid rgba(154,180,255,0.3); background:rgba(154,180,255,0.08); padding:6px 14px; border-radius:999px; margin-bottom:18px;">PACKAGE</div>
+          <h1 style="font-size:34px; font-weight:800; letter-spacing:-0.03em; margin:0 0 14px;">우물천장 + 실링팬 패키지</h1>
+          <p style="color:#B8B8B8; font-size:14.5px; line-height:1.8; margin:0; max-width:34rem; text-wrap:pretty;">가장 완성도 높은 구성입니다. 우물천장 간접조명에 실링팬까지 함께 시공해 메인등 없이도 거실 밝기와 공기 순환을 한 번에 해결합니다.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:22px; align-items:flex-start;">
+          <div>
+            <div style="font-size:11px; font-weight:700; letter-spacing:0.06em; color:rgba(255,255,255,0.45); margin-bottom:8px;">PACKAGE PRICE</div>
+            <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;">
+              <span style="font-size:38px; font-weight:800; letter-spacing:-0.04em; line-height:1; white-space:nowrap;">123만원 ~</span>
+              <span style="font-size:12px; color:#8E97AC;">VAT 별도</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a href="./상세견적.dc.html" style="background:var(--accent); color:#fff; padding:14px 24px; border-radius:999px; font-size:14px; font-weight:700;">셀프견적으로 이어가기</a>
+            <a href="#" style="background:rgba(255,255,255,0.08); color:#fff; padding:14px 24px; border-radius:999px; font-size:14px; font-weight:700;">카카오로 상담하기</a>
+          </div>
+        </div>
+      </div>
+      <image-slot id="uf-hero-visual" style="display:block; width:100%; aspect-ratio:16/6;" shape="rect" placeholder="우물천장 + 실링팬 패키지 시공 이미지"></image-slot>
+    </div>
+  </div>
+
+  <!-- VARIANTS -->
+  <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
+    <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">TYPE</div>
+    <h2 style="font-size:22px; font-weight:800; margin:0 0 12px;">두 가지 방식 중에 고르세요</h2>
+    <p style="font-size:13.5px; color:var(--ink-soft); line-height:1.75; margin:0 0 28px; max-width:660px;">우물천장 방식에 따라 금액이 나뉩니다. 두 구성 모두 실링팬 설치와 천장 보강이 포함됩니다.</p>
+    <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:20px;">
+      <sc-for list="{{ variants }}" as="v" hint-placeholder-count="2">
+        <div style="border:1px solid var(--line); border-radius:18px; background:#fff; overflow:hidden;">
+          <image-slot id="{{ v.photoId }}" style="width:100%; height:340px;" shape="rect" placeholder="{{ v.photoHint }}"></image-slot>
+          <div style="padding:26px;">
+            <div style="font-size:11px; font-weight:700; color:var(--accent); margin-bottom:8px;">{{ v.badge }}</div>
+            <div style="font-size:18px; font-weight:800; margin-bottom:8px;">{{ v.name }}</div>
+            <div style="font-size:13px; color:var(--ink-soft); line-height:1.75; margin-bottom:16px;">{{ v.desc }}</div>
+            <div style="font-size:20px; font-weight:800; margin-bottom:16px;">{{ v.price }}</div>
+            <div style="border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:8px;">
+              <sc-for list="{{ v.items }}" as="it" hint-placeholder-count="5">
+                <div style="font-size:12.8px; color:var(--ink-soft);">— {{ it }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ADD-ONS -->
+  <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
+    <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">ADD-ON</div>
+    <h2 style="font-size:22px; font-weight:800; margin:0 0 28px;">추가 가능한 옵션</h2>
+    <div style="border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff;">
+      <sc-for list="{{ addOns }}" as="a" hint-placeholder-count="6">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; border-bottom:1px solid var(--line);">
+          <div>
+            <div style="font-size:14px; font-weight:700; margin-bottom:4px;">{{ a.title }}</div>
+            <div style="font-size:12.5px; color:var(--ink-soft); line-height:1.6;">{{ a.desc }}</div>
+          </div>
+          <div style="font-size:14px; font-weight:800; color:var(--accent); white-space:nowrap;">{{ a.price }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
+    <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">WHY</div>
+    <h2 style="font-size:22px; font-weight:800; margin:0 0 28px;">실링팬을 함께 하면 좋은 이유</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+      <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="3">
+        <div style="border:1px solid var(--line); border-radius:16px; padding:24px; background:#fff;">
+          <div style="font-size:15px; font-weight:800; margin-bottom:10px;">{{ b.title }}</div>
+          <div style="font-size:13px; color:var(--ink-soft); line-height:1.8;">{{ b.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
+    <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">GALLERY</div>
+    <h2 style="font-size:22px; font-weight:800; margin:0 0 28px;">시공 사진</h2>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px;">
+      <sc-for list="{{ galleryIds }}" as="g" hint-placeholder-count="4">
+        <image-slot id="{{ g }}" style="aspect-ratio:1/1; border-radius:12px;" shape="rect" placeholder="우물천장 + 실링팬 시공 사진"></image-slot>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:640px; margin:64px auto 0; padding:0 24px 90px; text-align:center;">
+    <div style="font-size:22px; font-weight:800; margin-bottom:10px;">우물천장 + 실링팬으로 결정하셨나요?</div>
+    <div style="font-size:13.5px; color:var(--ink-soft); margin-bottom:22px; line-height:1.7;">천장 높이와 구조를 먼저 확인해드립니다.<br/>거실 사진만 보내주시면 가능 여부를 알려드립니다.</div>
+    <div style="display:flex; gap:12px; justify-content:center;">
+      <a href="./상세견적.dc.html" style="background:var(--accent); color:#fff; padding:15px 26px; border-radius:999px; font-size:14px; font-weight:700;">셀프견적 시작하기</a>
+      <a href="#" style="background:var(--surface-dark); color:#fff; padding:15px 26px; border-radius:999px; font-size:14px; font-weight:700;">카카오로 상담하기</a>
+    </div>
+  </div>
+
+  <footer style="background:var(--surface-dark); color:#8E97AC; padding:30px 0;">
+    <div style="max-width:1160px; margin:0 auto; padding:0 32px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px;">
+      <a href="./PRORCO 홈페이지.dc.html" style="color:#fff; font-weight:900; font-size:15px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+      <span>정찰제 시공 · 1년 무상 A/S</span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  variants = [
+    {
+      badge: 'TYPE 1', name: '실링팬 + 한방우물천장', price: '123만원 ~',
+      photoId: 'uf-han', photoHint: '실링팬 + 한방우물천장 시공 사진',
+      desc: '기존 우물천장에 중간이음새 없는 프리미엄 한방우물천장과 실링팬과 실크도배, 그리고 가장 많이 하는 조명패키지로 구성했습니다.',
+      items: ['한방우물천장', '실링팬', '실링팬 보강 · 설치 + 단독배선', '욕실 상부장 히든센서조명 (2곳)', '다운라이트 (8개)', '4구 무선스위치'],
+    },
+    {
+      badge: 'TYPE 2', name: '실링팬 + 무몰딩 우물천장', price: '148만원 ~',
+      photoId: 'uf-mok', photoHint: '실링팬 + 무몰딩 우물천장 시공 사진',
+      desc: '기존 우물천장 몰딩을 철거하고 목공으로 등박스를 만들어 미니멀함과 고급스러운 무드가 완성됩니다. (천장 전체도배 필요)',
+      items: ['무몰딩 직각 우물천장 (1)', '실링팬', '실링팬 보강 · 설치 + 단독배선', '욕실 상부장 히든센서조명 (2곳)', '다운라이트 (8개)', '4구 무선스위치'],
+    },
+  ];
+
+  addOns = [
+    { title: '우물 조명 1줄 추가', desc: '우물박스 안에 두 번째 색온도 줄을 넣어 스위치로 색을 고를 수 있습니다', price: '+200,000원' },
+    { title: '무몰딩 모서리 라운드로 변경', desc: '무몰딩 목공 모서리를 라운드로 변경합니다.', price: '+100,000원' },
+    { title: '우물천장 한쪽 면 길이 초과', desc: '한쪽 면이 3.8m 또는 5.6m를 넘는 경우', price: '+100,000 / +200,000원' },
+    { title: '2인치 다운라이트 변경', desc: '더 작은 2인치로 교체합니다 (개당 단가)', price: '+5,000원~' },
+    { title: '6구 무선스위치 변경', desc: '기본 4구 스위치를 6구로 교체합니다', price: '+30,000원' },
+    { title: '실크도배', desc: '천장 도배가 필요한 경우 현장 상황에 맞춰 안내드립니다', price: '별도 문의' },
+  ];
+
+  benefits = [
+    { title: '메인등이 필요 없습니다', desc: '조명 겸용 실링팬을 선택하면 우물 간접조명과 함께 거실 밝기가 충분히 확보됩니다.' },
+    { title: '사계절 공기 순환', desc: '여름에는 에어컨 바람을 골고루 퍼뜨리고, 겨울에는 천장의 따뜻한 공기를 아래로 끌어내립니다.' },
+    { title: '에너지효율이 올라갑니다.', desc: '공기순환으로 에어컨 · 보일러의 사용량을 줄여 에너지 효율을 높여줍니다.' },
+  ];
+
+  galleryIds = ['uf-g1', 'uf-g2', 'uf-g3', 'uf-g4'];
+
+  renderVals() {
+    return { variants: this.variants, addOns: this.addOns, benefits: this.benefits, galleryIds: this.galleryIds };
+  }
+}
+
+</script>
+</body>
+</html>
