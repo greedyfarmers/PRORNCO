@@ -34,8 +34,8 @@
     :host([open]) .burger span:nth-child(1){transform:translateY(0.5rem) rotate(45deg);}
     :host([open]) .burger span:nth-child(2){opacity:0;}
     :host([open]) .burger span:nth-child(3){transform:translateY(-0.5rem) rotate(-45deg);}
-    .sheet{position:fixed;inset:0;z-index:999;background:#fff;
-      display:flex;flex-direction:column;
+    .sheet{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:999;background:#fff;
+      display:flex;flex-direction:column;overflow:hidden;
       opacity:0;visibility:hidden;transform:translateX(6%);
       transition:opacity .22s ease, transform .28s ease, visibility .22s;}
     :host([open]) .sheet{opacity:1;visibility:visible;transform:translateX(0);}
