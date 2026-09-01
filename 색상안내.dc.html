@@ -50,6 +50,7 @@
       [style*="max-width: 1160px"]{padding-left:16px !important; padding-right:16px !important;}
       [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
       [data-r="picker"]{flex-direction:column !important;}
+      [data-r="cmpgrid"], [data-r="cardgrid"]{grid-template-columns:repeat(2,1fr) !important;}
     }
   </style>
 </helmet>
@@ -101,21 +102,22 @@
   <!-- 01 세 가지 색 -->
   <div id="pick" style="max-width:1160px; margin:0 auto; padding:44px 24px 0; scroll-margin-top:80px;">
     <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">01 · COLOR TEMPERATURE</div>
-    <h2 style="font-size:26px; font-weight:800; margin:0 0 10px; line-height:1.35;">색은 세 가지면 충분합니다</h2>
-    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.8; max-width:720px;">조명 색상은 흔히 색온도라고 부릅니다. 색온도가 낮을수록 노랗고 따뜻한 빛, 높을수록 하얗고 시원한 빛이 됩니다. 프로어앤코는 전구색 · 전주백 · 주백색 세 가지로만 안내드립니다.</p>
+    <h2 style="font-size:26px; font-weight:800; margin:0 0 10px; line-height:1.35;">내 공간에 맞는 빛의 색을 골라보세요</h2>
+    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.8; max-width:720px;">색온도가 낮을수록 노랗고 따뜻한 빛을, 높을수록 하얗고 시원한 빛을 냅니다. 간접 T5 조명은 빛의 색에 따라 공간의 분위기가 달라집니다. 원하는 빛을 선택해보세요.</p>
 
     <!-- temperature scale -->
-    <div style="height:8px; background:linear-gradient(90deg, #E9A23B 0%, #F0D9A8 50%, #EEF1F6 100%); margin-bottom:10px;"></div>
+    <div style="height:8px; background:linear-gradient(90deg, #E9A23B 0%, #F0D9A8 40%, #EEF1F6 72%, #D6E5F7 100%); margin-bottom:10px;"></div>
     <div style="display:flex; justify-content:space-between; font-size:12.5px; color:var(--ink-soft); margin-bottom:36px;">
       <span>3000K 전구색</span>
-      <span>3500K 전주백</span>
+      <span>3500K 전주백색</span>
       <span>4000K 주백색</span>
+      <span>6500K 주광색</span>
     </div>
 
-    <!-- same shot, three colors -->
-    <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:14px;">같은 조명, 세 가지 색</div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:36px;">
-      <sc-for list="{{ colorDefs }}" as="c" hint-placeholder-count="3">
+    <!-- same shot, four colors -->
+    <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:14px;">같은 조명, 네 가지 색</div>
+    <div data-r="cmpgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:36px;">
+      <sc-for list="{{ colorDefs }}" as="c" hint-placeholder-count="4">
         <div>
           <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7;">
             <image-slot id="{{ c.compareId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ c.label }} 비교 사진"></image-slot>
@@ -125,9 +127,9 @@
       </sc-for>
     </div>
 
-    <!-- three color cards -->
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:28px;">
-      <sc-for list="{{ colorDefs }}" as="c" hint-placeholder-count="3">
+    <!-- color cards -->
+    <div data-r="cardgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:28px;">
+      <sc-for list="{{ colorDefs }}" as="c" hint-placeholder-count="4">
         <div style="border:1px solid var(--line); padding:26px;">
           <div style="display:flex; align-items:center; gap:11px; margin-bottom:10px;">
             <span style="width:24px; height:24px; border-radius:50%; flex-shrink:0; background:{{ c.swatch }}; border:1px solid rgba(0,0,0,0.08);"></span>
@@ -150,8 +152,9 @@
   <!-- 02 3색변환 -->
   <div id="dooljul" style="max-width:1160px; margin:0 auto; padding:56px 24px 0; scroll-margin-top:80px;">
     <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">02 · DUAL LINE</div>
-    <h2 style="font-size:26px; font-weight:800; margin:0 0 10px; line-height:1.35;">색을 하나만 고를 필요 없습니다</h2>
-    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.8; max-width:720px;">우물 안에 원하는 두 가지 색을 두 줄로 나란히 매립합니다. 하나만 켜면 각 색으로, 둘 다 켜면 두 빛이 섞인 색으로 — 상황에 맞게 골라 쓸 수 있습니다. 아래 스위치를 직접 켜고 꺼보세요.</p>
+    <h2 style="font-size:26px; font-weight:800; margin:0 0 6px; line-height:1.35;">더 밝고 충분한 조도를 원한다면</h2>
+    <h3 style="font-size:19px; font-weight:700; color:var(--accent); margin:0 0 12px; line-height:1.4;">우물 2줄조명, 원하는 색으로 커스텀하세요</h3>
+    <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.8; max-width:720px;">두 줄 시공 시 각 라인의 색상을 서로 다르게 선택할 수 있어, 한 줄씩 켰을 때는 선택한 색 그대로, 두 줄을 함께 켰을 때는 두 빛이 자연스럽게 어우러집니다.</p>
 
     <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:32px; align-items:start;">
       <div style="min-width:0;">
@@ -324,9 +327,10 @@ class Component extends DCLogic {
   state = { dualWarm: true, dualCool: true, colorBySection: { living: 'k3500', kitchen: 'k3500', room: 'k3500', bath: 'k3500' }, openFaq: 0 };
 
   colorData = [
-    { k: 'k1000', label: '전구색', tempLabel: '3000K', tag: '전구색 · 3000K', tone: '가장 따뜻한 색', swatch: '#F0A23C', compareId: 'cmp-3000k', desc: '카페·호텔처럼 따뜻하고 아늑한 노란빛', recommend: '침실·거실 등 편히 쉬는 공간' },
-    { k: 'k3500', label: '전주백', tempLabel: '3500K', tag: '전주백 · 3500K', tone: '중간 색', swatch: '#F3DDAE', compareId: 'cmp-3500k', desc: '따뜻함과 선명함이 균형 잡힌 중간 톤', recommend: '어디에나 무난 — 가장 많이 선택' },
-    { k: 'k4000', label: '주백색', tempLabel: '4000K', tag: '주백색 · 4000K', tone: '가장 화사한 색', swatch: '#E8ECF2', compareId: 'cmp-4000k', desc: '자연광처럼 깨끗하고 화사한 흰빛', recommend: '주방·드레스룸 등 밝아야 하는 공간' },
+    { k: 'k1000', label: '전구색', tempLabel: '3000K', tag: '전구색 · 3000K', tone: '아늑하고 분위기 있는 따뜻한 빛', swatch: '#F0A23C', compareId: 'cmp-3000k', desc: '카페·호텔처럼 따뜻하고 아늑한 노란빛', recommend: '침실·거실 등 편히 쉬는 공간' },
+    { k: 'k3500', label: '전주백색', tempLabel: '3500K', tag: '전주백색 · 3500K', tone: '노란색이 살짝 빠진 부드러운 빛', swatch: '#F3DDAE', compareId: 'cmp-3500k', desc: '따뜻함과 선명함이 균형 잡힌 중간 톤', recommend: '어디에나 무난 — 가장 많이 선택' },
+    { k: 'k4000', label: '주백색', tempLabel: '4000K', tag: '주백색 · 4000K', tone: '밝으면서도 자연스러운 아이보리빛', swatch: '#E8ECF2', compareId: 'cmp-4000k', desc: '자연광처럼 깨끗하고 화사한 흰빛', recommend: '주방·드레스룸 등 밝아야 하는 공간' },
+    { k: 'k6500', label: '주광색', tempLabel: '6500K', tag: '주광색 · 6500K', tone: '선명하고 깨끗해 집중하기 좋은 흰빛', swatch: '#DCE7F5', compareId: 'cmp-6500k', desc: '푸른기가 도는 가장 하얗고 시원한 빛', recommend: '서재·작업공간 등 집중이 필요한 공간' },
   ];
 
   dualSpecs = [
@@ -338,21 +342,18 @@ class Component extends DCLogic {
 
   sectionData = [
     { key: 'living', num: '03', eyebrow: 'LIVING', name: '거실 — 집의 인상을 좌우합니다', desc: '온 가족이 가장 오래 머무는 거실은 색온도에 따라 인상이 가장 크게 달라집니다.', items: [
-      { tag: 'LIVING 01', title: '우물조명', desc: '거실 인상을 가장 크게 좌우하는 조명입니다. 전구색은 노을처럼 부드럽게, 주백색은 윤곽이 또렷하게 섭니다.' },
-      { tag: 'LIVING 02', title: 'COB간접등', desc: '천장에서 벽면을 쓸어내리듯 비추는 간접등입니다. 색을 바꾸면 벽지 톤 자체가 달라 보입니다.' },
-      { tag: 'LIVING 03', title: '커튼박스 무드등', desc: '커튼 주름을 타고 흐르는 빛이라 색 차이가 가장 잘 드러나는 조명 중 하나입니다.' },
+      { slot: 0, tag: 'LIVING 01', title: '우물조명 · COB간접등 · 커튼박스', desc: '거실 인상을 가장 크게 좌우하는 세 가지 조명입니다. 전구색은 노을처럼 부드럽게, 주백색은 윤곽이 또렷하게 서고, 커튼 주름을 타고 흐르는 빛에서 색 차이가 가장 잘 드러납니다.' },
     ]},
     { key: 'kitchen', num: '04', eyebrow: 'KITCHEN', name: '주방 — 재료 색이 정확하게', desc: '재료 색이 잘 보여야 하는 주방은 화사한 주백색을 많이 쓰지만, 거실과 트인 구조라면 전주백으로 맞추기도 합니다.', items: [
-      { tag: 'KITCHEN 01', title: '주방 다운라이트', desc: '상판과 개수대에 비치는 빛을 보세요 — 주백색에서 가장 또렷하고, 전주백도 자연스럽습니다.' },
-      { tag: 'KITCHEN 02', title: '싱크대 하부등', desc: '상부장 아래에서 작업면을 바로 비추는 무드등입니다. 손이 가장 많이 가는 자리의 색을 확인하세요.' },
+      { slot: 0, tag: 'KITCHEN 01', title: '주방 다운라이트 · 싱크대 하부등', desc: '상판과 개수대에 비치는 빛, 상부장 아래에서 작업면을 바로 비추는 무드등을 함께 보세요. 주백색에서 가장 또렷하고, 전주백도 자연스럽습니다.' },
     ]},
     { key: 'room', num: '05', eyebrow: 'ROOM & HALL', name: '방 · 복도 — 편안한 동선', desc: '방은 잠들기 전 눈이 편한 따뜻한 색이 기본이고, 복도는 밤중 동선을 은은하게 밝혀줍니다.', items: [
-      { tag: 'ROOM 01', title: '방 다운라이트', desc: '잠들기 전 눈이 마지막으로 닿는 빛입니다. 전구색은 아늑하게, 주백색은 아침처럼 깨웁니다.' },
-      { tag: 'HALL 01', title: '복도 센서등', desc: '지나갈 때 자동으로 켜지는 빛입니다. 한밤중에 마주칠 빛이라는 걸 기준으로 골라보세요.' },
+      { slot: 0, tag: 'ROOM 01', title: '방 다운라이트', desc: '잠들기 전 눈이 마지막으로 닿는 빛입니다. 전구색은 아늑하게, 주백색은 아침처럼 깨웁니다.' },
+      { slot: 1, tag: 'HALL 01', title: '복도 센서등', desc: '지나갈 때 자동으로 켜지는 빛입니다. 한밤중에 마주칠 빛이라는 걸 기준으로 골라보세요.' },
     ]},
     { key: 'bath', num: '06', eyebrow: 'BATH & ENTRANCE', name: '욕실 · 현관 — 청결하고 아늑하게', desc: '욕실은 깨끗함이 중요해 밝은 주백색을 많이 쓰지만 아늑한 전주백도 좋고, 현관은 첫 순간을 따뜻하게 맞이합니다.', items: [
-      { tag: 'BATH 01', title: '욕실센서 무드등', desc: '타일과 도기의 흰색을 보세요 — 주백색은 청결하게, 전구색·전주백은 호텔 욕실처럼 아늑하게 만듭니다.' },
-      { tag: 'ENTRANCE 01', title: '현관센서 무드등', desc: '문을 열면 가장 먼저 맞아주는 빛입니다. 집의 첫인사를 어떤 온도로 건넬지 골라보세요.' },
+      { slot: 0, tag: 'BATH 01', title: '욕실센서 무드등', desc: '타일과 도기의 흰색을 보세요 — 주백색은 청결하게, 전구색·전주백은 호텔 욕실처럼 아늑하게 만듭니다.' },
+      { slot: 1, tag: 'ENTRANCE 01', title: '현관센서 무드등', desc: '문을 열면 가장 먼저 맞아주는 빛입니다. 집의 첫인사를 어떤 온도로 건넬지 골라보세요.' },
     ]},
   ];
 
@@ -422,7 +423,7 @@ class Component extends DCLogic {
         layers: this.colorData.map((c, ci) => {
           const on = activeK === c.k;
           return {
-            id: sd.key + '-item' + ii + '-' + c.k,
+            id: sd.key + '-item' + (it.slot != null ? it.slot : ii) + '-' + c.k,
             placeholder: it.title + ' — ' + c.tag,
             style: 'position:absolute;inset:0;width:100%;height:100%;transition:opacity .4s ease;'
               + 'opacity:' + (on ? 1 : 0) + ';z-index:' + (on ? 2 : 1) + ';'

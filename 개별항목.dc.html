@@ -226,6 +226,17 @@
 class Component extends DCLogic {
   state = { tab: 'umul' };
 
+  componentDidMount() {
+    this._syncHash = () => {
+      const k = (location.hash || '').replace('#', '');
+      if (k && this.categories.some(c => c.key === k)) this.setState({ tab: k });
+    };
+    this._syncHash();
+    window.addEventListener('hashchange', this._syncHash);
+  }
+
+  componentWillUnmount() { window.removeEventListener('hashchange', this._syncHash); }
+
   categories = [
     {
       key: 'umul', label: '우물천장조명',
@@ -441,11 +452,11 @@ class Component extends DCLogic {
       { label: '실링팬 패키지', href: './실링팬패키지.dc.html' },
     ]},
     { label: '개별항목', href: './개별항목.dc.html', current: true, children: [
-      { label: '우물천장조명', href: './개별항목.dc.html' },
-      { label: '커튼조명', href: './개별항목.dc.html' },
-      { label: '다운라이트 · COB', href: './개별항목.dc.html' },
-      { label: '욕실·현관 센서등', href: './개별항목.dc.html' },
-      { label: '실링팬', href: './개별항목.dc.html' },
+      { label: '우물천장조명', href: './개별항목.dc.html#umul' },
+      { label: '커튼조명', href: './개별항목.dc.html#curtain' },
+      { label: '다운라이트 · COB', href: './개별항목.dc.html#cob' },
+      { label: '욕실·현관 센서등', href: './개별항목.dc.html#sensor' },
+      { label: '실링팬', href: './개별항목.dc.html#fan' },
     ]},
     { label: '색상안내', href: './색상안내.dc.html', children: null },
     { label: '셀프견적', href: './상세견적.dc.html', children: null },
@@ -469,7 +480,7 @@ class Component extends DCLogic {
     const tabStyle = (on) => 'font-size:13px;font-weight:600;padding:9px 18px;cursor:pointer;border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';' + (on ? 'background:var(--accent);color:#fff;' : 'color:var(--ink-soft);');
     const tabs = this.categories.map(c => ({
       label: c.label,
-      onClick: () => this.setState({ tab: c.key }),
+      onClick: () => { this.setState({ tab: c.key }); try { history.replaceState(null, '', '#' + c.key); } catch (e) {} },
       style: tabStyle(c.key === active.key),
     }));
     return { tabs, active, hasAddons: !!active.addons, notes: this.notes, navItems, onNavLeave: () => this.setState({ openNav: null }) };

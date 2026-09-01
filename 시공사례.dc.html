@@ -256,7 +256,8 @@ class Component extends DCLogic {
       { title: '공간별', options: this.spaces.map(v => ({ label: v, onClick: () => this.set('space', v), style: chip(s.space === v) })) },
     ];
 
-    if (!this._all) this._all = this.buildCases();
+    const withPhoto = new Set(['case-0','case-1','case-2','case-3','case-4','case-5','case-7','case-9','case-10','case-20','case-21']);
+    if (!this._all) this._all = this.buildCases().filter(c => withPhoto.has(c.uid));
     const filtered = this._all
       .filter(c => (s.size === '전체' || c.size === s.size))
       .filter(c => (s.pkg === '전체' || c.pkg === s.pkg))

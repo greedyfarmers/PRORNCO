@@ -254,7 +254,13 @@ class Component extends DCLogic {
     },
   };
 
-  buildReviews() {
+  extraReviews = [
+    { rating: 5, date: '2026.06.03', order: -1, cat: '우물천장', title: '천장 라인이 살아나니 집이 넓어 보여요', body: '시공 전에 천장 구조를 먼저 확인하고 가능한 라인을 그림으로 보여주셔서 이해가 쉬웠습니다. 결과물도 설명 그대로였어요.', author: '의정부 권○○님', meta: '38평 · 우물천장 패키지', tags: ['우물천장', '거실'] },
+    { rating: 5, date: '2026.05.27', order: -2, cat: '커튼조명', title: '창가에 앉아 있는 시간이 늘었습니다', body: '커튼 원단에 빛이 은은하게 번져서 눈이 편합니다. 색온도는 전구색으로 골랐는데 잘한 선택이었어요.', author: '청주 황○○님', meta: '24평 · 간접조명 패키지', tags: ['커튼박스', '전구색'] },
+    { rating: 4, date: '2026.05.19', order: -3, cat: '실링팬', title: '여름 냉방비가 확실히 줄었습니다', body: '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', author: '대전 신○○님', meta: '49평 · 실링팬 패키지', tags: ['실링팬', '조명 겸용'] },
+  ];
+
+  buildReviewsUnused() {
     const cats = Object.keys(this.templates);
     const out = this.reviewData.slice();
     let order = 0;
@@ -290,7 +296,7 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state;
-    if (!this._all) this._all = this.buildReviews();
+    if (!this._all) this._all = this.reviewData.concat(this.extraReviews);
     const chip = (on) => 'font-size:12.8px;font-weight:600;padding:8px 16px;cursor:pointer;border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';' + (on ? 'background:var(--accent);color:#fff;' : 'color:var(--ink-soft);');
     const sortStyle = (on) => 'font-size:12.8px;cursor:pointer;' + (on ? 'color:var(--ink);font-weight:800;' : 'color:var(--ink-soft);');
 

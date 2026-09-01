@@ -199,15 +199,6 @@
           <div style="color:var(--ink-soft); font-size:17px; font-weight:600;">10명 중 7명이 우물천장 패키지를 선택합니다</div>
         </div>
 
-        <!-- pay-mode toggle -->
-        <div style="display:flex; justify-content:center; margin-bottom:40px; position:relative; z-index:2;">
-          <div style="display:flex; gap:4px; background:#E6EAF3; padding:6px; border-radius:18px;">
-            <sc-for list="{{ payTabs }}" as="pt" hint-placeholder-count="2">
-              <div onClick="{{ pt.onClick }}" style="{{ pt.style }}">{{ pt.label }}</div>
-            </sc-for>
-          </div>
-        </div>
-
         <div style="max-width:1240px; margin:0 auto; padding:0 32px; position:relative; z-index:2;">
           <div style="background:#fff; border-radius:28px; padding:30px 30px 34px;">
             <div data-r="grid4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch;">
@@ -222,14 +213,14 @@
 
                   <div style="font-size:19px; font-weight:800; letter-spacing:-0.6px; margin-bottom:14px; min-height:52px; display:flex; align-items:flex-start;">{{ p.name }}</div>
 
-                  <ul style="list-style:none; padding:0; margin:0 0 20px; font-size:12.8px; color:{{ p.itemColor }}; line-height:1.9; min-height:112px;">
+                  <ul style="list-style:none; padding:0; margin:0 0 20px; font-size:12.8px; color:{{ p.itemColor }}; line-height:1.9; min-height:112px; flex:1 1 auto;">
                     <sc-for list="{{ p.items }}" as="it" hint-placeholder-count="4">
                       <li style="display:flex; gap:8px;"><span style="color:{{ p.checkColor }}; flex-shrink:0;">•</span><span>{{ it }}</span></li>
                     </sc-for>
                     <li style="display:flex; gap:8px; color:{{ p.pitchColor }}; font-weight:600;"><span style="flex-shrink:0;">•</span><span>{{ p.pitch }}</span></li>
                   </ul>
 
-                  <div style="border-top:1px solid #E9ECF3; padding-top:18px; text-align:right; margin:0 0 18px; margin-top:auto;">
+                  <div style="border-top:1px solid #E9ECF3; padding-top:18px; text-align:right; margin-bottom:18px; min-height:78px; display:flex; flex-direction:column; justify-content:flex-end;">
                     <div style="font-size:24px; font-weight:800; letter-spacing:-1px; line-height:1.25;">{{ p.mainPrice }}</div>
                     <div style="font-size:12px; color:#B3B9C6; text-decoration:line-through; margin-top:4px; line-height:1.4;">{{ p.subPrice }}</div>
                   </div>
@@ -439,11 +430,11 @@ class Component extends DCLogic {
       { label: '실링팬 패키지', href: './실링팬패키지.dc.html' },
     ], href: './시공패키지.dc.html' },
     { label: '개별항목', children: [
-      { label: '우물천장조명', href: './개별항목.dc.html' },
-      { label: '커튼조명', href: './개별항목.dc.html' },
-      { label: '다운라이트 · COB', href: './개별항목.dc.html' },
-      { label: '욕실·현관 센서등', href: './개별항목.dc.html' },
-      { label: '실링팬', href: './개별항목.dc.html' },
+      { label: '우물천장조명', href: './개별항목.dc.html#umul' },
+      { label: '커튼조명', href: './개별항목.dc.html#curtain' },
+      { label: '다운라이트 · COB', href: './개별항목.dc.html#cob' },
+      { label: '욕실·현관 센서등', href: './개별항목.dc.html#sensor' },
+      { label: '실링팬', href: './개별항목.dc.html#fan' },
     ], href: './개별항목.dc.html' },
     { label: '색상안내', children: null, href: './색상안내.dc.html' },
     { label: '셀프견적', children: null, href: './상세견적.dc.html' },
@@ -586,17 +577,11 @@ class Component extends DCLogic {
       ],
     };
 
-    const installment = this.state.payMode === 'split';
-    const payTabs = [
-      { key: 'once', label: '일시불 결제' },
-      { key: 'split', label: '카드 할부 결제' },
-    ].map(t => ({
+    const installment = false;
+    const payTabs = [].map(t => ({
       label: t.label,
-      onClick: () => this.setState({ payMode: t.key }),
-      style: 'padding:13px 34px; border-radius:14px; font-size:14.5px; font-weight:700; cursor:pointer; transition:all .2s ease;' +
-        ((this.state.payMode || 'once') === t.key
-          ? 'background:#fff; color:var(--accent); box-shadow:0 2px 8px rgba(15,20,32,0.08);'
-          : 'background:transparent; color:#8A93A6;'),
+      onClick: () => {},
+      style: '',
     }));
 
     const won = (s) => parseInt(String(s).replace(/,/g, ''), 10);
