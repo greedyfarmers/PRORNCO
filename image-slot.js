@@ -171,8 +171,11 @@
 
   function load() {
     if (loadP) return loadP;
+    // Static hosts (Vercel, GitHub Pages) drop dotfiles from the build, so
+    // fall back to a non-dot mirror of the same sidecar when the dotfile 404s.
     loadP = fetch(STATE_FILE)
-      .then((r) => (r.ok ? r.json() : null))
+      .then((r) => (r.ok ? r : fetch(STATE_FILE.replace(/^\./, ''))))
+      .then((r) => (r && r.ok ? r.json() : null))
       .then((j) => {
         // Merge: sidecar loses to any in-memory change that raced ahead of
         // the fetch (drop or clear) so neither is clobbered by hydration.
@@ -1094,7 +1097,10 @@
       // data:image/ URLs from it. The `src` attribute is author-controlled
       // (Claude wrote it into the HTML) so it passes through unchanged.
       let stored = this.id ? getSlot(this.id) : this._local;
-      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      // Accept data URLs and project-relative image paths (photos extracted
+      // into assets/ as real files); reject anything else.
+      if (stored && stored.u && !/^data:image\//i.test(stored.u)
+          && !/^\.?\/?assets\/.+\.(jpe?g|png|webp|gif|avif)$/i.test(stored.u)) stored = null;
       const srcAttr = this.getAttribute('src') || '';
       this._userUrl = (stored && stored.u) || null;
       const url = this._userUrl || srcAttr;

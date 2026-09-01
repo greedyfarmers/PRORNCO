@@ -9,11 +9,11 @@
       { label: '실링팬 패키지', href: './실링팬패키지.dc.html' }
     ]},
     { label: '개별항목', href: './개별항목.dc.html', children: [
-      { label: '우물천장조명', href: './개별항목.dc.html' },
-      { label: '커튼조명', href: './개별항목.dc.html' },
-      { label: '다운라이트 · COB', href: './개별항목.dc.html' },
-      { label: '욕실·현관 센서등', href: './개별항목.dc.html' },
-      { label: '실링팬', href: './개별항목.dc.html' }
+      { label: '우물천장조명', href: './개별항목.dc.html#umul' },
+      { label: '커튼조명', href: './개별항목.dc.html#curtain' },
+      { label: '다운라이트 · COB', href: './개별항목.dc.html#cob' },
+      { label: '욕실·현관 센서등', href: './개별항목.dc.html#sensor' },
+      { label: '실링팬', href: './개별항목.dc.html#fan' }
     ]},
     { label: '색상안내', href: './색상안내.dc.html' },
     { label: '셀프견적', href: './상세견적.dc.html' },
