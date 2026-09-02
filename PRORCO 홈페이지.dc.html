@@ -42,24 +42,44 @@
       [data-r="pad"]{padding-left:20px !important;padding-right:20px !important;}
     }
     @media (max-width: 720px){
-      [data-r="grid4"]{grid-template-columns:1fr !important;}
+      [data-r="grid4"]{grid-template-columns:1fr !important;gap:12px !important;}
+      [data-r="revgrid"]{display:flex !important;grid-template-columns:none !important;gap:10px !important;overflow-x:auto !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;margin-right:-1rem !important;padding-right:1rem !important;scrollbar-width:none !important;-ms-overflow-style:none !important;}
+      [data-r="revgrid"]::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
+      [data-r="revgrid"] > div{flex:0 0 68% !important;scroll-snap-align:start !important;}
+      [data-r="grid4"] > div{padding:18px !important;border-radius:16px !important;}
+      [data-r="pkgname"]{min-height:0 !important;font-size:22px !important;margin-bottom:8px !important;}
+      [data-r="pkglist"]{display:none !important;}
+      [data-r="pkgbadges"]{min-height:0 !important;align-items:center !important;margin-bottom:10px !important;}
+      [data-r="pkgbtn"]{margin-top:10px !important;min-height:40px !important;padding:8px 12px !important;border-radius:10px !important;font-size:15px !important;display:flex !important;align-items:center !important;justify-content:center !important;}
+      [data-r="pkgmeta"]{display:block !important;}
+      [data-r="pkgprice"]{min-height:0 !important;border-top:0 !important;padding-top:0 !important;margin-bottom:12px !important;flex-direction:row !important;align-items:baseline !important;justify-content:flex-end !important;gap:10px !important;}
+      [data-r="pkgnow"]{font-size:21px !important;order:2 !important;}
+      [data-r="pkgwas"]{margin-top:0 !important;order:1 !important;}
+      [data-r="pkgsave"]{display:flex !important;}
       [data-r="gnb"]{display:none !important;}
       [data-r="tel"]{display:none !important;}
       [data-r="est-icon"]{width:150px !important;height:150px !important;opacity:.5 !important;}
       [data-r="pad"]{padding:0.875rem 1rem !important;}
       [data-r="hero"]{aspect-ratio:auto !important;height:52vh !important;}
-      [data-r="switchbar"]{left:12px !important;right:12px !important;transform:none !important;flex-wrap:wrap !important;justify-content:center !important;bottom:12px !important;}
-      [data-r="bar"]{flex-wrap:wrap !important;gap:8px !important;padding:10px 12px !important;border-radius:20px !important;}
-      [data-r="bar-hide"], [data-r="bar-lead"], [data-r="bar-fav"]{display:none !important;}
+      [data-r="switchbar"]{left:10px !important;right:10px !important;max-width:none !important;width:auto !important;transform:none !important;display:flex !important;flex-wrap:wrap !important;justify-content:center !important;bottom:12px !important;gap:4px !important;padding:8px !important;border-radius:18px !important;}
+      [data-r="switchbar"]{flex-wrap:nowrap !important;justify-content:space-between !important;gap:0 !important;}
+      [data-r="switchbar"] > div{flex:1 1 0 !important;min-width:0 !important;flex-direction:column-reverse !important;align-items:center !important;padding:9px 2px !important;font-size:12px !important;font-weight:700 !important;letter-spacing:-0.02em !important;gap:7px !important;justify-content:center !important;text-align:center !important;white-space:nowrap !important;}
+      [data-r="switchbar"] > div > span:first-child{color:#0F1420 !important;}
+      [data-r="switchbar"] > div > span:last-child{width:26px !important;height:15px !important;}
+      [data-r="switchbar"] > div > span:last-child > span{width:11px !important;height:11px !important;}
+      [data-r="bar"]{flex-wrap:nowrap !important;gap:8px !important;padding:8px 10px !important;border-radius:999px !important;}
+      [data-r="bar-hide"], [data-r="bar-lead"], [data-r="bar-fav"], [data-r="bar-tel"]{display:none !important;}
       [data-r="bar-input"]{flex:1 1 auto !important;min-width:0 !important;}
-      [data-r="bar-tel"]{flex:1 1 100% !important;text-align:center !important;font-size:17px !important;order:3 !important;}
-      [data-r="bar-kakao"]{flex:1 1 100% !important;order:4 !important;padding:12px 18px !important;}
-      [data-r="float"]{display:none !important;}
-      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
-      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-r="bar-kakao"]{flex:0 0 auto !important;padding:11px 16px !important;}
+      [data-r="float"]{right:12px !important;bottom:84px !important;gap:8px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
+      [data-r="float"] > button{width:38px !important;height:38px !important;font-size:14px !important;}
       [data-fab] [data-ring]{display:none !important;}
-      [data-r="h1"]{font-size:22px !important;}
-      [data-r="h2"]{font-size:21px !important;}
+      [data-r="mbr"]{display:inline !important;}
+      [data-r="pkgsect"]{padding-top:36px !important;margin-top:14px !important;}
+      [data-r="h1"]{font-size:30px !important;line-height:1.28 !important;letter-spacing:-0.05em !important;max-width:11em !important;margin-left:auto !important;margin-right:auto !important;}
+      [data-r="h2"]{font-size:26px !important;line-height:1.3 !important;letter-spacing:-0.04em !important;}
       [data-r="rows5"]{grid-template-columns:96px 1fr 56px !important;}
       [data-r="rows5"] > :nth-child(4), [data-r="rows5"] > :nth-child(5){display:none !important;}
       [data-r="testi"] > :nth-child(3){display:none !important;}
@@ -194,11 +214,11 @@
   </div>
 
   <!-- PACKAGES -->
-  <section data-reveal style="opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease; padding:88px 0 96px; background:var(--surface-dark); margin-top:28px; border-top:1px solid var(--line);">
+  <section data-reveal data-r="pkgsect" style="opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease; padding:88px 0 96px; background:var(--surface-dark); margin-top:28px; border-top:1px solid var(--line);">
     <div style="width:100%;">
       <div style="overflow:hidden; position:relative;">
         <div style="text-align:center; color:var(--ink); margin-bottom:32px; position:relative; z-index:2;">
-          <h2 data-r="h1" style="font-size:44px; margin:0 0 14px; font-weight:800; letter-spacing:-2px; line-height:1.15; color:#1B2A66;">우리 집에 맞는 시공 패키지 찾기</h2>
+          <h2 data-r="h1" style="font-size:44px; margin:0 0 14px; font-weight:800; letter-spacing:-2px; line-height:1.15; color:#1B2A66;">우리 집에 맞는<br data-r="mbr" style="display:none;"/> 시공 패키지 찾기</h2>
           <div style="color:var(--ink-soft); font-size:17px; font-weight:600;">10명 중 7명이 우물천장 패키지를 선택합니다</div>
         </div>
 
@@ -207,28 +227,35 @@
             <div data-r="grid4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px; align-items:stretch;">
               <sc-for list="{{ packages }}" as="p" hint-placeholder-count="4">
                 <div style="{{ p.cardStyle }}" onMouseEnter="{{ p.onEnter }}" onMouseLeave="{{ p.onLeave }}">
-                  <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:14px; min-height:44px;">
+                  <div data-r="pkgbadges" style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:14px; min-height:44px;">
                     <div style="display:flex; gap:6px; flex-wrap:wrap; align-content:flex-start;">
                       <span style="{{ p.tagStyle }}">{{ p.tag }}</span>
                     </div>
                     <div style="{{ p.offStyle }}">{{ p.off }}<br/>OFF</div>
                   </div>
 
-                  <div style="font-size:19px; font-weight:800; letter-spacing:-0.6px; margin-bottom:14px; min-height:52px; display:flex; align-items:flex-start;">{{ p.name }}</div>
+                  <div data-r="pkgname" style="font-size:19px; font-weight:800; letter-spacing:-0.6px; margin-bottom:14px; min-height:52px; display:flex; align-items:flex-start;">{{ p.name }}</div>
 
-                  <ul style="list-style:none; padding:0; margin:0 0 20px; font-size:12.8px; color:{{ p.itemColor }}; line-height:1.9; min-height:112px; flex:1 1 auto;">
+                  <div data-r="pkgmeta" style="display:none; font-size:12.5px; color:#6B7385; line-height:1.7; margin-bottom:14px;">{{ p.metaLine }}</div>
+
+                  <ul data-r="pkglist" style="list-style:none; padding:0; margin:0 0 20px; font-size:12.8px; color:{{ p.itemColor }}; line-height:1.9; min-height:112px; flex:1 1 auto;">
                     <sc-for list="{{ p.items }}" as="it" hint-placeholder-count="4">
                       <li style="display:flex; gap:8px;"><span style="color:{{ p.checkColor }}; flex-shrink:0;">•</span><span>{{ it }}</span></li>
                     </sc-for>
                     <li style="display:flex; gap:8px; color:{{ p.pitchColor }}; font-weight:600;"><span style="flex-shrink:0;">•</span><span>{{ p.pitch }}</span></li>
                   </ul>
 
-                  <div style="border-top:1px solid #E9ECF3; padding-top:18px; text-align:right; margin-bottom:18px; min-height:78px; display:flex; flex-direction:column; justify-content:flex-end;">
-                    <div style="font-size:24px; font-weight:800; letter-spacing:-1px; line-height:1.25;">{{ p.mainPrice }}</div>
-                    <div style="font-size:12px; color:#B3B9C6; text-decoration:line-through; margin-top:4px; line-height:1.4;">{{ p.subPrice }}</div>
+                  <div data-r="pkgprice" style="border-top:1px solid #E9ECF3; padding-top:18px; text-align:right; margin-bottom:18px; min-height:78px; display:flex; flex-direction:column; justify-content:flex-end;">
+                    <div data-r="pkgnow" style="font-size:24px; font-weight:800; letter-spacing:-1px; line-height:1.25;">{{ p.mainPrice }}</div>
+                    <div data-r="pkgwas" style="font-size:12px; color:#B3B9C6; text-decoration:line-through; margin-top:4px; line-height:1.4;">{{ p.subPrice }}</div>
                   </div>
 
-                  <a href="{{ p.detailHref }}" style="{{ p.btnStyle }}">{{ p.name }} 보기</a>
+                  <div data-r="pkgsave" style="display:none; align-items:center; justify-content:space-between; gap:10px; background:#F4F6FA; border-radius:12px; padding:10px 12px;">
+                    <span style="font-size:11px; font-weight:800; color:#fff; background:#E85A5A; padding:4px 9px; border-radius:8px; white-space:nowrap;">총 할인금액</span>
+                    <span style="font-size:15px; font-weight:800; color:#E85A5A; letter-spacing:-0.5px;">{{ p.saveLabel }}</span>
+                  </div>
+
+                  <a href="{{ p.detailHref }}" data-r="pkgbtn" style="{{ p.btnStyle }}">{{ p.name }} 보기</a>
                 </div>
               </sc-for>
             </div>
@@ -244,8 +271,8 @@
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div style="text-align:center; margin-bottom:40px;">
         <div style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); border:1px solid rgba(47,111,237,0.3); background:rgba(47,111,237,0.06); padding:6px 14px; border-radius:999px; margin-bottom:14px;">SELF ESTIMATE</div>
-        <h2 data-r="h2" style="font-size:27px; margin:0 0 10px; font-weight:800; letter-spacing:-0.3px;">상담 없이도, 우리 집 견적을 3분 안에</h2>
-        <div style="color:var(--ink-soft); font-size:14px;">원하는 항목만 담으면 정찰제 금액이 바로 합산됩니다. 지금도 여러 고객님이 견적을 내고 계세요.</div>
+        <h2 data-r="h2" style="font-size:27px; margin:0 0 10px; font-weight:800; letter-spacing:-0.3px;">상담 없이도,<br data-r="mbr" style="display:none;"/> 우리 집 견적을 3분 안에</h2>
+        <div style="color:var(--ink-soft); font-size:14px;">원하는 항목만 담으면 정찰제 금액이 바로 합산됩니다.<br data-r="mbr" style="display:none;"/> 지금도 여러 고객님이 견적을 내고 계세요.</div>
       </div>
       <div data-r="grid2" style="display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:stretch;">
         <div style="position:relative; overflow:hidden; background:var(--card); border:1px solid var(--line); border-radius:20px; padding:40px; display:flex; flex-direction:column; gap:14px;">
@@ -305,7 +332,7 @@
       <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px; flex-wrap:wrap; gap:16px;">
         <h2 data-r="h2" style="font-size:27px; margin:0; font-weight:800; letter-spacing:-0.3px;">실제 시공 고객님들의 솔직한 후기</h2>        <a href="./시공후기.dc.html" style="font-size:13.5px; color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:2px;" style-hover="color:var(--accent);border-color:var(--accent);">시공후기 전체보기 →</a>
       </div>
-      <div data-r="grid4" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+      <div data-r="revgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
         <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="8">
           <div style="aspect-ratio:1/1; border-radius:16px; position:relative; overflow:hidden;">
             <image-slot id="review-{{ $index }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="시공후기 사진 — {{ r }}"></image-slot>
@@ -447,7 +474,25 @@ class Component extends DCLogic {
   ];
   categoryQuickLinks = ['우물천장 / 조명', 'COB, 다운라이트', '커튼'];
 
+  startReviewAutoScroll() {
+    const el = document.querySelector('[data-r="revgrid"]');
+    if (!el) return;
+    let paused = false;
+    const pause = () => { paused = true; clearTimeout(el._rt); el._rt = setTimeout(() => { paused = false; }, 3000); };
+    ['pointerdown', 'touchstart', 'wheel'].forEach(ev => el.addEventListener(ev, pause, { passive: true }));
+    this._revTimer = setInterval(() => {
+      if (paused || window.innerWidth > 720) return;
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 2) return;
+      const card = el.firstElementChild;
+      const step = card ? card.offsetWidth + 10 : el.clientWidth * 0.7;
+      const next = el.scrollLeft >= max - 4 ? 0 : el.scrollLeft + step;
+      el.scrollTo({ left: next, behavior: 'smooth' });
+    }, 2600);
+  }
+
   componentDidMount() {
+    setTimeout(() => this.startReviewAutoScroll(), 400);
     const els = document.querySelectorAll('[data-reveal]');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -610,6 +655,8 @@ class Component extends DCLogic {
         mainPrice: installment ? fmt(Math.round(nowN / 12 / 10) * 10) + '원' : fmt(nowN) + '원',
         subPrice: installment ? '일시불 ' + fmt(nowN) + '원' : '정가 ' + fmt(wasN) + '원',
         detailHref: p.detailHref || ('./시공패키지.dc.html#' + p.key),
+        metaLine: p.items.join(' · '),
+        saveLabel: '-' + fmt(wasN - nowN) + '원',
         cardStyle: 'box-sizing:border-box; border-radius:20px; padding:26px; display:flex; flex-direction:column; transition:box-shadow .2s ease, transform .2s ease;' +
           (best ? 'background:#fff; border:2px solid #2F6FED; box-shadow:0 10px 28px rgba(47,111,237,0.14);' : 'background:#F4F6FA; border:2px solid transparent;'),
         tagStyle: 'font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:999px;' +
