@@ -24,9 +24,11 @@
     [data-fab] [data-ico]{font-size:17px; line-height:1;}
     [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
     @media (max-width: 720px){
-      [data-fabwrap]{right:12px !important;}
-      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
-      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fabwrap]{right:12px !important;bottom:84px !important;gap:8px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+      [data-fabwrap] > a:last-child{width:38px !important;height:38px !important;font-size:14px !important;}
       [data-fab] [data-ring]{display:none !important;}
     }
     [data-gnb] > a{font-size:14px;color:var(--ink-soft);}
@@ -52,9 +54,16 @@
       [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
       [data-r="mtotal"]{display:flex !important;}
       footer{padding-bottom:6rem !important;}
+      html, body{overflow-x:hidden !important;}
+      [data-r="page"]{overflow-x:hidden !important;max-width:100vw !important;}
+      [data-r="item"]{flex-wrap:wrap !important;row-gap:0.625rem !important;}
+      [data-r="itemphoto"]{width:5rem !important;height:5rem !important;}
+      [data-r="itemtext"]{flex:1 1 8rem !important;min-width:0 !important;}
+      [data-r="itemtitle"]{white-space:normal !important;overflow:visible !important;text-overflow:clip !important;line-height:1.4 !important;}
+      [data-r="itemsub"]{min-width:0 !important;flex:1 1 100% !important;text-align:right !important;}
     }
     @media (max-width: 1200px){
-      [data-fabwrap]{display:none !important;}
+      [data-fabwrap] > [data-fab]{display:none !important;}
     }
   </style>
 </helmet>
@@ -111,12 +120,12 @@
             <div style="padding:16px 20px; border-bottom:1px solid var(--line); font-size:15px; font-weight:800; background:#FAFBFD;">{{ g.name }}</div>
             <div style="padding:16px 20px; display:flex; flex-direction:column; gap:10px;">
               <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="2">
-                <div style="{{ it.cardStyle }}">
-                  <div style="position:relative; width:120px; height:84px; flex-shrink:0; background:#F2F4F7; overflow:hidden;">
+                <div data-r="item" style="{{ it.cardStyle }}">
+                  <div data-r="itemphoto" style="position:relative; width:120px; height:84px; flex-shrink:0; background:#F2F4F7; overflow:hidden;">
                     <image-slot id="{{ it.photoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="사진"></image-slot>
                   </div>
-                  <div style="flex:1 1 auto; min-width:130px;">
-                    <div style="font-size:14px; font-weight:700; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</div>
+                  <div data-r="itemtext" style="flex:1 1 auto; min-width:130px;">
+                    <div data-r="itemtitle" style="font-size:14px; font-weight:700; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</div>
                     <div style="font-size:12px; color:var(--ink-soft); white-space:nowrap;">{{ it.priceLabel }} · {{ it.unit }}당</div>
                     <sc-if value="{{ it.hasNote }}" hint-placeholder-val="{{ false }}">
                       <div style="font-size:11px; color:#9AA3B2; margin-top:3px; line-height:1.5; white-space:normal;">{{ it.note }}</div>
@@ -127,7 +136,7 @@
                     <div style="width:20px; text-align:center; font-size:14.5px; font-weight:700;">{{ it.qty }}</div>
                     <button onClick="{{ it.onInc }}" style="{{ it.stepBtnStyle }}">＋</button>
                   </div>
-                  <div style="min-width:74px; text-align:right; font-size:13.5px; font-weight:800; color:{{ it.subtotalColor }}; flex-shrink:0; white-space:nowrap;">{{ it.subtotalLabel }}</div>
+                  <div data-r="itemsub" style="min-width:74px; text-align:right; font-size:13.5px; font-weight:800; color:{{ it.subtotalColor }}; flex-shrink:0; white-space:nowrap;">{{ it.subtotalLabel }}</div>
                 </div>
               </sc-for>
             </div>

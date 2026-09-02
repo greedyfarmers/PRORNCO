@@ -24,9 +24,11 @@
     [data-fab] [data-ico]{font-size:17px; line-height:1;}
     [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
     @media (max-width: 720px){
-      [data-fabwrap]{right:12px !important;}
-      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
-      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fabwrap]{right:12px !important;bottom:84px !important;gap:8px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+      [data-fabwrap] > a:last-child{width:38px !important;height:38px !important;font-size:14px !important;}
       [data-fab] [data-ring]{display:none !important;}
     }
     @media (max-width: 1024px){
@@ -338,10 +340,10 @@ class Component extends DCLogic {
           badge: '종류 1', name: '확산형 다운라이트', tagline: '주광 · 주백 · 전구 — 일반 LED등처럼 확산되는 조명',
           photoId: 'down-photo', photoHint: '확산형 다운라이트 무드 사진',
           desc: '일반 LED 등처럼 확산되는 빛으로 공간을 고르게 밝히는 조명입니다. 주광·주백·전구 세 가지 컬러가 있으며, 매입되어 돌출이 없어 깔끔한 분위기를 연출합니다. 밝아야 하는 생활공간 거실 · 주방 · 방에 주로 사용합니다.',
-          price: '25,000원', unit: '/ 3인치 개당',
+          price: '30,000원', unit: '/ 3인치 개당',
           specs: [
-            { k: '3인치 다운라이트', v: '개당 25,000원' },
-            { k: '2인치 다운라이트', v: '개당 30,000원' },
+            { k: '3인치 다운라이트', v: '개당 30,000원' },
+            { k: '2인치 다운라이트', v: '개당 35,000원' },
             { k: '컬러', v: '주광 · 주백 · 전구' },
             { k: '참고', v: '2인치는 3인치보다 1.5~1.7배 개수 필요' },
           ],
@@ -350,20 +352,20 @@ class Component extends DCLogic {
           badge: '종류 2', name: 'COB 다운라이트', tagline: '포인트(스팟) 연출 — 액자 · 그림 등 벽에 빛을 주는 조명',
           photoId: 'cob-photo', photoHint: 'COB 다운라이트 무드 사진',
           desc: '빛 퍼짐이 보다 스포트라이트같이 집중되어 집중형 다운라이트로 불립니다. 액자, 쇼파원, 아트월, 복도, 그림, 액자에 빛을 주는데 주로 사용합니다. 내구서비 뛰어나고 범용성이 높은 디자인과, 나팔(호른) 형태의 곡선디자인 중 선택하실 수 있습니다.',
-          price: '25,000원', unit: '/ 3인치 개당',
+          price: '30,000원', unit: '/ 3인치 개당',
           specs: [
-            { k: '3인치 COB', v: '개당 25,000원' },
-            { k: '2인치 COB', v: '개당 30,000원' },
-            { k: '3인치 호른 COB', v: '개당 30,000원' },
-            { k: '2인치 호른 COB', v: '개당 35,000원' },
+            { k: '3인치 COB', v: '개당 30,000원' },
+            { k: '2인치 COB', v: '개당 35,000원' },
+            { k: '3인치 호른 COB', v: '개당 35,000원' },
+            { k: '2인치 호른 COB', v: '개당 40,000원' },
           ],
         },
       ],
       priceTitle: '다운라이트 단품 가격 정리',
       priceRows: [
-        { item: '확산형 다운라이트', detail: '3인치 25,000원 · 2인치 30,000원', price: '25,000원~' },
-        { item: 'COB 다운라이트', detail: '3인치 25,000원 · 2인치 30,000원', price: '25,000원~' },
-        { item: 'COB 호른 다운라이트', detail: '3인치 30,000원 · 2인치 35,000원 (나팔 형태 곡선디자인)', price: '30,000원~' },
+        { item: '확산형 다운라이트', detail: '3인치 30,000원 · 2인치 35,000원', price: '30,000원~' },
+        { item: 'COB 다운라이트', detail: '3인치 30,000원 · 2인치 35,000원', price: '30,000원~' },
+        { item: 'COB 호른 다운라이트', detail: '3인치 35,000원 · 2인치 40,000원 (나팔 형태 곡선디자인)', price: '35,000원~' },
         { item: '3채널 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '(+) 70,000원' },
         { item: '4구 터치 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '(+) 90,000원' },
         { item: '개별시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
@@ -388,10 +390,10 @@ class Component extends DCLogic {
           ],
         },
         {
-          badge: '현관', name: '현관 센서 무드등', tagline: '기본 금액 80,000원~',
+          badge: '현관', name: '현관 센서 무드등', tagline: '시공비 포함 100,000원',
           photoId: 'sensor-entrance-photo', photoHint: '현관 센서 무드등 사진',
           desc: '집안의 첫 인상이 달라지는 현관센서등입니다. 스위치 없이 사람의 움직임을 감지해 자동으로 켜지며, 공간의 아늑한 분위기를 완성하세요.',
-          price: '80,000원', unit: '부터 · 1곳 기준',
+          price: '100,000원', unit: '시공비 포함 · 1곳 기준',
           specs: [
             { k: '설치방식', v: '기본 센서 / 히든센서 선택' },
             { k: '히든센서 변경', v: '+20,000원' },
@@ -403,7 +405,7 @@ class Component extends DCLogic {
       priceTitle: '센서등 단품 가격 정리',
       priceRows: [
         { item: '욕실센서 무드등', detail: '히든센서 사용, 천장 타공 없이 내부 배선 간접조명', price: '90,000원~' },
-        { item: '현관센서 무드등', detail: '움직임 감지 자동 점·소등 무드센서', price: '80,000원~' },
+        { item: '현관센서 무드등', detail: '움직임 감지 자동 점·소등 무드센서 (시공비 포함)', price: '100,000원' },
         { item: '히든센서로 변경 시', detail: '현관센서 무드등을 프리미엄 히든센서로 변경', price: '(+) 20,000원' },
         { item: '3채널 스위치', detail: '스위치가 부족한 경우 사용하는 터치스위치입니다', price: '70,000원~' },
         { item: '개별 시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
@@ -419,10 +421,10 @@ class Component extends DCLogic {
           badge: '기본', name: '실링팬 설치', tagline: '조명 겸용 / 팬 단독 선택',
           photoId: 'fan-photo', photoHint: '실링팬 시공 사진',
           desc: '천장에 고정하는 구조라 무게를 견딜 보강 작업이 함께 필요합니다. 조명 겸용 모델을 선택하면 별도 메인등 없이도 거실 밝기를 확보할 수 있습니다.',
-          price: '350,000원', unit: '/ 1개',
+          price: '150,000원', unit: '시공비 포함 · 1개 기준',
           specs: [
             { k: '설치형태', v: '조명 겸용 / 팬 단독' },
-            { k: '천장보강', v: '필수 +80,000원' },
+            { k: '천장보강', v: '필수' },
             { k: '작업시간', v: '약 3~4시간' },
             { k: '참고', v: '천장 높이 2.3m 이상 권장' },
           ],
@@ -430,9 +432,9 @@ class Component extends DCLogic {
       ],
       priceTitle: '실링팬 단품 가격 정리',
       priceRows: [
-        { item: '실링팬 설치', detail: '조명 겸용 또는 팬 단독 (1개 기준)', price: '350,000원' },
-        { item: '천장 보강작업', detail: '실링팬 하중을 견디기 위한 필수 보강 (1곳)', price: '80,000원' },
-        { item: '다운라이트 추가', detail: '실링팬 주변 3인치 다운라이트 12개 추가', price: '120,000원' },
+        { item: '실링팬 설치', detail: '조명 겸용 또는 팬 단독 (1개 기준)', price: '90,000원' },
+        { item: '천장 보강작업', detail: '실링팬 하중을 견디기 위한 필수 보강 (1곳)', price: '60,000원' },
+        { item: '다운라이트 추가', detail: '실링팬 주변 다운라이트 3인치 추가시공', price: '30,000원 / 개당' },
         { item: '개별 시공 출장비', detail: '패키지 없이 개별시공 시 기본 출장비 발생 (결제 금액 50만원 미만)', price: '50,000원' },
       ],
     },

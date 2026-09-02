@@ -22,6 +22,21 @@
     { label: '고객센터', href: './고객센터.dc.html' }
   ];
 
+  const TAGS = [
+    { label: '우물천장', href: './우물천장패키지.dc.html' },
+    { label: '커튼조명', href: './개별항목.dc.html#curtain' },
+    { label: '실링팬', href: './실링팬패키지.dc.html' },
+    { label: '셀프견적', href: './상세견적.dc.html' },
+    { label: '색상안내', href: './색상안내.dc.html' },
+    { label: '시공후기', href: './시공후기.dc.html' }
+  ];
+
+  const INDEX = [];
+  MENU.forEach(m => {
+    INDEX.push({ label: m.label, href: m.href, group: '메뉴' });
+    (m.children || []).forEach(c => INDEX.push({ label: c.label, href: c.href, group: m.label }));
+  });
+
   const CSS = `
     :host{display:none;}
     @media (max-width: 720px){ :host{display:block;} }
@@ -40,10 +55,20 @@
       transition:opacity .22s ease, transform .28s ease, visibility .22s;}
     :host([open]) .sheet{opacity:1;visibility:visible;transform:translateX(0);}
     .top{display:flex;align-items:center;justify-content:space-between;
-      padding:1rem 1.125rem;background:#F3F5F9;flex:0 0 auto;}
+      padding:1rem 1.125rem 0.75rem;background:#F3F5F9;flex:0 0 auto;}
     .mark{font-size:1.3125rem;font-weight:900;letter-spacing:-0.5px;
       font-family:'ArchivoExpandedBlack','Archivo',sans-serif;color:#111;text-decoration:none;}
     .close{width:2.5rem;height:2.5rem;font-size:1.5rem;line-height:1;color:#111;text-align:center;}
+    .searchwrap{flex:0 0 auto;padding:0 1.125rem 0.875rem;background:#F3F5F9;}
+    .search{display:flex;align-items:center;gap:0.625rem;background:#fff;border-radius:999px;
+      padding:0.8125rem 1rem;box-shadow:0 1px 2px rgba(15,20,32,0.05);}
+    .search input{flex:1 1 auto;min-width:0;border:0;outline:none;background:none;
+      font:inherit;font-size:1rem;font-weight:600;color:#111;}
+    .search input::placeholder{color:#A2A9B8;font-weight:500;}
+    .search .ico{flex:0 0 auto;font-size:1.0625rem;color:#8A93A6;line-height:1;}
+    .clear{flex:0 0 auto;width:1.375rem;height:1.375rem;border-radius:50%;background:#E6E9F0;color:#6B7385;
+      font-size:0.8125rem;line-height:1.375rem;text-align:center;display:none;}
+    .clear[data-on]{display:block;}
     nav{flex:1 1 auto;overflow-y:auto;padding:0 0.875rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;}
     .quick{display:flex;background:#fff;border-radius:1rem;padding:1rem 0.5rem;}
     .quick a{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:0.4375rem;
@@ -52,6 +77,9 @@
     .quick i{font-size:1.375rem;font-style:normal;line-height:1;}
     .card{background:#fff;border-radius:1rem;overflow:hidden;}
     .cardhead{padding:1rem 1.125rem 0.5rem;font-size:0.8125rem;font-weight:700;color:#A2A9B8;}
+    .tags{display:flex;flex-wrap:wrap;gap:0.5rem;padding:0.25rem 1.125rem 1.125rem;}
+    .tags a{padding:0.5rem 0.875rem;border:1px solid #E6E9F0;border-radius:999px;
+      font-size:0.875rem;font-weight:600;color:#4A5364;text-decoration:none;background:#fff;}
     .row{display:flex;align-items:center;gap:0.75rem;width:100%;padding:0.9375rem 1.125rem;
       font-size:1rem;font-weight:700;color:#111;text-decoration:none;}
     .row + .row{border-top:1px solid #F4F6FA;}
@@ -59,11 +87,14 @@
     .row .chev{margin-left:auto;color:#C4C9D4;font-size:1.125rem;line-height:1;
       transition:transform .2s ease;flex:0 0 auto;}
     .row[aria-expanded="true"] .chev{transform:rotate(90deg);color:#2F6FED;}
+    .row .grp{margin-left:auto;font-size:0.75rem;font-weight:600;color:#A2A9B8;}
     .subs{display:none;flex-direction:column;background:#FAFBFD;border-top:1px solid #F4F6FA;}
     .subs[data-open]{display:flex;}
     .sub{display:flex;align-items:center;padding:0.8125rem 1.125rem 0.8125rem 2.25rem;font-size:0.9375rem;
       font-weight:500;color:#6B6B6B;text-decoration:none;}
     .sub + .sub{border-top:1px solid #F1F3F8;}
+    .empty{padding:1.5rem 1.125rem;font-size:0.9375rem;color:#8A93A6;}
+    .hidden{display:none !important;}
     .cta{flex:0 0 auto;display:flex;gap:0.625rem;padding:0.875rem 1.125rem calc(0.875rem + env(safe-area-inset-bottom));
       border-top:1px solid #E6E9F0;background:#fff;}
     .cta a{flex:1 1 0;min-height:3.25rem;display:flex;align-items:center;justify-content:center;
@@ -78,6 +109,7 @@
       this._built = true;
       const cur = this.getAttribute('current') || '';
       const root = this.attachShadow({ mode: 'open' });
+
       const rows = MENU.map((m, i) => {
         const isCur = m.label === cur;
         if (!m.children) {
@@ -96,15 +128,30 @@
             <a class="mark" href="./PRORCO 홈페이지.dc.html">PROR.CO</a>
             <button class="close" aria-label="메뉴 닫기">✕</button>
           </div>
+          <div class="searchwrap">
+            <div class="search">
+              <input type="search" placeholder="시공 항목을 검색하세요" aria-label="검색"/>
+              <button class="clear" aria-label="지우기">✕</button>
+              <span class="ico">🔍</span>
+            </div>
+          </div>
           <nav>
             <div class="quick">
               <a href="tel:010-9850-2293"><i>📞</i>전화상담</a>
               <a href="http://pf.kakao.com/_xdBVxaX/chat" target="_blank" rel="noopener"><i>💬</i>카톡상담</a>
               <a href="./고객센터.dc.html"><i>🎧</i>고객센터</a>
             </div>
-            <div class="card">
+            <div class="card" data-tagcard>
+              <div class="cardhead">인기 검색</div>
+              <div class="tags">${TAGS.map(t => `<a href="${t.href}">#${t.label}</a>`).join('')}</div>
+            </div>
+            <div class="card" data-menucard>
               <div class="cardhead">전체 메뉴</div>
               ${rows}
+            </div>
+            <div class="card hidden" data-resultcard>
+              <div class="cardhead">검색 결과</div>
+              <div data-results></div>
             </div>
           </nav>
           <div class="cta">
@@ -130,9 +177,12 @@
           st.remove();
         }
       };
+
       root.querySelector('.burger').addEventListener('click', () => toggle(!this.hasAttribute('open')));
       root.querySelector('.close').addEventListener('click', () => toggle(false));
       root.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => toggle(false)));
+      window.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
+
       root.querySelectorAll('[data-acc]').forEach(btn => btn.addEventListener('click', () => {
         const k = btn.getAttribute('data-acc');
         const panel = root.querySelector('[data-subs="' + k + '"]');
@@ -141,7 +191,35 @@
         root.querySelectorAll('[data-subs]').forEach(p => p.removeAttribute('data-open'));
         if (!open) { btn.setAttribute('aria-expanded', 'true'); panel.setAttribute('data-open', ''); }
       }));
-      window.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
+
+      const input = root.querySelector('.search input');
+      const clear = root.querySelector('.clear');
+      const tagCard = root.querySelector('[data-tagcard]');
+      const menuCard = root.querySelector('[data-menucard]');
+      const resultCard = root.querySelector('[data-resultcard]');
+      const results = root.querySelector('[data-results]');
+
+      const render = () => {
+        const q = input.value.trim();
+        clear.toggleAttribute('data-on', q.length > 0);
+        if (!q) {
+          resultCard.classList.add('hidden');
+          tagCard.classList.remove('hidden');
+          menuCard.classList.remove('hidden');
+          return;
+        }
+        tagCard.classList.add('hidden');
+        menuCard.classList.add('hidden');
+        resultCard.classList.remove('hidden');
+        const hits = INDEX.filter(it => it.label.replace(/\s/g, '').includes(q.replace(/\s/g, '')));
+        results.innerHTML = hits.length
+          ? hits.map(h => `<a class="row" href="${h.href}">${h.label}<span class="grp">${h.group}</span></a>`).join('')
+          : `<div class="empty">'${q}' 검색 결과가 없습니다.</div>`;
+        results.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+      };
+
+      input.addEventListener('input', render);
+      clear.addEventListener('click', () => { input.value = ''; render(); input.focus(); });
     }
     disconnectedCallback() {
       document.documentElement.style.overflow = '';

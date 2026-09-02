@@ -24,9 +24,11 @@
     [data-fab] [data-ico]{font-size:17px; line-height:1;}
     [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
     @media (max-width: 720px){
-      [data-fabwrap]{right:12px !important;}
-      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
-      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fabwrap]{right:12px !important;bottom:84px !important;gap:8px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
+      [data-fab] [data-ring]{display:none !important;}
+      [data-fabwrap] > a:last-child{width:38px !important;height:38px !important;font-size:14px !important;}
       [data-fab] [data-ring]{display:none !important;}
     }
     [data-gnb] > a{font-size:14px;color:var(--ink-soft);}
@@ -42,6 +44,14 @@
     }
     @media (max-width: 720px){
       [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      [data-r="caselist"]{display:flex !important;flex-direction:column !important;gap:0.75rem !important;}
+      [data-r="casecard"]{flex-direction:row !important;align-items:center !important;border:0 !important;background:#fff !important;border-radius:1rem !important;padding:0.75rem !important;box-shadow:0 1px 3px rgba(15,20,32,0.07) !important;}
+      [data-r="casephoto"]{flex:0 0 9rem !important;width:9rem !important;aspect-ratio:1/1 !important;border-radius:0.75rem !important;}
+      [data-r="casebody"]{padding:0 0 0 0.875rem !important;gap:0.3125rem !important;min-width:0 !important;justify-content:center !important;}
+      [data-r="casetags"]{gap:0.25rem !important;}
+      [data-r="casetags"] > span{font-size:0.625rem !important;padding:0.1875rem 0.4375rem !important;}
+      [data-r="casetitle"]{font-size:0.9375rem !important;line-height:1.4 !important;display:-webkit-box !important;-webkit-line-clamp:2 !important;-webkit-box-orient:vertical !important;overflow:hidden !important;}
+      [data-r="casedesc"]{font-size:0.75rem !important;line-height:1.6 !important;display:-webkit-box !important;-webkit-line-clamp:2 !important;-webkit-box-orient:vertical !important;overflow:hidden !important;}
       header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
       header > nav{display:none !important;}
       header > div{display:none !important;}
@@ -113,20 +123,20 @@
 
   <!-- gallery grid -->
   <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+    <div data-r="caselist" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
       <sc-for list="{{ cases }}" as="c" hint-placeholder-count="9">
-        <div style="border:1px solid var(--line); display:flex; flex-direction:column;">
-          <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7;">
+        <div data-r="casecard" style="border:1px solid var(--line); display:flex; flex-direction:column;">
+          <div data-r="casephoto" style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7;">
             <image-slot id="{{ c.photoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ c.photoHint }}"></image-slot>
           </div>
-          <div style="padding:18px 20px; display:flex; flex-direction:column; gap:8px;">
-            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <div data-r="casebody" style="padding:18px 20px; display:flex; flex-direction:column; gap:8px;">
+            <div data-r="casetags" style="display:flex; gap:6px; flex-wrap:wrap;">
               <sc-for list="{{ c.tags }}" as="tg" hint-placeholder-count="3">
                 <span style="font-size:11px; font-weight:700; color:var(--accent); background:rgba(47,111,237,0.08); padding:4px 10px;">{{ tg }}</span>
               </sc-for>
             </div>
-            <div style="font-size:15.5px; font-weight:800;">{{ c.title }}</div>
-            <div style="font-size:12.8px; color:var(--ink-soft); line-height:1.7;">{{ c.desc }}</div>
+            <div data-r="casetitle" style="font-size:15.5px; font-weight:800;">{{ c.title }}</div>
+            <div data-r="casedesc" style="font-size:12.8px; color:var(--ink-soft); line-height:1.7;">{{ c.desc }}</div>
           </div>
         </div>
       </sc-for>

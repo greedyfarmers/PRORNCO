@@ -24,10 +24,11 @@
     [data-fab] [data-ico]{font-size:17px; line-height:1;}
     [data-fab] [data-ring]{position:absolute; inset:-1px; border-radius:50%; border:2px solid currentColor; animation:ringPulse 2.4s ease-out infinite; pointer-events:none;}
     @media (max-width: 720px){
-      [data-fabwrap]{right:12px !important;}
-      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
-      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fabwrap]{right:12px !important;bottom:84px !important;gap:8px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
       [data-fab] [data-ring]{display:none !important;}
+      [data-fabwrap] > a:last-child{width:38px !important;height:38px !important;font-size:14px !important;}
     }
     [data-gnb] > a{font-size:14px;color:var(--ink-soft);}
     [data-gnb]:hover > a{color:var(--ink);}
@@ -50,6 +51,18 @@
       [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
       [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
       [data-r="pricegrid"]{grid-template-columns:1fr !important;}
+      [style*="padding: 52px 56px 40px"]{padding:1.5rem 1.25rem 1.25rem !important;gap:1.25rem !important;}
+      [style*="padding: 64px 24px 0"]{padding:2.25rem 1rem 0 !important;}
+      [style*="padding: 48px 24px 0"]{padding:1.75rem 1rem 0 !important;}
+      [style*="padding: 2rem 2.25rem"]{padding:1.25rem 1.125rem !important;}
+      [style*="border-radius: 24px"]{border-radius:1.125rem !important;}
+      [style*="font-size: 38px"]{font-size:1.75rem !important;}
+      [style*="font-size: 34px"]{font-size:1.5rem !important;}
+      [style*="aspect-ratio: 16 / 6"]{aspect-ratio:4/3 !important;}
+      [data-r="gal"]{margin-right:-1rem !important;padding-right:1rem !important;gap:0.625rem !important;}
+      [data-r="gal"] > *{flex:0 0 62% !important;}
+      [data-r="gal"]::-webkit-scrollbar{display:none !important;}
+      [style*="padding: 14px 24px"]{padding:0.875rem 1rem !important;font-size:0.8125rem !important;}
     }
   </style>
 </helmet>
@@ -135,9 +148,9 @@
   <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
     <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">GALLERY</div>
     <h2 style="font-size:22px; font-weight:800; margin:0 0 28px;">시공 사진</h2>
-    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:14px;">
+    <div data-r="gal" style="display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;">
       <sc-for list="{{ galleryIds }}" as="g" hint-placeholder-count="4">
-        <image-slot id="{{ g }}" style="aspect-ratio:1/1; border-radius:12px;" shape="rect" placeholder="간접조명 시공 사진"></image-slot>
+        <image-slot id="{{ g }}" style="flex:0 0 calc(25% - 10.5px); aspect-ratio:1/1; border-radius:12px; scroll-snap-align:start;" shape="rect" placeholder="간접조명 시공 사진"></image-slot>
       </sc-for>
     </div>
   </div>
@@ -226,6 +239,26 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  componentDidMount() {
+    this._gt = setInterval(() => {
+      let el = this._gal;
+      if (!el || !el.isConnected) el = this._gal = document.querySelector('[data-r="gal"]');
+      if (!el) return;
+      if (!el._wired) {
+        el._wired = true;
+        const pause = () => { el._paused = true; clearTimeout(el._t); el._t = setTimeout(() => { el._paused = false; }, 3000); };
+        ['pointerdown', 'touchstart', 'wheel'].forEach(ev => el.addEventListener(ev, pause, { passive: true }));
+      }
+      if (el._paused) return;
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 2) return;
+      const card = el.firstElementChild;
+      const step = card ? card.offsetWidth + 14 : el.clientWidth * 0.7;
+      el.scrollTo({ left: el.scrollLeft >= max - 4 ? 0 : el.scrollLeft + step, behavior: 'smooth' });
+    }, 2600);
+  }
+  componentWillUnmount() { if (this._gt) clearInterval(this._gt); }
+
   includedItems = [
     { n: 1, title: '커튼박스 무드등', desc: '커튼 위쪽으로 은은한 빛이 흘러내리는 조명 1곳' },
     { n: 2, title: '욕실조명', desc: '욕실 입구 센서 감지로 자동 점등 2곳' },

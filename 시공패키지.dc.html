@@ -36,6 +36,8 @@
     }
     @media (max-width: 720px){
       [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      [data-r="h1"]{font-size:26px !important;letter-spacing:-0.05em !important;}
+      [data-r="sub"]{font-size:13px !important;}
       header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
       header > nav{display:none !important;}
       header > div{display:none !important;}
@@ -44,9 +46,11 @@
       [style*="padding: 52px 48px"]{padding:32px 22px !important;}
       [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
       [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
-      [data-fab]{width:56px !important;height:56px !important;font-size:10.5px !important;}
-      [data-fab] [data-ico]{font-size:15px !important;}
+      [data-fabwrap]{right:12px !important;bottom:84px !important;gap:8px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
       [data-fab] [data-ring]{display:none !important;}
+      [data-fabwrap] > a:last-child{width:38px !important;height:38px !important;font-size:14px !important;}
     }
   </style>
 </helmet>
@@ -89,8 +93,8 @@
 
   <div id="pkgtable" data-reveal="1" style="opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; max-width:1160px; margin:0 auto; padding:48px 24px 0; scroll-margin-top:80px;">
     <div style="text-align:center; margin-bottom:32px;">
-      <h2 style="font-size:44px; font-weight:800; margin:0 0 14px; letter-spacing:-2px; line-height:1.15; color:#1B2A66;">시공패키지 가격구성</h2>
-      <div style="color:var(--ink-soft); font-size:17px; font-weight:600;">평형·구조에 따라 범위가 달라지며, 최종 금액은 실측 후 확정됩니다</div>
+      <h2 data-r="h1" style="font-size:36px; font-weight:800; margin:0 0 12px; letter-spacing:-1.4px; line-height:1.2; color:#1B2A66;">시공패키지 가격구성</h2>
+      <div data-r="sub" style="color:var(--ink-soft); font-size:15px; font-weight:600; line-height:1.65;">평형·구조에 따라 범위가 달라지며, 최종 금액은 실측 후 확정됩니다</div>
     </div>
 
     <div style="background:#fff; border-radius:28px; padding:30px 30px 34px;">
@@ -99,12 +103,23 @@
           <div style="{{ cat.cardStyle }}" onMouseEnter="{{ cat.onEnter }}" onMouseLeave="{{ cat.onLeave }}">
             <!-- head: name / price / CTA -->
             <div style="padding:24px 22px 22px;">
-              <div style="{{ cat.offStyle }}">{{ cat.tag }}</div>
-              <div style="font-size:15.5px; font-weight:800; color:var(--ink); line-height:1.4; margin:12px 0 16px; min-height:44px;">{{ cat.name }}</div>
-              <div style="margin-bottom:18px;">
-                <div style="font-size:30px; font-weight:800; letter-spacing:-1.4px; line-height:1.1;">{{ cat.priceMain }}</div>
-                <div style="font-size:12.5px; color:#7A8497; font-weight:600; margin-top:5px;">{{ cat.priceSuffix }}</div>
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:14px;">
+                <span style="{{ cat.offStyle }}">{{ cat.tag }}</span>
+                <div style="{{ cat.offBadgeStyle }}">{{ cat.off }}<br/>OFF</div>
               </div>
+
+              <div style="font-size:19px; font-weight:800; color:var(--ink); letter-spacing:-0.6px; line-height:1.35; margin-bottom:16px; min-height:52px;">{{ cat.name }}</div>
+
+              <div style="border-top:1px solid #E9ECF3; padding-top:18px; text-align:right; margin-bottom:14px;">
+                <div style="font-size:24px; font-weight:800; letter-spacing:-1px; line-height:1.25;">{{ cat.nowLabel }}</div>
+                <div style="font-size:12px; color:#B3B9C6; text-decoration:line-through; margin-top:4px; line-height:1.4;">{{ cat.wasLabel }}</div>
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; background:#fff; border:1px solid #E9ECF3; border-radius:12px; padding:10px 12px; margin-bottom:14px;">
+                <span style="font-size:11px; font-weight:800; color:#fff; background:#E85A5A; padding:4px 9px; border-radius:8px; white-space:nowrap;">총 할인금액</span>
+                <span style="font-size:15px; font-weight:800; color:#E85A5A; letter-spacing:-0.5px;">{{ cat.saveLabel }}</span>
+              </div>
+
               <a href="{{ cat.href }}" style="{{ cat.btnStyle }}">자세히 보기</a>
             </div>
 
@@ -264,9 +279,23 @@ class Component extends DCLogic {
     const ringStyle = 'position:relative;width:100%;height:100%;transform-style:preserve-3d;transform:rotateY(' + rotation.toFixed(2) + 'deg);';
 
     const catHrefs = ['./간접조명패키지.dc.html', './우물천장패키지.dc.html', './우물천장실링팬패키지.dc.html', './실링팬패키지.dc.html'];
+    const pricing = [
+      { was: 630000, now: 510000 },
+      { was: 1050000, now: 850000 },
+      { was: 1430000, now: 1230000 },
+      { was: 990000, now: 880000 },
+    ];
+    const fmt = (n) => n.toLocaleString();
     const categories = this.data.map((c, i) => {
       const on = this.state.hoverCat === i;
+      const pr = pricing[i] || { was: 0, now: 0 };
       return {
+        off: pr.was ? Math.round((1 - pr.now / pr.was) * 100) + '%' : '',
+        nowLabel: fmt(pr.now) + '원',
+        wasLabel: '정가 ' + fmt(pr.was) + '원',
+        saveLabel: '-' + fmt(pr.was - pr.now) + '원',
+        offBadgeStyle: 'flex-shrink:0; text-align:center; font-size:12px; font-weight:800; line-height:1.2; padding:8px 10px; border-radius:10px;' +
+          (on ? 'background:#2F6FED; color:#fff;' : 'background:#fff; color:#0F1420; border:1px solid #E4E7EF;'),
         name: c.name,
         href: catHrefs[i] || '#pkgtable',
         tag: c.variants.length > 1 ? '한방 / 무몰딩 선택' : '단일 구성',
