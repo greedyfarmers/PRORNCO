@@ -682,7 +682,26 @@ class Component extends DCLogic {
     return {
       leadPhone: this.state.leadPhone || '',
       onLeadInput: e => this.setState({ leadPhone: e.target.value }),
-      onLeadSubmit: () => this.setState({ leadSent: true }),
+      onLeadSubmit: () => {
+        const phone = (this.state.leadPhone || '').trim();
+        if (!phone) return;
+        const url = 'https://script.google.com/macros/s/AKfycbzRd36SmwfLyb-ogL4XkEPEcICp9DQOLrsbvnP3BzUwbJNo03H8fDD01ZfmvM7cTFiG/exec';
+        const payload = JSON.stringify({ phone, page: location.href, ts: new Date().toISOString() });
+        try {
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon(url, new Blob([payload], { type: 'text/plain;charset=UTF-8' }));
+          } else {
+            fetch(url, {
+              method: 'POST',
+              mode: 'no-cors',
+              keepalive: true,
+              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+              body: payload,
+            }).catch(() => {});
+          }
+        } catch (err) {}
+        this.setState({ leadSent: true });
+      },,
       leadSent: !!this.state.leadSent,
       closeLeadSent: () => this.setState({ leadSent: false, leadPhone: '' }),
       testimonialCols,
