@@ -453,6 +453,7 @@ class Component extends DCLogic {
       { label: '우물천장 + 실링팬 패키지', href: './우물천장실링팬패키지.dc.html' },
       { label: '실링팬 패키지', href: './실링팬패키지.dc.html' },
     ]},
+    { label: '셀프견적', href: './상세견적.dc.html', children: null, accent: true },
     { label: '개별항목', href: './개별항목.dc.html', current: true, children: [
       { label: '우물천장조명', href: './개별항목.dc.html#umul' },
       { label: '커튼조명', href: './개별항목.dc.html#curtain' },
@@ -461,7 +462,6 @@ class Component extends DCLogic {
       { label: '실링팬', href: './개별항목.dc.html#fan' },
     ]},
     { label: '색상안내', href: './색상안내.dc.html', children: null },
-    { label: '셀프견적', href: './상세견적.dc.html', children: null },
     { label: '시공사례', href: './시공사례.dc.html', children: null },
     { label: '시공후기', href: './시공후기.dc.html', children: null },
     { label: '고객센터', href: './고객센터.dc.html', children: null },
@@ -474,7 +474,7 @@ class Component extends DCLogic {
       href: n.href,
       children: n.children,
       onEnter: () => this.setState({ openNav: i }),
-      linkStyle: 'font-size:14px;' + (n.current ? 'color:var(--accent);font-weight:700;' : 'color:var(--ink-soft);'),
+      linkStyle: 'font-size:14px;' + (n.current ? 'color:var(--accent);font-weight:700;' : (n.accent ? 'color:var(--accent);font-weight:800;' : 'color:var(--ink-soft);')),
       dropdownStyle: 'position:absolute;top:100%;left:-14px;padding:8px 0;background:#fff;border:1px solid var(--line);box-shadow:0 14px 34px rgba(10,15,31,0.12);min-width:190px;opacity:' + (openNav === i ? '1' : '0') + ';visibility:' + (openNav === i ? 'visible' : 'hidden') + ';transition:opacity .18s ease;z-index:40;',
     }));
 

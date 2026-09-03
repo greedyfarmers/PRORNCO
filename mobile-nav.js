@@ -8,6 +8,7 @@
       { label: '우물천장 + 실링팬 패키지', href: './우물천장실링팬패키지.dc.html' },
       { label: '실링팬 패키지', href: './실링팬패키지.dc.html' }
     ]},
+    { label: '셀프견적', href: './상세견적.dc.html', accent: true },
     { label: '개별항목', href: './개별항목.dc.html', children: [
       { label: '우물천장조명', href: './개별항목.dc.html#umul' },
       { label: '커튼조명', href: './개별항목.dc.html#curtain' },
@@ -16,7 +17,6 @@
       { label: '실링팬', href: './개별항목.dc.html#fan' }
     ]},
     { label: '색상안내', href: './색상안내.dc.html' },
-    { label: '셀프견적', href: './상세견적.dc.html' },
     { label: '시공사례', href: './시공사례.dc.html' },
     { label: '시공후기', href: './시공후기.dc.html' },
     { label: '고객센터', href: './고객센터.dc.html' }
@@ -113,7 +113,7 @@
       const rows = MENU.map((m, i) => {
         const isCur = m.label === cur;
         if (!m.children) {
-          return `<a class="row" href="${m.href}"${isCur ? ' data-current' : ''}>${m.label}</a>`;
+          return `<a class="row" href="${m.href}"${isCur ? ' data-current' : ''}${m.accent ? ' style="color:#2F6FED;font-weight:800;"' : ''}>${m.label}</a>`;
         }
         return `<button class="row" type="button" data-acc="${i}" aria-expanded="false"${isCur ? ' data-current' : ''}>${m.label}<span class="chev">›</span></button>
           <div class="subs" data-subs="${i}"><a class="sub" href="${m.href}" style="font-weight:700;color:#2F6FED;">${m.label} 전체보기</a>${m.children.map(c => `<a class="sub" href="${c.href}">${c.label}</a>`).join('')}</div>`;

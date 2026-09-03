@@ -110,7 +110,7 @@
       <nav data-r="gnb" style="display:flex; gap:22px;">
         <sc-for list="{{ gnb }}" as="g" hint-placeholder-count="7">
           <div onMouseEnter="{{ g.onEnter }}" onMouseLeave="{{ onGnbLeave }}" style="position:relative; font-size:14px; color:var(--ink-soft); cursor:pointer; padding:6px 0; white-space:nowrap;" style-hover="color:var(--ink);">
-            <a href="{{ g.href }}" style="color:inherit;">{{ g.label }}</a>
+            <a href="{{ g.href }}" style="{{ g.labelStyle }}">{{ g.label }}</a>
             <sc-if value="{{ g.children }}" hint-placeholder-val="{{ false }}">
               <div style="{{ g.dropdownStyle }}">
                 <sc-for list="{{ g.children }}" as="c" hint-placeholder-count="4">
@@ -131,10 +131,18 @@
     <img src="./assets/hero-photo7.jpg" alt="우물천장 조명 시공 사진" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 18%;"/>
     <img src="./assets/hero-cob-off.jpg" alt="COB조명 OFF" style="{{ cobOffStyle }}"/>
     <img src="./assets/hero-umul-cob.jpg" alt="우물조명 + COB조명만 ON" style="{{ umulCobStyle }}"/>
-    <img src="./assets/hero-fan-only.jpg" alt="커튼조명만 ON" style="{{ curtainOnlyStyle }}"/>
+    <img src="./assets/hero-curtain-fan.jpg" alt="커튼조명만 ON" style="{{ curtainOnlyStyle }}"/>
     <img src="./assets/hero-fanlight-only.jpg" alt="실링팬 조명만 ON" style="{{ fanOnlyStyle }}"/>
     <img src="./assets/hero-umul-only.jpg" alt="우물조명만 ON" style="{{ umulOnlyStyle }}"/>
     <img src="./assets/hero-umul-fan.jpg" alt="우물조명 + 실링팬 조명 ON" style="{{ umulFanStyle }}"/>
+    <img src="./assets/hero-cob-fan.jpg" alt="COB조명 + 실링팬 조명 ON" style="{{ cobFanStyle }}"/>
+    <img src="./assets/hero-cob-only.jpg" alt="COB조명만 ON" style="{{ cobOnlyStyle }}"/>
+    <img src="./assets/hero-no-umul.jpg" alt="우물조명만 OFF" style="{{ noUmulStyle }}"/>
+    <img src="./assets/hero-no-curtain.jpg" alt="커튼조명만 OFF" style="{{ noCurtainStyle }}"/>
+    <img src="./assets/hero-no-fan.jpg" alt="실링팬 조명만 OFF" style="{{ noFanStyle }}"/>
+    <img src="./assets/hero-umul-curtain.jpg" alt="우물조명 + 커튼조명 ON" style="{{ umulCurtainStyle }}"/>
+    <img src="./assets/hero-curtain-cob.jpg" alt="커튼조명 + COB조명 ON" style="{{ curtainCobStyle }}"/>
+    <img src="./assets/hero-curtain-fanlight.jpg" alt="커튼조명 + 실링팬 조명 ON" style="{{ curtainFanStyle }}"/>
     <img src="./assets/hero-all-off.jpg" alt="조명 일괄 OFF" style="{{ allOffStyle }}"/>
 
 
@@ -459,6 +467,7 @@ class Component extends DCLogic {
       { label: '우물천장 + 실링팬 패키지', href: './우물천장실링팬패키지.dc.html' },
       { label: '실링팬 패키지', href: './실링팬패키지.dc.html' },
     ], href: './시공패키지.dc.html' },
+    { label: '셀프견적', children: null, href: './상세견적.dc.html', accent: true },
     { label: '개별항목', children: [
       { label: '우물천장조명', href: './개별항목.dc.html#umul' },
       { label: '커튼조명', href: './개별항목.dc.html#curtain' },
@@ -467,7 +476,6 @@ class Component extends DCLogic {
       { label: '실링팬', href: './개별항목.dc.html#fan' },
     ], href: './개별항목.dc.html' },
     { label: '색상안내', children: null, href: './색상안내.dc.html' },
-    { label: '셀프견적', children: null, href: './상세견적.dc.html' },
     { label: '시공사례', children: null, href: './시공사례.dc.html' },
     { label: '시공후기', children: null, href: './시공후기.dc.html' },
     { label: '고객센터', children: null, href: './고객센터.dc.html' },
@@ -600,6 +608,22 @@ class Component extends DCLogic {
     const allOff = !s.umul && !s.cob && !s.curtain && !s.fan;
     const umulOnly = s.umul && !s.cob && !s.curtain && !s.fan;
     const umulFanOnly = s.umul && s.fan && !s.cob && !s.curtain;
+    const cobFanOnly = s.cob && s.fan && !s.umul && !s.curtain;
+    const cobOnly = s.cob && !s.umul && !s.curtain && !s.fan;
+    const noUmul = !s.umul && s.curtain && s.cob && s.fan;
+    const noCurtain = s.umul && !s.curtain && s.cob && s.fan;
+    const noFan = s.umul && s.curtain && s.cob && !s.fan;
+    const umulCurtainOnly = s.umul && s.curtain && !s.cob && !s.fan;
+    const curtainCobOnly = s.curtain && s.cob && !s.umul && !s.fan;
+    const curtainFanOnly = s.curtain && s.fan && !s.umul && !s.cob;
+    const curtainFanStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (curtainFanOnly ? 1 : 0) + ';';
+    const curtainCobStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (curtainCobOnly ? 1 : 0) + ';';
+    const umulCurtainStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (umulCurtainOnly ? 1 : 0) + ';';
+    const noFanStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (noFan ? 1 : 0) + ';';
+    const noCurtainStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (noCurtain ? 1 : 0) + ';';
+    const noUmulStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (noUmul ? 1 : 0) + ';';
+    const cobOnlyStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (cobOnly ? 1 : 0) + ';';
+    const cobFanStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (cobFanOnly ? 1 : 0) + ';';
     const umulFanStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (umulFanOnly ? 1 : 0) + ';';
     const umulOnlyStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:2;pointer-events:none;opacity:' + (umulOnly ? 1 : 0) + ';';
     const allOffStyle = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;transition:opacity .5s ease;z-index:3;pointer-events:none;opacity:' + (allOff ? 1 : 0) + ';';
@@ -674,6 +698,7 @@ class Component extends DCLogic {
     const gnb = this.gnb.map((g, i) => ({
       ...g,
       href: g.href || '#hero',
+      labelStyle: g.accent ? 'color:var(--accent);font-weight:800;' : 'color:inherit;',
       onEnter: () => this.setState({ openGnb: i }),
       dropdownStyle: 'position:absolute;top:28px;left:50%;transform:translateX(-50%);background:#fff;color:#0F1420;min-width:180px;padding:14px 0;border-radius:14px;border:1px solid #E8E6E0;transition:all .18s ease;box-shadow:0 18px 40px rgba(15,20,32,0.12);font-size:13.5px;' +
         (this.state.openGnb === i ? 'opacity:1;visibility:visible;' : 'opacity:0;visibility:hidden;'),
@@ -682,26 +707,7 @@ class Component extends DCLogic {
     return {
       leadPhone: this.state.leadPhone || '',
       onLeadInput: e => this.setState({ leadPhone: e.target.value }),
-      onLeadSubmit: () => {
-        const phone = (this.state.leadPhone || '').trim();
-        if (!phone) return;
-        const url = 'https://script.google.com/macros/s/AKfycbzRd36SmwfLyb-ogL4XkEPEcICp9DQOLrsbvnP3BzUwbJNo03H8fDD01ZfmvM7cTFiG/exec';
-        const payload = JSON.stringify({ phone, page: location.href, ts: new Date().toISOString() });
-        try {
-          if (navigator.sendBeacon) {
-            navigator.sendBeacon(url, new Blob([payload], { type: 'text/plain;charset=UTF-8' }));
-          } else {
-            fetch(url, {
-              method: 'POST',
-              mode: 'no-cors',
-              keepalive: true,
-              headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-              body: payload,
-            }).catch(() => {});
-          }
-        } catch (err) {}
-        this.setState({ leadSent: true });
-      },
+      onLeadSubmit: () => this.setState({ leadSent: true }),
       leadSent: !!this.state.leadSent,
       closeLeadSent: () => this.setState({ leadSent: false, leadPhone: '' }),
       testimonialCols,
@@ -721,6 +727,14 @@ class Component extends DCLogic {
       allOffStyle,
       umulOnlyStyle,
       umulFanStyle,
+      cobFanStyle,
+      cobOnlyStyle,
+      noUmulStyle,
+      noCurtainStyle,
+      noFanStyle,
+      umulCurtainStyle,
+      curtainCobStyle,
+      curtainFanStyle,
       curtainOnlyStyle,
       umulCobStyle,
       fanOnlyStyle,
