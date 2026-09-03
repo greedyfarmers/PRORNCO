@@ -50,7 +50,7 @@
     :host([open]) .burger span:nth-child(2){opacity:0;}
     :host([open]) .burger span:nth-child(3){transform:translateY(-0.5rem) rotate(-45deg);}
     .sheet{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;z-index:999;background:#F3F5F9;
-      display:flex;flex-direction:column;overflow:hidden;
+      display:flex;flex-direction:column;overflow:hidden;overscroll-behavior:contain;
       opacity:0;visibility:hidden;transform:translateX(6%);
       transition:opacity .22s ease, transform .28s ease, visibility .22s;}
     :host([open]) .sheet{opacity:1;visibility:visible;transform:translateX(0);}
@@ -69,7 +69,7 @@
     .clear{flex:0 0 auto;width:1.375rem;height:1.375rem;border-radius:50%;background:#E6E9F0;color:#6B7385;
       font-size:0.8125rem;line-height:1.375rem;text-align:center;display:none;}
     .clear[data-on]{display:block;}
-    nav{flex:1 1 auto;overflow-y:auto;padding:0 0.875rem 1.5rem;display:flex;flex-direction:column;gap:0.75rem;}
+    nav{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;padding:0 0.875rem 4rem;display:flex;flex-direction:column;gap:0.75rem;}
     .quick{display:flex;background:#fff;border-radius:1rem;padding:1rem 0.5rem;}
     .quick a{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:0.4375rem;
       text-decoration:none;color:#111;font-size:0.8125rem;font-weight:700;position:relative;}
