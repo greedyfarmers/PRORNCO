@@ -109,6 +109,12 @@
       this._built = true;
       const cur = this.getAttribute('current') || '';
       const root = this.attachShadow({ mode: 'open' });
+      const portal = document.createElement('div');
+      portal.setAttribute('data-mobile-nav-portal', '');
+      portal.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;z-index:999;';
+      document.body.appendChild(portal);
+      const proot = portal.attachShadow({ mode: 'open' });
+      this._portal = portal;
 
       const rows = MENU.map((m, i) => {
         const isCur = m.label === cur;
@@ -122,7 +128,9 @@
       root.innerHTML = `<style>${CSS}</style>
         <button class="burger" aria-label="메뉴 열기">
           <span></span><span></span><span></span>
-        </button>
+        </button>`;
+
+      proot.innerHTML = `<style>${CSS}</style>
         <div class="sheet" role="dialog" aria-modal="true">
           <div class="top">
             <a class="mark" href="./PRORCO 홈페이지.dc.html">PROR.CO</a>
@@ -162,8 +170,8 @@
 
       const HIDE_ID = '__mobile-nav-hide-fab';
       const toggle = (on) => {
-        if (on) this.setAttribute('open', '');
-        else this.removeAttribute('open');
+        if (on) { this.setAttribute('open', ''); portal.setAttribute('open', ''); }
+        else { this.removeAttribute('open'); portal.removeAttribute('open'); }
         document.documentElement.style.overflow = on ? 'hidden' : '';
         let st = document.getElementById(HIDE_ID);
         if (on) {
@@ -179,25 +187,25 @@
       };
 
       root.querySelector('.burger').addEventListener('click', () => toggle(!this.hasAttribute('open')));
-      root.querySelector('.close').addEventListener('click', () => toggle(false));
-      root.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => toggle(false)));
+      proot.querySelector('.close').addEventListener('click', () => toggle(false));
+      proot.querySelectorAll('nav a').forEach(a => a.addEventListener('click', () => toggle(false)));
       window.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
 
-      root.querySelectorAll('[data-acc]').forEach(btn => btn.addEventListener('click', () => {
+      proot.querySelectorAll('[data-acc]').forEach(btn => btn.addEventListener('click', () => {
         const k = btn.getAttribute('data-acc');
-        const panel = root.querySelector('[data-subs="' + k + '"]');
+        const panel = proot.querySelector('[data-subs="' + k + '"]');
         const open = btn.getAttribute('aria-expanded') === 'true';
-        root.querySelectorAll('[data-acc]').forEach(b => b.setAttribute('aria-expanded', 'false'));
-        root.querySelectorAll('[data-subs]').forEach(p => p.removeAttribute('data-open'));
+        proot.querySelectorAll('[data-acc]').forEach(b => b.setAttribute('aria-expanded', 'false'));
+        proot.querySelectorAll('[data-subs]').forEach(p => p.removeAttribute('data-open'));
         if (!open) { btn.setAttribute('aria-expanded', 'true'); panel.setAttribute('data-open', ''); }
       }));
 
-      const input = root.querySelector('.search input');
-      const clear = root.querySelector('.clear');
-      const tagCard = root.querySelector('[data-tagcard]');
-      const menuCard = root.querySelector('[data-menucard]');
-      const resultCard = root.querySelector('[data-resultcard]');
-      const results = root.querySelector('[data-results]');
+      const input = proot.querySelector('.search input');
+      const clear = proot.querySelector('.clear');
+      const tagCard = proot.querySelector('[data-tagcard]');
+      const menuCard = proot.querySelector('[data-menucard]');
+      const resultCard = proot.querySelector('[data-resultcard]');
+      const results = proot.querySelector('[data-results]');
 
       const render = () => {
         const q = input.value.trim();
@@ -223,6 +231,7 @@
     }
     disconnectedCallback() {
       document.documentElement.style.overflow = '';
+      if (this._portal) { this._portal.remove(); this._portal = null; }
       const st = document.getElementById('__mobile-nav-hide-fab');
       if (st) st.remove();
     }
