@@ -70,6 +70,7 @@
       font-size:0.8125rem;line-height:1.375rem;text-align:center;display:none;}
     .clear[data-on]{display:block;}
     nav{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y;padding:0 0.875rem 4rem;display:flex;flex-direction:column;gap:0.75rem;}
+    nav > *{flex:0 0 auto;}
     .quick{display:flex;background:#fff;border-radius:1rem;padding:1rem 0.5rem;}
     .quick a{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:0.4375rem;
       text-decoration:none;color:#111;font-size:0.8125rem;font-weight:700;position:relative;}
