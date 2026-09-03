@@ -44,20 +44,38 @@
     }
     @media (max-width: 720px){
       [style*="grid-template-columns"]{grid-template-columns:1fr !important;}
+      [data-r="dualthumbs"]{grid-template-columns:repeat(4,1fr) !important;gap:5px !important;margin-top:10px !important;}
+      [data-r="dualthumbs"] > div > div:first-child{aspect-ratio:1/1 !important;}
+      [data-r="dualthumbs"] > div > div:last-child{font-size:9.5px !important;margin-top:3px !important;letter-spacing:-0.03em !important;}
       header{padding:0.875rem 1rem !important; flex-wrap:nowrap !important; gap:0 !important;}
       header > nav{display:none !important;}
       header > div{display:none !important;}
       nav{flex-wrap:wrap !important; gap:10px !important;} nav a, nav div{font-size:12.5px !important;}
       h1{font-size:22px !important;} h2{font-size:20px !important;} h3{font-size:18px !important;}
       [style*="max-width: 1160px"]{padding-left:16px !important; padding-right:16px !important;}
+      [data-r="block"]{margin:12px 12px 0 !important;padding:22px 16px 26px !important;border-radius:16px !important;}
       [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
-      [data-r="picker"]{flex-direction:column !important;}
+      [data-r="picker"]{display:grid !important;grid-template-columns:repeat(4,1fr) !important;gap:5px !important;}
+      [data-r="picker"] > div{flex-direction:column !important;align-items:center !important;justify-content:center !important;gap:7px !important;padding:11px 3px !important;text-align:center !important;min-width:0 !important;}
+      [data-r="picker"] > div > span:first-child{width:24px !important;height:24px !important;flex:0 0 auto !important;}
+      [data-r="picker"] > div > span:nth-child(2){align-items:center !important;}
+      [data-r="picker"] > div > span:nth-child(2) > span:first-child{font-size:12px !important;font-weight:800 !important;letter-spacing:-0.05em !important;line-height:1.3 !important;white-space:normal !important;}
+      [data-r="picker"] > div > span:nth-child(2) > span:last-child{display:none !important;}
+      [data-r="picker"] > div > span:last-child{display:none !important;}
       [data-r="cmpgrid"], [data-r="cardgrid"]{grid-template-columns:repeat(2,1fr) !important;}
+      [data-r="cardgrid"]{grid-template-columns:repeat(2,1fr) !important;gap:12px !important;margin-bottom:20px !important;}
+      [data-r="cardgrid"] > div{padding:22px 14px 20px !important;border-radius:18px !important;border-color:#E8E6E0 !important;background:#fff !important;text-align:center !important;box-shadow:0 2px 10px rgba(15,20,32,0.05) !important;}
+      [data-r="cardgrid"] > div > div:first-child{flex-direction:column !important;align-items:center !important;gap:12px !important;margin-bottom:8px !important;}
+      [data-r="cardgrid"] > div > div:first-child > span:first-child{width:46px !important;height:46px !important;border:1px solid rgba(15,20,32,0.14) !important;box-shadow:0 4px 12px rgba(15,20,32,0.16), inset 0 -3px 8px rgba(15,20,32,0.06) !important;}
+      [data-r="cardgrid"] > div > div:first-child > b{font-size:17px !important;letter-spacing:-0.03em !important;line-height:1.35 !important;}
+      [data-r="cardgrid"] > div > div:first-child > span:last-child{font-size:13px !important;}
+      [data-r="cardgrid"] > div > div:nth-child(2){font-size:12.5px !important;line-height:1.55 !important;margin-bottom:0 !important;}
+      [data-r="cardgrid"] > div > div:nth-child(3), [data-r="cardgrid"] > div > div:last-child{display:none !important;}
     }
   </style>
 </helmet>
 
-<div style="--bg:#FFFFFF;--ink:#111111;--ink-soft:#6B6B6B;--line:#E9E9E9;--accent:#2F6FED;--surface-dark:#0A0A0A;--surface-dark-2:#141824; background:var(--bg); color:var(--ink); font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased;">
+<div style="--bg:#F4F6FA;--ink:#111111;--ink-soft:#6B6B6B;--line:#E9E9E9;--accent:#2F6FED;--surface-dark:#0A0A0A;--surface-dark-2:#141824; background:var(--bg); color:var(--ink); font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; -webkit-font-smoothing:antialiased;">
 
   <header style="border-bottom:1px solid var(--line); padding:18px 32px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:#fff; z-index:20;">
     <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
@@ -90,7 +108,7 @@
   <!-- INTRO -->
   <div style="max-width:1160px; margin:0 auto; padding:48px 24px 0;">
     <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">PROR.CO COLOR GUIDE</div>
-    <h1 style="font-size:30px; font-weight:800; margin:0 0 10px; line-height:1.3;">색상안내 — 빛의 색부터 정하세요</h1>
+    <h1 style="font-size:30px; font-weight:800; margin:0 0 10px; line-height:1.3;">색상안내 · 빛의 색부터 정하세요</h1>
     <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.75; max-width:700px;">같은 공간도 조명 색 하나로 인상이 완전히 달라집니다. 프로어앤코는 색을 말로 설명하지 않습니다. 실제 시공한 사진에서 직접 바꿔보고 고르시면 됩니다.</p>
 
     <!-- section tabs -->
@@ -102,7 +120,7 @@
   </div>
 
   <!-- 01 세 가지 색 -->
-  <div id="pick" style="max-width:1160px; margin:0 auto; padding:44px 24px 0; scroll-margin-top:80px;">
+  <div id="pick" data-r="block" style="max-width:1160px; margin:20px auto 0; padding:32px 28px 36px; scroll-margin-top:80px; background:#fff; border:1px solid var(--line); border-radius:18px;">
     <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">01 · COLOR TEMPERATURE</div>
     <h2 style="font-size:26px; font-weight:800; margin:0 0 10px; line-height:1.35;">내 공간에 맞는 빛의 색을 골라보세요</h2>
     <p style="color:var(--ink-soft); font-size:14px; margin:0 0 28px; line-height:1.8; max-width:720px;">색온도가 낮을수록 노랗고 따뜻한 빛을, 높을수록 하얗고 시원한 빛을 냅니다. 간접 T5 조명은 빛의 색에 따라 공간의 분위기가 달라집니다. 원하는 빛을 선택해보세요.</p>
@@ -152,7 +170,7 @@
   </div>
 
   <!-- 02 3색변환 -->
-  <div id="dooljul" style="max-width:1160px; margin:0 auto; padding:56px 24px 0; scroll-margin-top:80px;">
+  <div id="dooljul" data-r="block" style="max-width:1160px; margin:20px auto 0; padding:32px 28px 36px; scroll-margin-top:80px; background:#fff; border:1px solid var(--line); border-radius:18px;">
     <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">02 · DUAL LINE</div>
     <h2 style="font-size:26px; font-weight:800; margin:0 0 6px; line-height:1.35;">더 밝고 충분한 조도를 원한다면</h2>
     <h3 style="font-size:19px; font-weight:700; color:var(--accent); margin:0 0 12px; line-height:1.4;">우물 2줄조명, 원하는 색으로 커스텀하세요</h3>
@@ -165,6 +183,16 @@
             <image-slot id="{{ dl.id }}" style="{{ dl.style }}" shape="rect" placeholder="{{ dl.placeholder }}"></image-slot>
           </sc-for>
           <div style="position:absolute; left:50%; bottom:16px; transform:translateX(-50%); background:rgba(10,10,10,0.78); color:#fff; font-size:12.5px; padding:8px 16px; white-space:nowrap;">{{ dualStateLabel }}</div>
+        </div>
+        <div data-r="dualthumbs" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px;">
+          <sc-for list="{{ dualLayers }}" as="dl" hint-placeholder-count="4">
+            <div>
+              <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7; border:1px solid var(--line);">
+                <image-slot id="{{ dl.id }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ dl.placeholder }}"></image-slot>
+              </div>
+              <div style="font-size:11px; color:var(--ink-soft); margin-top:5px; line-height:1.4;">{{ dl.caption }}</div>
+            </div>
+          </sc-for>
         </div>
         <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:16px; flex-wrap:wrap;">
           <div style="font-size:12.5px; color:var(--ink-soft);">{{ dualHint }}</div>
@@ -206,7 +234,7 @@
 
   <!-- SPACE SECTIONS -->
   <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="4">
-    <div id="{{ sec.id }}" style="max-width:1160px; margin:0 auto; padding:56px 24px 0; scroll-margin-top:80px;">
+    <div id="{{ sec.id }}" data-r="block" style="max-width:1160px; margin:20px auto 0; padding:32px 28px 36px; scroll-margin-top:80px; background:#fff; border:1px solid var(--line); border-radius:18px;">
       <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
         <div style="min-width:0;">
           <div style="font-size:11.5px; letter-spacing:1.5px; color:var(--accent); font-weight:700; margin-bottom:10px;">{{ sec.num }} · {{ sec.eyebrow }}</div>
@@ -274,7 +302,7 @@
   </div>
 
   <!-- CHECKPOINTS -->
-  <div id="checkpoints" style="max-width:1160px; margin:0 auto; padding:56px 24px 0; scroll-margin-top:80px;">
+  <div id="checkpoints" data-r="block" style="max-width:1160px; margin:20px auto 0; padding:32px 28px 36px; scroll-margin-top:80px; background:#fff; border:1px solid var(--line); border-radius:18px;">
     <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">CHECKPOINT</div>
     <h3 style="font-size:21px; font-weight:800; margin:0 0 20px;">이것만 기억하시면 됩니다</h3>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
@@ -289,7 +317,7 @@
   </div>
 
   <!-- FAQ -->
-  <div id="faq" style="max-width:1160px; margin:0 auto; padding:56px 24px 0; scroll-margin-top:80px;">
+  <div id="faq" data-r="block" style="max-width:1160px; margin:20px auto 0; padding:32px 28px 36px; scroll-margin-top:80px; background:#fff; border:1px solid var(--line); border-radius:18px;">
     <div style="font-size:11px; color:var(--ink-soft); font-weight:700; margin-bottom:10px;">FAQ</div>
     <h3 style="font-size:21px; font-weight:800; margin:0 0 20px;">자주 묻는 질문</h3>
     <div style="border:1px solid var(--line);">
@@ -330,7 +358,7 @@ class Component extends DCLogic {
 
   colorData = [
     { k: 'k1000', label: '전구색', tempLabel: '3000K', tag: '전구색 · 3000K', tone: '아늑하고 분위기 있는 따뜻한 빛', swatch: '#F0A23C', compareId: 'cmp-3000k', desc: '카페·호텔처럼 따뜻하고 아늑한 노란빛', recommend: '침실·거실 등 편히 쉬는 공간' },
-    { k: 'k3500', label: '전주백색', tempLabel: '3500K', tag: '전주백색 · 3500K', tone: '노란색이 살짝 빠진 부드러운 빛', swatch: '#F3DDAE', compareId: 'cmp-3500k', desc: '따뜻함과 선명함이 균형 잡힌 중간 톤', recommend: '어디에나 무난 — 가장 많이 선택' },
+    { k: 'k3500', label: '전주백색', tempLabel: '3500K', tag: '전주백색 · 3500K', tone: '노란색이 살짝 빠진 부드러운 빛', swatch: '#F3DDAE', compareId: 'cmp-3500k', desc: '따뜻함과 선명함이 균형 잡힌 중간 톤', recommend: '어디에나 무난, 가장 많이 선택' },
     { k: 'k4000', label: '주백색', tempLabel: '4000K', tag: '주백색 · 4000K', tone: '밝으면서도 자연스러운 아이보리빛', swatch: '#E8ECF2', compareId: 'cmp-4000k', desc: '자연광처럼 깨끗하고 화사한 흰빛', recommend: '주방·드레스룸 등 밝아야 하는 공간' },
     { k: 'k6500', label: '주광색', tempLabel: '6500K', tag: '주광색 · 6500K', tone: '선명하고 깨끗해 집중하기 좋은 흰빛', swatch: '#DCE7F5', compareId: 'cmp-6500k', desc: '푸른기가 도는 가장 하얗고 시원한 빛', recommend: '서재·작업공간 등 집중이 필요한 공간' },
   ];
@@ -343,18 +371,18 @@ class Component extends DCLogic {
   ];
 
   sectionData = [
-    { key: 'living', num: '03', eyebrow: 'LIVING', name: '거실 — 집의 인상을 좌우합니다', desc: '온 가족이 가장 오래 머무는 거실은 색온도에 따라 인상이 가장 크게 달라집니다.', items: [
+    { key: 'living', num: '03', eyebrow: 'LIVING', name: '거실, 집의 인상을 좌우합니다', desc: '온 가족이 가장 오래 머무는 거실은 색온도에 따라 인상이 가장 크게 달라집니다.', items: [
       { slot: 0, tag: 'LIVING 01', title: '우물조명 · COB간접등 · 커튼박스', desc: '거실 인상을 가장 크게 좌우하는 세 가지 조명입니다. 전구색은 노을처럼 부드럽게, 주백색은 윤곽이 또렷하게 서고, 커튼 주름을 타고 흐르는 빛에서 색 차이가 가장 잘 드러납니다.' },
     ]},
-    { key: 'kitchen', num: '04', eyebrow: 'KITCHEN', name: '주방 — 재료 색이 정확하게', desc: '재료 색이 잘 보여야 하는 주방은 화사한 주백색을 많이 쓰지만, 거실과 트인 구조라면 전주백으로 맞추기도 합니다.', items: [
+    { key: 'kitchen', num: '04', eyebrow: 'KITCHEN', name: '주방, 재료 색이 정확하게', desc: '재료 색이 잘 보여야 하는 주방은 화사한 주백색을 많이 쓰지만, 거실과 트인 구조라면 전주백으로 맞추기도 합니다.', items: [
       { slot: 0, tag: 'KITCHEN 01', title: '주방 다운라이트 · 싱크대 하부등', desc: '상판과 개수대에 비치는 빛, 상부장 아래에서 작업면을 바로 비추는 무드등을 함께 보세요. 주백색에서 가장 또렷하고, 전주백도 자연스럽습니다.' },
     ]},
-    { key: 'room', num: '05', eyebrow: 'ROOM & HALL', name: '방 · 복도 — 편안한 동선', desc: '방은 잠들기 전 눈이 편한 따뜻한 색이 기본이고, 복도는 밤중 동선을 은은하게 밝혀줍니다.', items: [
+    { key: 'room', num: '05', eyebrow: 'ROOM & HALL', name: '방 · 복도, 편안한 동선', desc: '방은 잠들기 전 눈이 편한 따뜻한 색이 기본이고, 복도는 밤중 동선을 은은하게 밝혀줍니다.', items: [
       { slot: 0, tag: 'ROOM 01', title: '방 다운라이트', desc: '잠들기 전 눈이 마지막으로 닿는 빛입니다. 전구색은 아늑하게, 주백색은 아침처럼 깨웁니다.' },
       { slot: 1, tag: 'HALL 01', title: '복도 센서등', desc: '지나갈 때 자동으로 켜지는 빛입니다. 한밤중에 마주칠 빛이라는 걸 기준으로 골라보세요.' },
     ]},
-    { key: 'bath', num: '06', eyebrow: 'BATH & ENTRANCE', name: '욕실 · 현관 — 청결하고 아늑하게', desc: '욕실은 깨끗함이 중요해 밝은 주백색을 많이 쓰지만 아늑한 전주백도 좋고, 현관은 첫 순간을 따뜻하게 맞이합니다.', items: [
-      { slot: 0, tag: 'BATH 01', title: '욕실센서 무드등', desc: '타일과 도기의 흰색을 보세요 — 주백색은 청결하게, 전구색·전주백은 호텔 욕실처럼 아늑하게 만듭니다.' },
+    { key: 'bath', num: '06', eyebrow: 'BATH & ENTRANCE', name: '욕실 · 현관, 청결하고 아늑하게', desc: '욕실은 깨끗함이 중요해 밝은 주백색을 많이 쓰지만 아늑한 전주백도 좋고, 현관은 첫 순간을 따뜻하게 맞이합니다.', items: [
+      { slot: 0, tag: 'BATH 01', title: '욕실센서 무드등', desc: '타일과 도기의 흰색을 보세요. 주백색은 청결하게, 전구색·전주백은 호텔 욕실처럼 아늑하게 만듭니다.' },
       { slot: 1, tag: 'ENTRANCE 01', title: '현관센서 무드등', desc: '문을 열면 가장 먼저 맞아주는 빛입니다. 집의 첫인사를 어떤 온도로 건넬지 골라보세요.' },
     ]},
   ];
@@ -426,7 +454,7 @@ class Component extends DCLogic {
           const on = activeK === c.k;
           return {
             id: sd.key + '-item' + (it.slot != null ? it.slot : ii) + '-' + c.k,
-            placeholder: it.title + ' — ' + c.tag,
+            placeholder: it.title + ' · ' + c.tag,
             style: 'position:absolute;inset:0;width:100%;height:100%;transition:opacity .4s ease;'
               + 'opacity:' + (on ? 1 : 0) + ';z-index:' + (on ? 2 : 1) + ';'
               + (on ? '' : 'pointer-events:none;'),
@@ -442,11 +470,12 @@ class Component extends DCLogic {
 
     const warm = this.state.dualWarm, cool = this.state.dualCool;
     const dualKey = warm && cool ? 'both' : warm ? 'warm' : cool ? 'cool' : 'off';
-    const dualStateLabel = { both: '주백색 — 두 줄 동시 점등', warm: '전구색 — 한 줄만 점등', cool: '주광색 — 한 줄만 점등', off: '전체 소등' }[dualKey];
+    const dualStateLabel = { both: '주백색 · 두 줄 동시 점등', warm: '전구색 · 한 줄만 점등', cool: '주광색 · 한 줄만 점등', off: '전체 소등' }[dualKey];
     const dualLayers = ['both', 'warm', 'cool', 'off'].map(k => ({
       id: 'dual-' + k,
       placeholder: { both: '두 줄 동시 점등 (주백색)', warm: '전구색 한 줄만 점등', cool: '주광색 한 줄만 점등', off: '전체 소등' }[k],
-      style: 'position:absolute;inset:0;width:100%;height:100%;transition:opacity .4s ease;opacity:' + (dualKey === k ? 1 : 0) + ';',
+      caption: { both: '전구색 ON · 주광색 ON', warm: '전구색 ON · 주광색 OFF', cool: '전구색 OFF · 주광색 ON', off: '둘 다 OFF' }[k],
+      style: 'position:absolute;inset:0;width:100%;height:100%;transition:opacity .4s ease;pointer-events:' + (dualKey === k ? 'auto' : 'none') + ';opacity:' + (dualKey === k ? 1 : 0) + ';',
     }));
     const dualSwitches = [
       { label: '전구색', onClick: () => this.setState({ dualWarm: !warm }), style: tabStyle(warm) },
@@ -462,7 +491,7 @@ class Component extends DCLogic {
       dualLayers,
       dualSwitches,
       dualStateLabel,
-      dualHint: '스위치를 켜고 꺼보세요 — 둘 다 켜면 주백색이 됩니다',
+      dualHint: '스위치를 켜고 꺼보세요. 둘 다 켜면 주백색이 됩니다',
       sections,
       safetyNet: this.safetyNet,
       checkpoints: this.checkpoints,

@@ -51,6 +51,11 @@
       h1{font-size:22px !important;} h2{font-size:20px !important;} h3{font-size:18px !important;}
       [style*="max-width: 1160px"], [style*="max-width: 1240px"]{padding-left:16px !important; padding-right:16px !important;}
       [style*="position: fixed"][style*="right: 26px"]{right:12px !important;}
+      [data-r="pkgtabs"]{-webkit-overflow-scrolling:touch !important;overscroll-behavior-x:contain !important;scrollbar-width:none !important;-ms-overflow-style:none !important;padding-bottom:2px !important;}
+      [data-r="pkgtabs"]::-webkit-scrollbar{display:none !important;height:0 !important;}
+      [data-r="pkgtabs"] > a, [data-r="pkgtabs"] > span{padding:9px 14px !important;font-size:12.5px !important;}
+      [data-r="incgrid"]{grid-template-columns:repeat(2,1fr) !important;gap:10px !important;}
+      [data-r="incgrid"] > div{padding:16px 14px !important;}
       [style*="padding: 52px 56px 40px"]{padding:1.5rem 1.25rem 1.25rem !important;gap:1.25rem !important;}
       [style*="padding: 64px 24px 0"]{padding:2.25rem 1rem 0 !important;}
       [style*="padding: 48px 24px 0"]{padding:1.75rem 1rem 0 !important;}
@@ -153,7 +158,7 @@
             <div style="font-size:20px; font-weight:800; margin-bottom:16px;">{{ v.price }}</div>
             <div style="border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:8px;">
               <sc-for list="{{ v.items }}" as="it" hint-placeholder-count="4">
-                <div style="font-size:12.8px; color:var(--ink-soft);">— {{ it }}</div>
+                <div style="font-size:12.8px; color:var(--ink-soft);">· {{ it }}</div>
               </sc-for>
             </div>
           </div>
@@ -194,7 +199,7 @@
   <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
     <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">FOR YOU</div>
     <h2 style="font-size:22px; font-weight:800; margin:0 0 28px;">이런 분들께 추천해요</h2>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
+    <div data-r="incgrid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;">
       <sc-for list="{{ recommendReasons }}" as="r" hint-placeholder-count="3">
         <div style="border:1px solid var(--line); border-radius:16px; padding:22px; background:#fff; font-size:13.5px; line-height:1.7; color:var(--ink-soft);">{{ r }}</div>
       </sc-for>
