@@ -128,7 +128,7 @@
                     <div data-r="itemtitle" style="font-size:14px; font-weight:700; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ it.title }}</div>
                     <div style="font-size:12px; color:var(--ink-soft); white-space:nowrap;">{{ it.priceLabel }} · {{ it.unit }}당</div>
                     <sc-if value="{{ it.hasNote }}" hint-placeholder-val="{{ false }}">
-                      <div style="font-size:11px; color:#9AA3B2; margin-top:3px; line-height:1.5; white-space:normal;">{{ it.note }}</div>
+                      <div style="{{ it.noteStyle }}">{{ it.note }}</div>
                     </sc-if>
                   </div>
                   <div style="display:flex; align-items:center; gap:9px; flex-shrink:0;">
@@ -243,6 +243,8 @@ class Component extends DCLogic {
       { id: 'sensor-shoe', title: '신발장 센서등', price: 100000, unit: '곳' },
     ]},
     { key: 'fan', name: '실링팬', items: [
+      { id: 'fan-essential', title: '휘휘 에센셜 실링팬', price: 319000, unit: '개', note: '319,000원~', noteAccent: true },
+      { id: 'fan-iot', title: '휘휘 IOT 실링팬', price: 359000, unit: '개', note: '359,000원~', noteAccent: true },
       { id: 'fan-install', title: '실링팬 설치비', price: 90000, unit: '개' },
       { id: 'fan-wire', title: '실링팬 단독배선비', price: 50000, unit: '개', note: '5m까지 50,000원 · 이후 1m당 20,000원' },
     ]},
@@ -283,6 +285,9 @@ class Component extends DCLogic {
           unit: it.unit,
           note: it.note || '',
           hasNote: !!it.note,
+          noteStyle: it.noteAccent
+            ? 'font-size:14px;font-weight:800;color:var(--accent);margin-top:4px;line-height:1.4;white-space:nowrap;letter-spacing:-0.02em;'
+            : 'font-size:11px;color:#9AA3B2;margin-top:3px;line-height:1.5;white-space:normal;',
           priceLabel: it.price.toLocaleString() + '원',
           qty,
           onInc: () => this.inc(it.id),
