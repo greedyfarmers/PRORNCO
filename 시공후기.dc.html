@@ -163,7 +163,7 @@
           <div data-r="revbody" style="padding:20px; display:flex; flex-direction:column; gap:10px; flex:1;">
             <div data-r="revtop" style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
               <div style="font-size:14px; color:var(--accent); letter-spacing:1.5px;">{{ r.stars }}</div>
-              <div style="font-size:11.5px; color:#A8AEBA;">{{ r.date }}</div>
+              <div style="font-size:12px; color:#6B6B6B;">{{ r.date }}</div>
             </div>
             <div data-r="revtitle" style="font-size:15px; font-weight:800; line-height:1.5;">{{ r.title }}</div>
             <div data-r="revtext" style="font-size:12.8px; color:var(--ink-soft); line-height:1.85;">{{ r.body }}</div>
@@ -242,6 +242,10 @@ class Component extends DCLogic {
   surnames = ['김', '이', '박', '최', '정', '강', '조', '윤', '장', '임', '한', '오', '서', '신', '권', '황', '안', '송', '류', '전'];
   sizes = ['24평', '25평', '27평', '31평', '32평', '33평', '34평', '38평', '41평', '45평', '49평', '54평'];
 
+  tails = ['다음에 이사 가도 또 맡기고 싶습니다.', '주변에서도 어디서 했냐고 자주 물어봅니다.', '가격표가 미리 공개돼 있어 상담이 편했습니다.', '작업 후 정리까지 깔끔하게 해주셨습니다.', '시공 시간도 안내받은 그대로였습니다.', '사진으로 미리 보여주셔서 결정이 쉬웠습니다.', '작은 요청도 그 자리에서 반영해주셨습니다.'];
+
+  leads = ['입주 전에 진행했는데', '거주 중에 시공했는데', '이사 전날 급하게 했는데', '구축 아파트인데', '신축 입주라 같이 했는데', '도배 없이 했는데', '리모델링 없이 했는데', '하루 만에 끝났는데', '가구 다 들어온 뒤에 했는데', '상담만 받아보려 했는데'];
+
   templates = {
     '우물천장': {
       pkg: ['우물천장 패키지', '목공 우물천장', '한방 우물천장'],
@@ -281,12 +285,14 @@ class Component extends DCLogic {
     { rating: 4, date: '2026.05.19', order: -3, cat: '실링팬', title: '여름 냉방비가 확실히 줄었습니다', body: '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', author: '대전 신○○님', meta: '49평 · 실링팬 패키지', tags: ['실링팬', '조명 겸용'] },
   ];
 
-  buildReviewsUnused() {
+  buildReviews() {
     const cats = Object.keys(this.templates);
     const out = this.reviewData.slice();
     let order = 0;
     let d = new Date(2026, 5, 5);
-    const target = 99;
+    const target = 124;
+    const catCount = {};
+    cats.forEach(c => catCount[c] = 0);
     let i = 0;
     while (out.length < target) {
       const cat = cats[i % cats.length];
@@ -304,8 +310,8 @@ class Component extends DCLogic {
         date: d.getFullYear() + '.' + mm + '.' + dd,
         order: -(++order),
         cat,
-        title: pick(t.titles, i * 2 + 1),
-        body: pick(t.bodies, i * 3 + 1),
+        title: this.leads[Math.floor(catCount[cat] / t.titles.length) % this.leads.length] + ' ' + t.titles[catCount[cat] % t.titles.length],
+        body: t.bodies[catCount[cat] % t.bodies.length] + ' ' + this.tails[Math.floor(catCount[cat]++ / t.bodies.length) % this.tails.length],
         author: region + ' ' + name + '○○님',
         meta: size + ' · ' + pick(t.pkg, i),
         tags: pick(t.tags, i * 2),
@@ -317,7 +323,11 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state;
-    if (!this._all) this._all = this.reviewData.concat(this.extraReviews);
+    if (!this._all) {
+      const extras = this.extraReviews.map((r, n) => ({ ...r, slot: 'review-g' + (n + 1) }));
+      this._all = this.buildReviews().concat(extras)
+        .map((r, i) => ({ ...r, photo: r.order > 0 ? 'review-' + r.order : (r.slot || 'review-n' + i) }));
+    }
     const chip = (on) => 'font-size:12.8px;font-weight:600;padding:8px 16px;cursor:pointer;border:1px solid ' + (on ? 'var(--accent)' : 'var(--line)') + ';' + (on ? 'background:var(--accent);color:#fff;' : 'color:var(--ink-soft);');
     const sortStyle = (on) => 'font-size:12.8px;cursor:pointer;' + (on ? 'color:var(--ink);font-weight:800;' : 'color:var(--ink-soft);');
 
@@ -382,7 +392,7 @@ class Component extends DCLogic {
     const reviews = list.slice(start, start + this.perPage).map((r, i) => ({
       ...r,
       stars: '★★★★★'.slice(0, r.rating) + '☆☆☆☆☆'.slice(0, 5 - r.rating),
-      photoId: r.order > 0 ? 'review-' + r.order : 'review-g' + (-r.order),
+      photoId: r.photo,
       photoHint: r.meta + ' 후기 사진',
     }));
 

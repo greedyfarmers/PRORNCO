@@ -198,16 +198,7 @@
     </div>
   </div>
 
-  <!-- GALLERY -->
-  <div style="max-width:1160px; margin:0 auto; padding:64px 24px 0;">
-    <div style="font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:10px;">GALLERY</div>
-    <h2 style="font-size:22px; font-weight:800; margin:0 0 28px;">시공 사진</h2>
-    <div data-r="gal" style="display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;">
-      <sc-for list="{{ galleryIds }}" as="g" hint-placeholder-count="4">
-        <image-slot id="{{ g }}" style="flex:0 0 calc(25% - 10.5px); aspect-ratio:1/1; border-radius:12px; scroll-snap-align:start;" shape="rect" placeholder="우물천장 + 실링팬 시공 사진"></image-slot>
-      </sc-for>
-    </div>
-  </div>
+  <dc-import name="ReviewStrip" hint-size="100%,700px"></dc-import>
 
   <div style="max-width:640px; margin:64px auto 0; padding:0 24px 90px; text-align:center;">
     <div style="font-size:22px; font-weight:800; margin-bottom:10px;">우물천장 + 실링팬으로 결정하셨나요?</div>

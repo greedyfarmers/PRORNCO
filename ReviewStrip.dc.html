@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="max-width:1160px; margin:20px auto 0; padding:32px 28px 36px; background:#fff; border:1px solid #E9E9E9; border-radius:18px; font-family:'Archivo','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif; color:#111111;">
+  <div data-r="revhead" style="display:flex; align-items:center; gap:28px; flex-wrap:wrap; justify-content:space-between; padding-bottom:22px; border-bottom:1px solid #E9E9E9; margin-bottom:20px;">
+    <div style="display:flex; align-items:center; gap:20px;">
+      <div style="text-align:center;">
+        <div style="font-size:40px; font-weight:900; line-height:1; letter-spacing:-0.03em; color:#2F6FED;">4.9</div>
+        <div style="font-size:14px; color:#2F6FED; letter-spacing:0.14em; margin-top:6px;">★★★★★</div>
+      </div>
+      <div>
+        <div style="font-size:11px; color:#6B6B6B; font-weight:700; letter-spacing:0.06em; margin-bottom:7px;">REVIEWS</div>
+        <div style="font-size:21px; font-weight:800; letter-spacing:-0.04em; line-height:1.35;">실제 시공 고객 후기 {{ total }}건</div>
+        <div style="font-size:12.5px; color:#6B6B6B; margin-top:6px;">최근 후기 15건입니다. 전체 후기는 시공후기 페이지에서 보실 수 있습니다</div>
+      </div>
+    </div>
+    <a href="./시공후기.dc.html" style="flex:0 0 auto; display:flex; align-items:center; min-height:44px; padding:0 20px; border-radius:999px; background:#2F6FED; color:#fff; font-size:13.5px; font-weight:800;">후기 전체보기 →</a>
+  </div>
+
+  <div data-r="revstrip" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(248px,1fr)); gap:12px;">
+    <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="15">
+      <a href="./시공후기.dc.html" style="display:flex; flex-direction:column; border:1px solid #E9E9E9; border-radius:13px; overflow:hidden; background:#FBFBFD; color:#111111;" style-hover="border-color:#2F6FED;background:#fff;">
+        <div style="position:relative; width:100%; aspect-ratio:4/3; background:#F2F4F7;">
+          <image-slot id="{{ r.photoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ r.photoHint }}"></image-slot>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px; padding:15px 16px 16px; flex:1;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+          <span style="color:#2F6FED; font-size:12.5px; letter-spacing:1px;">{{ r.stars }}</span>
+          <span style="font-size:11.5px; color:#6B6B6B;">{{ r.date }}</span>
+        </div>
+        <div style="font-size:14.5px; font-weight:800; letter-spacing:-0.03em; line-height:1.45;">{{ r.title }}</div>
+        <div style="font-size:12.5px; color:#5A6070; line-height:1.7;">{{ r.body }}</div>
+        <div style="margin-top:auto; padding-top:10px; border-top:1px solid #EFEFF3; font-size:12px; color:#6B6B6B;">{{ r.author }} · {{ r.meta }}</div>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+
+  <div style="margin-top:22px; text-align:center;">
+    <a href="./시공후기.dc.html" style="display:inline-flex; align-items:center; min-height:44px; padding:0 22px; border-radius:999px; border:1px solid #E9E9E9; color:#111111; font-size:13px; font-weight:700;" style-hover="border-color:#2F6FED;color:#2F6FED;">후기 {{ total }}건 전체보기 →</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1160,&quot;height&quot;:700}}">
+class Component extends DCLogic {
+  data = [
+    { rating: 5, date: '2026.08.18', title: '메인등 없앴는데 오히려 더 밝아요', body: '한방우물천장으로 시공했는데 마감선이 정말 깔끔합니다. 처음엔 메인등 없이 어두울까 걱정했는데 2줄 넣으니 충분히 밝아요.', author: '서울 김○○님', meta: '34평 · 우물천장 패키지' },
+    { rating: 5, date: '2026.08.14', title: '견적서에 나온 금액 그대로였어요', body: '다른 곳은 실측 후에 계속 금액이 올라갔는데, 여기는 안내받은 금액에서 변동이 없었습니다. 다운라이트 위치도 꼼꼼히 잡아주셨어요.', author: '인천 박○○님', meta: '25평 · 간접조명 패키지' },
+    { rating: 5, date: '2026.08.09', title: '커튼조명이 제일 만족스러워요', body: '가장 저렴한 항목인데 체감은 가장 큽니다. 저녁에 커튼조명만 켜두면 카페 같은 분위기가 됩니다.', author: '부천 이○○님', meta: '33평 · 개별시공' },
+    { rating: 5, date: '2026.08.03', title: '실링팬 조명 겸용으로 정답이었네요', body: '천장 보강까지 같이 해주셔서 흔들림이 전혀 없습니다. 여름에 에어컨 바람이 골고루 퍼져서 확실히 시원해요.', author: '남양주 최○○님', meta: '32평 · 우물천장 + 실링팬' },
+    { rating: 4, date: '2026.07.29', title: '현관 센서등, 왜 이제 했을까', body: '장 들고 들어올 때 스위치 찾을 필요가 없어졌습니다. 다만 감지 범위를 처음에 조정하는 데 시간이 조금 걸렸어요.', author: '성남 정○○님', meta: '41평 · 개별시공' },
+    { rating: 5, date: '2026.07.22', title: '입주 전에 목공으로 한 게 최선', body: '기존 몰딩을 전부 걷어내고 새로 만들어주셔서 흔적이 하나도 없습니다. 도배까지 연결해주셔서 마감이 완벽해요.', author: '수원 한○○님', meta: '45평 · 목공 무몰딩' },
+    { rating: 5, date: '2026.07.15', title: '아트월 COB 스팟이 포인트', body: '그림 걸어둔 벽에 COB를 쏴주셨는데, 갤러리 온 것 같습니다. 호른형으로 골랐는데 디자인도 예뻐요.', author: '용인 오○○님', meta: '42평 · 개별시공' },
+    { rating: 5, date: '2026.07.08', title: '욕실 히든센서 강력 추천', body: '천장을 뚫지 않고 내부에 넣는 방식이라 깔끔합니다. 밤에 화장실 갈 때 눈 부시지 않아서 좋아요.', author: '김포 서○○님', meta: '27평 · 개별시공' },
+    { rating: 4, date: '2026.06.30', title: '색온도 고민했는데 2줄이 답', body: '전구색과 주백색 두 줄로 넣어서 상황에 맞게 켭니다. 손님 오면 둘 다 켜고, 평소엔 전구색만 켜요.', author: '고양 윤○○님', meta: '31평 · 우물천장 패키지' },
+    { rating: 5, date: '2026.06.24', title: 'ㄱ자 커튼조명도 깔끔하게', body: '코너 창이라 걱정했는데 꺾이는 부분에서 빛이 끊기지 않게 시공해주셨습니다.', author: '하남 강○○님', meta: '54평 · 개별시공' },
+    { rating: 5, date: '2026.06.17', title: '팬 단독으로도 충분했어요', body: '서재라 조명은 기존 걸 유지하고 팬만 달았습니다. 소음이 거의 없어서 만족합니다.', author: '광명 임○○님', meta: '27평 · 실링팬 패키지' },
+    { rating: 5, date: '2026.06.10', title: '주방 하부등 만족도 최고', body: '싱크대 아래 조명 하나로 설거지할 때 훨씬 편해졌습니다. 금액도 부담 없었어요.', author: '안양 노○○님', meta: '25평 · 개별시공' },
+    { rating: 5, date: '2026.06.03', title: '천장 라인이 살아나니 집이 넓어 보여요', body: '시공 전에 천장 구조를 먼저 확인하고 가능한 라인을 그림으로 보여주셔서 이해가 쉬웠습니다. 결과물도 설명 그대로였어요.', author: '의정부 권○○님', meta: '38평 · 우물천장 패키지' },
+    { rating: 5, date: '2026.05.27', title: '창가에 앉아 있는 시간이 늘었습니다', body: '커튼 원단에 빛이 은은하게 번져서 눈이 편합니다. 색온도는 전구색으로 골랐는데 잘한 선택이었어요.', author: '청주 황○○님', meta: '24평 · 간접조명 패키지' },
+    { rating: 4, date: '2026.05.19', title: '여름 냉방비가 확실히 줄었습니다', body: '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', author: '대전 신○○님', meta: '49평 · 실링팬 패키지' },
+  ];
+
+  renderVals() {
+    return {
+      total: 127,
+      reviews: this.data.map((r, i) => ({
+        ...r,
+        stars: '★★★★★'.slice(0, r.rating) + '☆☆☆☆☆'.slice(0, 5 - r.rating),
+        photoId: i < 12 ? 'review-' + (12 - i) : 'review-g' + (i - 11),
+        photoHint: r.meta + ' 후기 사진',
+      })),
+    };
+  }
+}
+</script>
+</body>
+</html>
