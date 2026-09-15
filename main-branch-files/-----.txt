@@ -1,0 +1,15 @@
+main 브랜치에 올릴 파일 2개입니다.
+
+scripts_build-blog.mjs  →  scripts/build-blog.mjs
+scripts_render.mjs      →  scripts/render.mjs
+
+깃허브 저장소 첫 화면에서:
+1. 왼쪽 위 브랜치 버튼이 main 인지 확인
+2. Add file → Create new file
+3. 이름 칸에 scripts/build-blog.mjs 입력
+4. 내용 붙여넣기
+5. 아래에서 "Commit directly to the main branch" 선택 후 Commit changes
+6. 3~5를 scripts/render.mjs 로 한 번 더
+
+5번에서 "Create a new branch for this commit..." 이 선택되면
+다른 브랜치로 들어가 배포에 반영되지 않습니다.
