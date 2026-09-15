@@ -1,0 +1,20 @@
+name: daily-rebuild
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel deploy hook
+        run: |
+          if [ -z "${{ secrets.VERCEL_DEPLOY_HOOK }}" ]; then
+            echo "VERCEL_DEPLOY_HOOK secret이 없습니다. 저장소 Settings → Secrets에 추가하세요."
+            exit 1
+          fi
+          code=$(curl -s -o /dev/null -w '%{http_code}' -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}")
+          echo "deploy hook 응답: $code"
+          [ "$code" -ge 200 ] && [ "$code" -lt 300 ]

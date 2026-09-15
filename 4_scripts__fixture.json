@@ -1,0 +1,150 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "PROR.CO",
+  "home_page_url": "https://www.prornco.com/blog",
+  "feed_url": "https://api.aeolo.io/v1/connector/feed.json",
+  "language": "ko",
+  "items": [
+    {
+      "id": "fixture-1-ko",
+      "url": "https://www.prornco.com/blog/우물천장-조명-고르는-법",
+      "title": "우물천장 조명 고르는 법",
+      "summary": "한방 PVC와 목공 무몰딩, 어느 쪽이 우리 집에 맞는지 정리했습니다.",
+      "content_html": "<h2>천장 구조부터 확인합니다</h2><p>우물천장은 기존 천장 구조에 따라 가능한 방식이 달라집니다. 석고보드 천장이면 대부분 시공이 가능하지만, 콘크리트 천장은 매입 방식에 제약이 생깁니다.</p><h2>한방 PVC와 목공 무몰딩</h2><p>한방 PVC는 도배를 최소화하면서 입주 후에도 시공할 수 있습니다. 목공 무몰딩은 천장 전체 도배가 필요하지만 마감선이 더 미니멀합니다.</p><ul><li>한방 PVC — 입주 후 시공 가능</li><li>목공 무몰딩 — 천장 전체 도배 필요</li></ul>",
+      "image": "",
+      "tags": ["우물천장"],
+      "date_published": "2026-09-10T00:00:00.000Z",
+      "date_modified": "2026-09-12T00:00:00.000Z",
+      "authors": [{ "name": "PROR.CO" }],
+      "_geo": {
+        "family_id": "fam-umul",
+        "language": "ko",
+        "slug": "우물천장-조명-고르는-법",
+        "canonical": "https://www.prornco.com/blog/우물천장-조명-고르는-법",
+        "alternates": {
+          "ko": "https://www.prornco.com/blog/우물천장-조명-고르는-법",
+          "en": "https://www.prornco.com/blog/how-to-choose-cove-lighting"
+        },
+        "article_type": "guide",
+        "schema_jsonld": {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "우물천장 조명 고르는 법",
+          "url": "https://www.prornco.com/blog/우물천장-조명-고르는-법"
+        },
+        "status": "published"
+      }
+    },
+    {
+      "id": "fixture-1-en",
+      "url": "https://www.prornco.com/blog/how-to-choose-cove-lighting",
+      "title": "How to Choose Cove Lighting",
+      "summary": "PVC versus carpentry cove ceilings.",
+      "content_html": "<p>English edition of the same article.</p>",
+      "image": "",
+      "tags": ["우물천장"],
+      "date_published": "2026-09-10T00:00:00.000Z",
+      "date_modified": "2026-09-10T00:00:00.000Z",
+      "authors": [{ "name": "PROR.CO" }],
+      "_geo": {
+        "family_id": "fam-umul",
+        "language": "en",
+        "slug": "how-to-choose-cove-lighting",
+        "canonical": "https://www.prornco.com/blog/how-to-choose-cove-lighting",
+        "alternates": {
+          "ko": "https://www.prornco.com/blog/우물천장-조명-고르는-법",
+          "en": "https://www.prornco.com/blog/how-to-choose-cove-lighting"
+        },
+        "article_type": "guide",
+        "schema_jsonld": {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "How to Choose Cove Lighting",
+          "url": "https://www.prornco.com/blog/how-to-choose-cove-lighting"
+        },
+        "status": "published"
+      }
+    },
+    {
+      "id": "fixture-2-ko",
+      "url": "https://www.prornco.com/blog/커튼박스-간접조명-비용",
+      "title": "커튼박스 간접조명 비용 정리",
+      "summary": "곳당 금액과 길이·형태에 따른 추가 비용을 표로 정리했습니다.",
+      "content_html": "<p>커튼박스 간접조명은 곳당 10만원부터 시작합니다. ㄱ자 시공은 5만원, 5m 초과는 5만원, 10m 초과는 10만원이 추가됩니다.</p><h2>색온도 선택</h2><p>전구색은 아늑하고, 주백색은 밝고 자연스럽습니다. 거실에는 전구색이나 전주백색을 많이 선택합니다.</p>",
+      "tags": ["커튼조명"],
+      "date_published": "2026-09-05T00:00:00.000Z",
+      "date_modified": "2026-09-05T00:00:00.000Z",
+      "authors": [{ "name": "PROR.CO" }],
+      "_geo": {
+        "family_id": "fam-curtain",
+        "language": "ko",
+        "slug": "커튼박스-간접조명-비용",
+        "canonical": "https://www.prornco.com/blog/커튼박스-간접조명-비용",
+        "alternates": {
+          "ko": "https://www.prornco.com/blog/커튼박스-간접조명-비용"
+        },
+        "article_type": "guide",
+        "schema_jsonld": {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "커튼박스 간접조명 비용 정리",
+          "url": "https://www.prornco.com/blog/커튼박스-간접조명-비용"
+        },
+        "status": "published"
+      }
+    },
+    {
+      "id": "fixture-3-ko-draft",
+      "url": "https://www.prornco.com/blog/작성중-초안",
+      "title": "작성 중인 초안",
+      "summary": "",
+      "content_text": "아직 본문이 없습니다",
+      "tags": [],
+      "date_published": "2026-09-08T00:00:00.000Z",
+      "date_modified": "2026-09-08T00:00:00.000Z",
+      "authors": [{ "name": "PROR.CO" }],
+      "_geo": {
+        "family_id": "fam-draft",
+        "language": "ko",
+        "slug": "작성중-초안",
+        "canonical": "https://www.prornco.com/blog/작성중-초안",
+        "alternates": { "ko": "https://www.prornco.com/blog/작성중-초안" },
+        "article_type": "guide",
+        "schema_jsonld": {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "작성 중인 초안",
+          "url": "https://www.prornco.com/blog/작성중-초안"
+        },
+        "status": "draft"
+      }
+    },
+    {
+      "id": "fixture-4-ko",
+      "url": "https://www.prornco.com/blog/실링팬-설치-전-확인할-것",
+      "title": "실링팬 설치 전 확인할 것",
+      "summary": "천장 보강과 단독배선, 조명 겸용 여부를 먼저 정해야 합니다.",
+      "content_text": "실링팬은 무게가 있어 천장 보강이 필수입니다. 조명 겸용 모델과 팬 단독 모델 중 어느 쪽을 쓸지 먼저 정하면 배선 계획이 간단해집니다.",
+      "image": "  ",
+      "tags": ["실링팬"],
+      "date_published": "2026-08-28T00:00:00.000Z",
+      "date_modified": "2026-08-30T00:00:00.000Z",
+      "authors": [{ "name": "PROR.CO" }],
+      "_geo": {
+        "family_id": "fam-fan",
+        "language": "ko",
+        "slug": "실링팬-설치-전-확인할-것",
+        "canonical": "https://www.prornco.com/blog/실링팬-설치-전-확인할-것",
+        "alternates": { "ko": "https://www.prornco.com/blog/실링팬-설치-전-확인할-것" },
+        "article_type": "guide",
+        "schema_jsonld": {
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "headline": "실링팬 설치 전 확인할 것",
+          "url": "https://www.prornco.com/blog/실링팬-설치-전-확인할-것"
+        },
+        "status": "published"
+      }
+    }
+  ]
+}
