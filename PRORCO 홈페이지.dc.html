@@ -9,7 +9,7 @@
 <x-dc>
 <helmet>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Expanded:wght@800;900&display=swap">
   <script src="./image-slot.js"></script>
   <script src="./mobile-nav.js"></script>
   <style>
@@ -42,17 +42,26 @@
       [data-r="pad"]{padding-left:20px !important;padding-right:20px !important;}
     }
     @media (max-width: 720px){
-      [data-r="grid4"]{grid-template-columns:1fr !important;gap:12px !important;}
+      [data-r="ticker"]{height:44px !important;border-radius:12px !important;margin:14px 16px 0 !important;}
+      [data-r="ticker"] > div:first-child{padding:0 14px !important;font-size:12px !important;gap:6px !important;}
+      [data-r="ticker"] > div:first-child > span{width:6px !important;height:6px !important;}
+      [data-r="ticker"] [style*="font-size:15px"]{font-size:12.5px !important;}
+      [data-r="grid4"]{display:flex !important;grid-template-columns:none !important;gap:12px !important;overflow-x:auto !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;margin-right:-1rem !important;padding-right:1rem !important;scrollbar-width:none !important;-ms-overflow-style:none !important;}
+      [data-r="grid4"]::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
+      [data-r="grid4"] > div{flex:0 0 76% !important;scroll-snap-align:start !important;}
+      [data-r="pkgsave"]{min-height:2.5rem !important;}
+
       [data-r="revgrid"]{display:flex !important;grid-template-columns:none !important;gap:10px !important;overflow-x:auto !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;margin-right:-1rem !important;padding-right:1rem !important;scrollbar-width:none !important;-ms-overflow-style:none !important;}
       [data-r="revgrid"]::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
-      [data-r="revgrid"] > div{flex:0 0 68% !important;scroll-snap-align:start !important;}
+      [data-r="revgrid"] > div{flex:0 0 82% !important;scroll-snap-align:start !important;}
       [data-r="grid4"] > div{padding:18px !important;border-radius:16px !important;}
-      [data-r="pkgname"]{min-height:0 !important;font-size:22px !important;margin-bottom:8px !important;}
+      /* 카드마다 각 줄 높이를 고정해 가로 슬라이드 시 요소가 같은 선에 정렬되게 한다 */
+      [data-r="pkgname"]{min-height:2.6em !important;font-size:20px !important;margin-bottom:8px !important;align-items:flex-start !important;}
       [data-r="pkglist"]{display:none !important;}
-      [data-r="pkgbadges"]{min-height:0 !important;align-items:center !important;margin-bottom:10px !important;}
+      [data-r="pkgbadges"]{min-height:2.25rem !important;align-items:center !important;margin-bottom:10px !important;}
       [data-r="pkgbtn"]{margin-top:10px !important;min-height:40px !important;padding:8px 12px !important;border-radius:10px !important;font-size:15px !important;display:flex !important;align-items:center !important;justify-content:center !important;}
-      [data-r="pkgmeta"]{display:block !important;}
-      [data-r="pkgprice"]{min-height:0 !important;border-top:0 !important;padding-top:0 !important;margin-bottom:12px !important;flex-direction:row !important;align-items:baseline !important;justify-content:flex-end !important;gap:10px !important;}
+      [data-r="pkgmeta"]{display:-webkit-box !important;-webkit-line-clamp:4 !important;-webkit-box-orient:vertical !important;overflow:hidden !important;min-height:6.8em !important;margin-bottom:12px !important;}
+      [data-r="pkgprice"]{min-height:2.75rem !important;border-top:0 !important;padding-top:0 !important;margin-bottom:12px !important;flex-direction:row !important;align-items:baseline !important;justify-content:flex-end !important;gap:10px !important;flex-wrap:wrap !important;}
       [data-r="pkgnow"]{font-size:21px !important;order:2 !important;}
       [data-r="pkgwas"]{margin-top:0 !important;order:1 !important;}
       [data-r="pkgsave"]{display:flex !important;}
@@ -72,14 +81,14 @@
       [data-r="bar-input"]{flex:1 1 auto !important;min-width:0 !important;}
       [data-r="bar-kakao"]{flex:0 0 auto !important;padding:11px 16px !important;}
       [data-r="float"]{right:12px !important;bottom:84px !important;gap:8px !important;}
-      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
-      [data-fab] [data-ico]{font-size:17px !important;}
-      [data-r="float"] > button{width:38px !important;height:38px !important;font-size:14px !important;}
+      [data-fab]{width:60px !important;height:60px !important;font-size:10.5px !important;gap:2px !important;}
+      [data-fab] [data-ico]{font-size:20px !important;}
+      [data-r="float"] > button{width:44px !important;height:44px !important;font-size:16px !important;}
       [data-fab] [data-ring]{display:none !important;}
       [data-r="mbr"]{display:inline !important;}
       [data-r="pkgsect"]{padding-top:36px !important;margin-top:14px !important;}
-      [data-r="h1"]{font-size:30px !important;line-height:1.28 !important;letter-spacing:-0.05em !important;max-width:11em !important;margin-left:auto !important;margin-right:auto !important;}
-      [data-r="h2"]{font-size:26px !important;line-height:1.3 !important;letter-spacing:-0.04em !important;}
+      [data-r="h1"]{font-size:27px !important;line-height:1.32 !important;letter-spacing:-0.04em !important;max-width:12em !important;margin-left:auto !important;margin-right:auto !important;}
+      [data-r="h2"]{font-size:27px !important;line-height:1.32 !important;letter-spacing:-0.04em !important;}
       [data-r="rows5"]{grid-template-columns:96px 1fr 56px !important;}
       [data-r="rows5"] > :nth-child(4), [data-r="rows5"] > :nth-child(5){display:none !important;}
       [data-r="testi"] > :nth-child(3){display:none !important;}
@@ -114,7 +123,7 @@
   <!-- HEADER -->
   <header style="position:sticky; top:0; z-index:60; background:rgba(251,250,247,0.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);">
     <div data-r="pad" style="max-width:1240px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between;">
-      <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'ArchivoExpandedBlack',sans-serif; color:var(--ink);">PROR.CO</a>
+      <a href="./PRORCO 홈페이지.dc.html" style="font-size:21px; font-weight:900; letter-spacing:-0.5px; font-family:'Archivo Expanded','ArchivoExpandedBlack',sans-serif; color:var(--ink);">PROR.CO</a>
       <nav data-r="gnb" style="display:flex; gap:22px;">
         <sc-for list="{{ gnb }}" as="g" hint-placeholder-count="7">
           <div onMouseEnter="{{ g.onEnter }}" onMouseLeave="{{ onGnbLeave }}" style="position:relative; font-size:14px; color:var(--ink-soft); cursor:pointer; padding:6px 0; white-space:nowrap;" style-hover="color:var(--ink);">
@@ -216,7 +225,7 @@
   </div>
 
   <!-- TICKER -->
-  <div style="background:#0E1526; display:flex; align-items:center; overflow:hidden; height:68px; margin:20px 24px 0; border-radius:18px;">
+  <div data-r="ticker" style="background:#0E1526; display:flex; align-items:center; overflow:hidden; height:68px; margin:20px 24px 0; border-radius:18px;">
     <div style="flex:0 0 auto; padding:0 28px; height:100%; display:flex; align-items:center; gap:9px; color:#fff; font-size:14.5px; font-weight:700; white-space:nowrap; z-index:2; border-right:1px solid rgba(255,255,255,0.12);">
       <span style="width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 1.4s infinite;"></span>실시간 예약 현황
     </div>
@@ -234,7 +243,7 @@
     <div style="width:100%;">
       <div style="overflow:hidden; position:relative;">
         <div style="text-align:center; color:var(--ink); margin-bottom:32px; position:relative; z-index:2;">
-          <h2 data-r="h1" style="font-size:44px; margin:0 0 14px; font-weight:800; letter-spacing:-2px; line-height:1.15; color:#1B2A66;">우리 집에 맞는<br data-r="mbr" style="display:none;"/> 시공 패키지 찾기</h2>
+          <h2 data-r="h1" style="font-size:34px; margin:0 0 14px; font-weight:800; letter-spacing:-0.04em; line-height:1.3; color:#1B2A66;">우리 집에 맞는<br data-r="mbr" style="display:none;"/> 시공 패키지 찾기</h2>
           <div style="color:var(--ink-soft); font-size:17px; font-weight:600;">10명 중 7명이 우물천장 패키지를 선택합니다</div>
         </div>
 
@@ -287,7 +296,7 @@
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div style="text-align:center; margin-bottom:40px;">
         <div style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); border:1px solid rgba(47,111,237,0.3); background:rgba(47,111,237,0.06); padding:6px 14px; border-radius:999px; margin-bottom:14px;">SELF ESTIMATE</div>
-        <h2 data-r="h2" style="font-size:27px; margin:0 0 10px; font-weight:800; letter-spacing:-0.3px;">상담 없이도,<br data-r="mbr" style="display:none;"/> 우리 집 견적을 3분 안에</h2>
+        <h2 data-r="h2" style="font-size:34px; margin:0 0 10px; font-weight:800; letter-spacing:-0.04em; line-height:1.3; color:#1B2A66;">상담 없이도,<br data-r="mbr" style="display:none;"/> 우리 집 견적을 3분 안에</h2>
         <div style="color:var(--ink-soft); font-size:14px;">원하는 항목만 담으면 정찰제 금액이 바로 합산됩니다.<br data-r="mbr" style="display:none;"/> 지금도 여러 고객님이 견적을 내고 계세요.</div>
       </div>
       <div data-r="grid2" style="display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:stretch;">
@@ -346,7 +355,7 @@
   <section data-reveal style="opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease; padding:96px 0;">
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px; flex-wrap:wrap; gap:16px;">
-        <h2 data-r="h2" style="font-size:27px; margin:0; font-weight:800; letter-spacing:-0.3px;">실제 시공 고객님들의 솔직한 후기</h2>        <a href="./시공후기.dc.html" style="font-size:13.5px; color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:2px;" style-hover="color:var(--accent);border-color:var(--accent);">시공후기 전체보기 →</a>
+        <h2 data-r="h2" style="font-size:34px; margin:0; font-weight:800; letter-spacing:-0.04em; line-height:1.3; color:#1B2A66;">실제 시공 고객님들의 솔직한 후기</h2>        <a href="./시공후기.dc.html" style="font-size:13.5px; color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:2px;" style-hover="color:var(--accent);border-color:var(--accent);">시공후기 전체보기 →</a>
       </div>
       <div data-r="revgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
         <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="8">
@@ -380,7 +389,7 @@
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div data-r="grid2" style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center;">
         <div>
-          <h2 data-r="h2" style="font-size:28px; font-weight:800; line-height:1.35; margin:0 0 14px;">상담부터 시공까지,<br/>딱 4단계면 끝나요</h2>
+          <h2 data-r="h2" style="font-size:34px; font-weight:800; line-height:1.3; letter-spacing:-0.04em; color:#1B2A66; margin:0 0 14px;">상담부터 시공까지,<br/>딱 4단계면 끝나요</h2>
           <p style="color:var(--ink-soft); font-size:14.5px; line-height:1.8;">상담부터 시공까지, 카톡 한 번이면 시작됩니다.<br/>정찰제라 추가 비용 걱정 없이 진행하실 수 있어요.</p>
           <a href="#hero" style="display:inline-flex; align-items:center; gap:8px; margin-top:26px; background:var(--accent); color:#fff; padding:13px 22px; border-radius:999px; font-size:13.5px; font-weight:600;">카카오톡으로 상담 시작하기 →</a>
         </div>
@@ -406,7 +415,7 @@
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:22px;">
         <div>
-          <a href="./PRORCO 홈페이지.dc.html" style="display:inline-block; font-size:20px; font-weight:900; letter-spacing:-0.5px; color:#fff; font-family:'ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
+          <a href="./PRORCO 홈페이지.dc.html" style="display:inline-block; font-size:20px; font-weight:900; letter-spacing:-0.5px; color:#fff; font-family:'Archivo Expanded','ArchivoExpandedBlack',sans-serif;">PROR.CO</a>
           <div style="font-size:12.5px; color:#8A8A8A; margin-top:8px;">눈으로 확인하고, 손으로 견적내는 정찰제 시공</div>
         </div>
         <div style="font-size:20px; font-weight:800; color:#fff;"><span style="font-size:12.5px; color:#8A8A8A; font-weight:400; display:block; margin-bottom:4px;">대표번호</span>010-9850-2293</div>
