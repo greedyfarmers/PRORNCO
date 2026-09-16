@@ -91,7 +91,9 @@
 /* END USAGE */
 
 (() => {
-  const STATE_FILE = '.image-slots.state.json';
+  // 점 없는 이름을 쓴다 — 정적 호스팅에서 dotfile이 차단되거나
+  // 로컬에서 숨김 처리돼 업로드가 누락되는 문제를 피하기 위함.
+  const STATE_FILE = 'image-slots.state.json';
 
   // Unsplash terms require visible attribution wherever their photos
   // display, and every link back to unsplash.com must carry utm referral
