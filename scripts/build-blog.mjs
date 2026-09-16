@@ -12,8 +12,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   SITE, BLOG_PATH, DEFAULT_LOCALE,
-  selectForLocale, slugOf, listPage, postPage, sitemapXml, robotsTxt, injectVerification,
+  selectForLocale, slugOf, listPage, postPage, sitemapXml, robotsTxt,
 } from './render.mjs';
+import { injectSeo, indexableUrls } from './seo.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
@@ -79,18 +80,17 @@ async function walkHtml(dir, out = []) {
 }
 
 async function injectAll(token) {
-  if (!token) {
-    log('AEOLO_VERIFICATION 없음 — 검증 태그를 넣지 않습니다');
-    return 0;
-  }
+  if (!token) log('AEOLO_VERIFICATION 없음 — 검증 태그는 넣지 않습니다');
   const files = await walkHtml(DIST);
   let n = 0;
   for (const f of files) {
+    const rel = path.relative(DIST, f).split(path.sep).join('/');
+    // /blog 아래 산출물은 이미 정적 HTML이다 — 검증 태그만 필요하며 render.mjs가 메타를 짜다.
     const html = await readFile(f, 'utf8');
-    const { html: next, changed } = injectVerification(html, token);
+    const { html: next, changed } = injectSeo(html, rel, token);
     if (changed) { await writeFile(f, next, 'utf8'); n++; }
   }
-  log('검증 태그 삽입: ' + n + '개 파일');
+  log('정적 SEO 마크업 삽입: ' + n + '/' + files.length + '개 파일');
   return n;
 }
 
@@ -125,13 +125,8 @@ async function writeBlog(items) {
 }
 
 async function listSitePages() {
-  const urls = [SITE + '/', SITE + BLOG_PATH + '/'];
-  for (const e of await readdir(DIST, { withFileTypes: true })) {
-    if (!e.isFile() || !/\.html?$/i.test(e.name)) continue;
-    if (e.name === 'index.html') continue;
-    urls.push(SITE + '/' + encodeURI(e.name));
-  }
-  return urls;
+  // noindex 파일과 중복 경로는 제외하고 정본 URL만 든다.
+  return [...indexableUrls(), SITE + BLOG_PATH + '/'];
 }
 
 async function main() {
