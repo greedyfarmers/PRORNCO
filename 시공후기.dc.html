@@ -41,7 +41,7 @@
       [data-r="summary"]{padding-right:112px !important;}
     }
     @media (max-width: 720px){
-      [data-r="tiles"]{margin-right:-1rem !important;padding-right:1rem !important;gap:0.5rem !important;}
+      [data-r="tiles"]{margin-right:-1rem !important;padding-right:1rem !important;gap:0.5rem !important;justify-content:flex-start !important;}
       [data-r="tiles"]::-webkit-scrollbar{display:none !important;}
       [data-r="revlist"]{display:flex !important;flex-direction:column !important;gap:0.75rem !important;}
       [data-r="revcard"]{flex-direction:row !important;align-items:center !important;border:0 !important;background:#fff !important;border-radius:1rem !important;padding:0.75rem !important;box-shadow:0 1px 3px rgba(15,20,32,0.07) !important;}
@@ -131,7 +131,7 @@
     </div>
 
     <!-- category tiles -->
-    <div data-r="tiles" style="display:flex; gap:0.75rem; justify-content:flex-start; overflow-x:auto; padding:0.25rem 0 1.25rem; scrollbar-width:none; -ms-overflow-style:none;">
+    <div data-r="tiles" style="display:flex; gap:0.75rem; justify-content:center; overflow-x:auto; padding:0.25rem 0 1.25rem; scrollbar-width:none; -ms-overflow-style:none;">
       <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
         <div onClick="{{ f.onClick }}" style="{{ f.tileWrapStyle }}">
           <div style="{{ f.tileStyle }}">{{ f.icon }}</div>
@@ -152,12 +152,29 @@
     <div style="font-size:14px; font-weight:700; margin-bottom:20px;">{{ resultLabel }}</div>
   </div>
 
+  <sc-if value="{{ zoomOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeZoom }}" style="position:fixed; inset:0; z-index:300; background:rgba(8,11,20,0.88); display:flex; align-items:center; justify-content:center; padding:24px; animation:fadeIn .16s ease;">
+      <div data-r="zoombox" style="position:relative; width:100%; max-width:56rem; max-height:88vh; display:flex; flex-direction:column; gap:14px;">
+        <div onClick="{{ stopProp }}" style="{{ zoomImgStyle }}"></div>
+        <div onClick="{{ stopProp }}" style="color:#fff; display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:14px; color:#7FA4FF; letter-spacing:1.5px;">{{ zoomStars }}</div>
+          <div style="font-size:17px; font-weight:800; letter-spacing:-0.02em; line-height:1.45;">{{ zoomTitle }}</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.72); line-height:1.75;">{{ zoomBody }}</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px;">{{ zoomMeta }}</div>
+        </div>
+        <div onClick="{{ closeZoom }}" style="position:absolute; top:-6px; right:-6px; width:2.75rem; height:2.75rem; border-radius:50%; background:rgba(255,255,255,0.14); color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center; cursor:pointer;" style-hover="background:rgba(255,255,255,0.26);">✕</div>
+        <div onClick="{{ prevZoom }}" style="{{ zoomPrevStyle }}">‹</div>
+        <div onClick="{{ nextZoom }}" style="{{ zoomNextStyle }}">›</div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- review list -->
   <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
     <div data-r="revlist" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
       <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="9">
         <div data-r="revcard" style="border:1px solid var(--line); display:flex; flex-direction:column;">
-          <div data-r="revphoto" style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7;">
+          <div data-r="revphoto" onClick="{{ r.onZoom }}" style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#F2F4F7; cursor:zoom-in;">
             <image-slot id="{{ r.photoId }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ r.photoHint }}"></image-slot>
           </div>
           <div data-r="revbody" style="padding:20px; display:flex; flex-direction:column; gap:10px; flex:1;">
@@ -217,7 +234,21 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { filter: '전체', sort: '최신순', page: 1 };
+  state = { filter: '전체', sort: '최신순', page: 1, zoom: null, zoomSrc: '' };
+
+  componentDidMount() {
+    this._onKey = (e) => {
+      if (this.state.zoom === null || this.state.zoom === undefined) return;
+      if (e.key === 'Escape') this.setState({ zoom: null, zoomSrc: '' });
+      if (e.key === 'ArrowLeft') this._step && this._step(-1);
+      if (e.key === 'ArrowRight') this._step && this._step(1);
+    };
+    window.addEventListener('keydown', this._onKey);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._onKey);
+  }
   perPage = 9;
 
   filterList = ['전체', '우물천장', '커튼조명', 'COB · 다운라이트', '센서등', '실링팬'];
@@ -249,40 +280,85 @@ class Component extends DCLogic {
   templates = {
     '우물천장': {
       pkg: ['우물천장 패키지', '목공 우물천장', '한방 우물천장'],
-      titles: ['천장 라인이 살아나니 집이 넓어 보여요', '메인등 떼고 우물조명으로 바꿨습니다', '마감선이 자로 잰 듯 반듯해요', '두 줄 시공, 안 했으면 후회할 뻔', '거실이 완전히 다른 집이 됐어요'],
+      titles: [
+        '천장 라인이 살아나니 집이 넓어 보여요', '메인등 떼고 우물조명으로 바꿨습니다', '마감선이 자로 잰 듯 반듯해요',
+        '두 줄 시공, 안 했으면 후회할 뻔', '거실이 완전히 다른 집이 됐어요', '한방 방식이라 도배를 안 해도 됐어요',
+        '몰딩 흔적 없이 깔끔하게 정리됐습니다', '무몰딩 직각 라인이 기대 이상이에요', '천장 높이가 낮아 보일까 걱정했는데',
+        '빛이 끊기는 구간이 하나도 없습니다', '조명만 바꿨는데 집값 오른 기분이에요', '구축 아파트인데 신축처럼 나왔습니다',
+        '실측 때 설명해주신 그대로 나왔어요', '우물 안쪽 도배까지 해주셔서 좋았습니다', '가구 안 옮기고도 하루에 끝났어요',
+        '전구색 한 줄, 주백색 한 줄로 넣었습니다', '라운드 마감으로 바꾼 게 만족스러워요', '거실 천장만 손봤는데 집 전체가 달라졌어요',
+        '메인등 없이 지내는데 전혀 어둡지 않아요', '5.6m 넘는 긴 면도 이음새 없이 깔끔', '이사 전날 급하게 요청드렸는데도',
+        '천장 구조부터 확인해주셔서 안심됐어요', '저녁마다 거실에 앉아 있게 됩니다', '시공 후 정리까지 흔적 없이 마무리',
+      ],
       bodies: ['시공 전에 천장 구조를 먼저 확인해주시고 가능한 라인을 그림으로 보여주셔서 이해가 쉬웠습니다. 결과물도 설명 그대로였어요.', '기존 몰딩을 걷어내고 새로 잡아주셔서 이전 흔적이 남지 않았습니다. 마감이 깔끔해서 만족합니다.', '조명을 켰을 때 빛이 끊기는 구간 없이 고르게 퍼집니다. 저녁에 거실에 앉아 있는 시간이 늘었어요.', '두 줄로 넣어두니 상황에 따라 밝기를 조절할 수 있어 편합니다. 평소엔 한 줄, 손님 오면 둘 다 켭니다.'],
       tags: [['우물천장', '2줄 시공'], ['목공 우물천장', '무몰딩'], ['한방 우물천장', '몰딩'], ['우물천장', '거실']],
     },
     '커튼조명': {
       pkg: ['개별시공', '간접조명 패키지'],
-      titles: ['커튼조명 하나로 분위기가 달라졌어요', '금액 대비 체감이 가장 큰 항목', '창가에 앉아 있는 시간이 늘었습니다', '커튼박스 라인이 예쁘게 나왔어요'],
-      bodies: ['가장 저렴한 항목인데 저녁 분위기는 가장 크게 바뀝니다. 커튼조명만 켜두면 조용한 카페 같아요.', '커튼 원단에 빛이 은은하게 번져서 눈이 편합니다. 색온도는 전구색으로 골랐는데 잘한 선택이었어요.', '코너 창이라 걱정했는데 꺾이는 구간에서도 빛이 끊기지 않게 잡아주셨습니다.'],
+      titles: [
+        '커튼조명 하나로 분위기가 달라졌어요', '금액 대비 체감이 가장 큰 항목', '창가에 앉아 있는 시간이 늘었습니다',
+        '커튼박스 라인이 예쁘게 나왔어요', 'ㄱ자 코너도 빛이 끊기지 않아요', '10만원으로 이만한 변화는 없습니다',
+        '커튼 원단에 빛이 번지는 게 예뻐요', '조명 하나로 카페 같은 거실이 됐어요', '전구색으로 고른 게 정답이었습니다',
+        '아이 재울 때 이 조명만 켜둡니다', '눈이 편해서 밤에 오래 앉아 있어요', '창 길이가 긴데도 밝기가 균일합니다',
+        '커튼 걷었을 때 조명이 안 보여서 깔끔', '주백색으로 했는데 생각보다 시원해요', '두 곳 다 하니 거실이 훨씬 넓어 보여요',
+        '가구 다 들어온 뒤에 했는데 문제없었어요', '스위치 위치까지 같이 잡아주셨습니다', '리모델링 없이 이것만 했는데 만족',
+        '침실에도 추가하고 싶어졌습니다', '커튼박스 안쪽 마감이 꼼꼼해요', '설치 자리 먼저 보여주셔서 결정이 쉬웠어요',
+        '5m 넘는 구간도 추가금 안내받은 그대로', '저녁 공기가 달라진 느낌입니다', '손님들이 제일 먼저 물어보는 조명',
+      ],
+      bodies: ['비용은 가장 낮은 항목인데 저녁에 느끼는 차이는 제일 큽니다. 이 조명만 켜두고 지내는 날이 많아요.', '원단 위로 빛이 부드럽게 퍼져서 오래 앉아 있어도 눈이 편합니다. 색온도는 전구색으로 정했습니다.', '코너 창이라 걱정했는데 꺾이는 구간에서도 빛이 끊기지 않게 잡아주셨습니다.', '커튼박스 안쪽에 넣는 방식이라 커튼을 걷어도 조명이 보이지 않습니다. 겉으로는 아무것도 없는 것처럼 깔끔해요.', '창 길이가 길어 밝기가 고르지 않을까 걱정했는데 처음부터 끝까지 균일합니다.'],
       tags: [['커튼조명', 'T5'], ['커튼박스', '전구색'], ['ㄱ자형', '커튼조명']],
     },
     'COB · 다운라이트': {
       pkg: ['개별시공', '간접조명 패키지'],
-      titles: ['다운라이트 위치를 꼼꼼히 잡아주셨어요', '아트월 COB가 이 집의 포인트', '주방 하부등, 왜 이제 했을까요', '견적 금액 그대로였습니다', '3인치로 통일하니 천장이 깔끔해요'],
+      titles: [
+        '다운라이트 위치를 꼼꼼히 잡아주셨어요', '아트월 COB가 이 집의 포인트', '주방 하부등, 왜 이제 했을까요',
+        '견적 금액 그대로였습니다', '3인치로 통일하니 천장이 깔끔해요', '그림자 지는 자리가 하나도 없어요',
+        '2인치로 바꿨는데 훨씬 고급스러워요', '호른형이라 눈부심이 적습니다', '싱크대 앞이 환해져 설거지가 편해요',
+        '복도 다운라이트 간격이 딱 맞습니다', '가구 배치 먼저 물어봐주셔서 좋았어요', '색온도 3가지 중에 골라서 시공했습니다',
+        '천장 타공 자리가 자로 잰 듯 정렬됐어요', '주광색으로 했는데 서재에 딱입니다', '전구색 다운라이트로 침실 분위기 완성',
+        '기존 등 자리 그대로 써서 도배가 필요 없었어요', '8개 넣었는데 전혀 과하지 않습니다', '드레스룸에 추가했더니 옷 색이 정확해요',
+        '석고보드 천장인지 먼저 확인해주셨습니다', 'COB 스팟 각도를 직접 맞춰주셨어요', '눈에 직접 들어오는 빛이 없어 편합니다',
+        '거실과 주방 색온도를 다르게 했습니다', '천장이 훨씬 높아 보이는 효과가 있어요', '먼지 하나 없이 정리하고 가셨습니다',
+      ],
       bodies: ['가구 배치를 먼저 물어보시고 그에 맞춰 타공 위치를 잡아주셨습니다. 그림자 지는 자리가 없어요.', '그림 걸어둔 벽에 스팟을 쏴주셨는데 갤러리 같은 느낌이 납니다. 호른형이라 눈부심도 적어요.', '싱크대 아래를 비춰주니 설거지할 때 훨씬 편합니다. 금액도 부담 없었습니다.', '실측 후에도 안내받은 금액에서 변동이 없었습니다. 이 부분이 가장 신뢰가 갔어요.'],
       tags: [['다운라이트', '3인치'], ['COB', '호른형'], ['하부등', '주방'], ['정찰제', '다운라이트']],
     },
     '센서등': {
       pkg: ['개별시공'],
-      titles: ['현관 센서등, 손이 자유로워졌어요', '욕실 히든센서 강력 추천합니다', '밤중에 눈이 부시지 않아 좋아요', '복도 동선이 편해졌습니다'],
-      bodies: ['장을 들고 들어올 때 스위치를 찾을 필요가 없어졌습니다. 감지도 빠르고 오작동이 없어요.', '천장을 뚫지 않고 내부에 넣는 방식이라 외관이 깔끔합니다. 밤에도 눈이 편해요.', '감지 범위를 처음에 맞추는 데 시간이 조금 걸렸지만, 잡고 나니 아주 만족스럽습니다.'],
+      titles: [
+        '현관 센서등, 손이 자유로워졌어요', '욕실 히든센서 강력 추천합니다', '밤중에 눈이 부시지 않아 좋아요',
+        '복도 동선이 편해졌습니다', '장 들고 들어올 때 스위치를 안 찾아요', '천장을 안 뚫는 방식이라 깔끔해요',
+        '아이가 밤에 혼자 화장실을 갑니다', '감지가 빨라서 기다릴 일이 없어요', '신발장 아래 빛이 생각보다 예뻐요',
+        '오작동이 한 번도 없었습니다', '두 곳 다 하니 밤에 불 켤 일이 없어요', '상부장 안쪽에 넣어 외관이 안 보여요',
+        '감지 범위를 원하는 대로 맞춰주셨어요', '전구색이라 새벽에도 눈이 편합니다', '현관이 넓어 보이는 효과가 있어요',
+        '거주 중에 했는데 30분 만에 끝났습니다', '반려견이 밤에 돌아다녀도 안심돼요', '욕실 거울 아래 라인이 호텔 같아요',
+        '스위치 없이 쓰는 게 이렇게 편할 줄', '전기료 걱정했는데 거의 차이 없어요', '작은 항목인데 매일 체감합니다',
+        '배선 정리까지 깔끔하게 해주셨어요', '복도에 하나 더 추가하고 싶습니다', '설치 자리를 함께 보고 정했습니다',
+      ],
+      bodies: ['양손이 가득 찬 상태로 들어와도 불이 알아서 켜집니다. 감지 속도가 빠르고 오작동도 없었어요.', '천장을 뚫지 않고 내부에 넣는 방식이라 외관이 깔끔합니다. 밤에도 눈이 편해요.', '감지 범위를 처음에 맞추는 데 시간이 조금 걸렸지만, 잡고 나니 아주 만족스럽습니다.', '전구색을 골랐더니 새벽에 켜져도 눈이 부시지 않습니다. 잠이 깨지 않을 정도로 은은해요.', '배선을 보이지 않게 정리해주셔서 시공한 자리인지 모를 정도입니다. 작업 시간도 짧았어요.'],
       tags: [['센서등', '현관'], ['히든센서', '욕실'], ['센서등', '복도']],
     },
     '실링팬': {
       pkg: ['실링팬 패키지', '우물천장 + 실링팬'],
-      titles: ['천장 보강까지 해주셔서 흔들림이 없어요', '여름 냉방비가 확실히 줄었습니다', '조명 겸용으로 고른 게 정답이었어요', '소음이 거의 없어서 만족합니다'],
-      bodies: ['설치 전에 천장 구조를 확인하고 보강 작업을 먼저 해주셨습니다. 돌려봐도 흔들림이 전혀 없어요.', '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', '서재라 조명은 그대로 두고 팬만 달았는데, 조용해서 일하는 데 방해가 되지 않습니다.'],
+      titles: [
+        '천장 보강까지 해주셔서 흔들림이 없어요', '여름 냉방비가 확실히 줄었습니다', '조명 겸용으로 고른 게 정답이었어요',
+        '소음이 거의 없어서 만족합니다', '겨울에도 공기가 골고루 돌아갑니다', '단독배선까지 해주셔서 안심됩니다',
+        '천장이 낮은데도 답답하지 않아요', '팬 단독으로 달았는데 충분했습니다', '에어컨 설정 온도를 2도 높였어요',
+        '보일러 가동 시간이 눈에 띄게 줄었어요', '흔들림 없이 조용하게 돌아갑니다', '우물천장과 같이 하니 거실이 완성됐어요',
+        '리모컨 반응이 빠르고 편합니다', '실링팬 모델을 직접 보고 골랐어요', '보강 비용이 포함돼 있어 추가금이 없었어요',
+        '설치 후 우물 안쪽 도배까지 마무리', '서재에 달았는데 일할 때 방해가 없어요', '사계절 내내 켜두고 있습니다',
+        '천장 구조 확인 후 모델을 추천해주셨어요', '날개 소리가 거의 들리지 않습니다', '거주 중 시공인데 먼지가 없었어요',
+        '아이 방 공기가 훨씬 쾌적해졌습니다', '조명 밝기도 충분해서 메인등을 뗐어요', '설치 시간이 안내받은 그대로였습니다',
+      ],
+      bodies: ['천장 상태를 먼저 살펴보고 보강부터 진행해주셨습니다. 최고 단계로 돌려도 미세한 떨림이 없어요.', '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', '서재라 조명은 그대로 두고 팬만 달았는데, 조용해서 일하는 데 방해가 되지 않습니다.', '단독배선까지 해주셔서 다른 조명과 따로 켤 수 있습니다. 리모컨 반응도 즉각적이에요.', '겨울에 틀어보니 위로 몰린 더운 공기가 아래로 내려옵니다. 보일러 가동 시간이 줄었어요.'],
       tags: [['실링팬', '천장보강'], ['실링팬', '조명 겸용'], ['실링팬', '팬 단독']],
     },
   };
 
   extraReviews = [
-    { rating: 5, date: '2026.06.03', order: -1, cat: '우물천장', title: '천장 라인이 살아나니 집이 넓어 보여요', body: '시공 전에 천장 구조를 먼저 확인하고 가능한 라인을 그림으로 보여주셔서 이해가 쉬웠습니다. 결과물도 설명 그대로였어요.', author: '의정부 권○○님', meta: '38평 · 우물천장 패키지', tags: ['우물천장', '거실'] },
-    { rating: 5, date: '2026.05.27', order: -2, cat: '커튼조명', title: '창가에 앉아 있는 시간이 늘었습니다', body: '커튼 원단에 빛이 은은하게 번져서 눈이 편합니다. 색온도는 전구색으로 골랐는데 잘한 선택이었어요.', author: '청주 황○○님', meta: '24평 · 간접조명 패키지', tags: ['커튼박스', '전구색'] },
-    { rating: 4, date: '2026.05.19', order: -3, cat: '실링팬', title: '여름 냉방비가 확실히 줄었습니다', body: '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', author: '대전 신○○님', meta: '49평 · 실링팬 패키지', tags: ['실링팬', '조명 겸용'] },
+    { rating: 5, date: '2026.06.03', order: -1, cat: '우물천장', title: '천장 한 줄로 거실 인상이 바뀌었어요', body: '시공 전에 천장 구조를 먼저 확인하고 가능한 라인을 그림으로 보여주셔서 이해가 쉬웠습니다. 결과물도 설명 그대로였어요.', author: '의정부 권○○님', meta: '38평 · 우물천장 패키지', tags: ['우물천장', '거실'] },
+    { rating: 5, date: '2026.05.27', order: -2, cat: '커튼조명', title: '창가 자리가 집에서 가장 좋아졌어요', body: '커튼 원단에 빛이 은은하게 번져서 눈이 편합니다. 색온도는 전구색으로 골랐는데 잘한 선택이었어요.', author: '청주 황○○님', meta: '24평 · 간접조명 패키지', tags: ['커튼박스', '전구색'] },
+    { rating: 4, date: '2026.05.19', order: -3, cat: '실링팬', title: '한여름 전기요금이 눈에 띄게 내려갔어요', body: '에어컨 바람이 골고루 퍼져서 설정 온도를 높여도 시원합니다. 전기료가 눈에 띄게 줄었어요.', author: '대전 신○○님', meta: '49평 · 실링팬 패키지', tags: ['실링팬', '조명 겸용'] },
   ];
 
   buildReviews() {
@@ -310,7 +386,8 @@ class Component extends DCLogic {
         date: d.getFullYear() + '.' + mm + '.' + dd,
         order: -(++order),
         cat,
-        title: this.leads[Math.floor(catCount[cat] / t.titles.length) % this.leads.length] + ' ' + t.titles[catCount[cat] % t.titles.length],
+        // 카테고리별 제목은 소진 순서대로만 쓴다 (같은 문구 반복 방지)
+        title: t.titles[catCount[cat] % t.titles.length],
         body: t.bodies[catCount[cat] % t.bodies.length] + ' ' + this.tails[Math.floor(catCount[cat]++ / t.bodies.length) % this.tails.length],
         author: region + ' ' + name + '○○님',
         meta: size + ' · ' + pick(t.pkg, i),
@@ -389,14 +466,62 @@ class Component extends DCLogic {
     const pageItems = [];
     for (let p = from; p <= to; p++) pageItems.push({ label: String(p), onClick: () => goTo(p), style: pageBtn(p === page, false) });
 
-    const reviews = list.slice(start, start + this.perPage).map((r, i) => ({
+    const starsOf = (n) => '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
+    const shown = list.slice(start, start + this.perPage);
+
+    const srcOf = (el) => {
+      const slot = el && el.querySelector('image-slot');
+      const img = slot && slot.shadowRoot && slot.shadowRoot.querySelector('.frame img');
+      const src = img && img.getAttribute('src');
+      return src || '';
+    };
+
+    const reviews = shown.map((r, i) => ({
       ...r,
-      stars: '★★★★★'.slice(0, r.rating) + '☆☆☆☆☆'.slice(0, 5 - r.rating),
+      stars: starsOf(r.rating),
       photoId: r.photo,
       photoHint: r.meta + ' 후기 사진',
+      onZoom: (e) => {
+        const src = srcOf(e.currentTarget);
+        if (!src) return; // 사진이 아직 없는 자리는 확대하지 않는다
+        this.setState({ zoom: i, zoomSrc: src });
+      },
     }));
 
+    const zi = s.zoom;
+    const zoomOpen = zi !== null && zi !== undefined && !!shown[zi];
+    const zr = zoomOpen ? shown[zi] : null;
+
+    const stepZoom = (delta) => {
+      // 사진이 실제로 들어 있는 카드만 순회한다
+      const cards = Array.from(document.querySelectorAll('[data-r="revphoto"]'));
+      const n = shown.length;
+      for (let k = 1; k <= n; k++) {
+        const j = ((zi + delta * k) % n + n) % n;
+        const src = srcOf(cards[j]);
+        if (src) { this.setState({ zoom: j, zoomSrc: src }); return; }
+      }
+    };
+    this._step = stepZoom;
+
+    const arrow = (side) => 'position:absolute;top:35%;' + side + ':0.75rem;z-index:2;width:2.75rem;height:2.75rem;'
+      + 'border-radius:50%;background:rgba(255,255,255,0.14);color:#fff;font-size:26px;line-height:1;'
+      + 'display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none;';
+
     return {
+      zoomOpen,
+      zoomImgStyle: 'width:100%;height:70vh;border-radius:10px;background:#0B0E14 center/contain no-repeat;'
+        + (s.zoomSrc ? 'background-image:url("' + s.zoomSrc.replace(/"/g, '%22') + '");' : ''),
+      zoomTitle: zr ? zr.title : '',
+      zoomBody: zr ? zr.body : '',
+      zoomStars: zr ? starsOf(zr.rating) : '',
+      zoomMeta: zr ? zr.author + ' · ' + zr.meta + ' · ' + zr.date : '',
+      closeZoom: () => this.setState({ zoom: null, zoomSrc: '' }),
+      stopProp: (e) => e.stopPropagation(),
+      prevZoom: (e) => { e.stopPropagation(); stepZoom(-1); },
+      nextZoom: (e) => { e.stopPropagation(); stepZoom(1); },
+      zoomPrevStyle: arrow('left'),
+      zoomNextStyle: arrow('right'),
       filters,
       sorts,
       distribution,
