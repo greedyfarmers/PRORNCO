@@ -234,7 +234,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { filter: '전체', sort: '최신순', page: 1, zoom: null, zoomSrc: '' };
+  state = { filter: '우물천장', sort: '최신순', page: 1, zoom: null, zoomSrc: '' };
 
   componentDidMount() {
     this._onKey = (e) => {
@@ -251,7 +251,7 @@ class Component extends DCLogic {
   }
   perPage = 9;
 
-  filterList = ['전체', '우물천장', '커튼조명', 'COB · 다운라이트', '센서등', '실링팬'];
+  filterList = ['우물천장', '커튼조명', 'COB · 다운라이트', '센서등', '실링팬', '전체'];
   sortList = ['최신순', '별점순'];
 
   reviewData = [
