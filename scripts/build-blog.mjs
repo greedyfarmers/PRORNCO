@@ -85,6 +85,8 @@ async function injectAll(token) {
   let n = 0;
   for (const f of files) {
     const rel = path.relative(DIST, f).split(path.sep).join('/');
+    // 검색엔진 소유확인 파일(naverXXXX.html, googleXXXX.html)은 내용이 그대로여야 한다
+    if (/^(naver|google)[0-9a-f]+.html$/.test(rel)) continue;
     // /blog 아래 산출물은 이미 정적 HTML이다 — 검증 태그만 필요하며 render.mjs가 메타를 짜다.
     const html = await readFile(f, 'utf8');
     const { html: next, changed } = injectSeo(html, rel, token);
