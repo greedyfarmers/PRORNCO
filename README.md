@@ -116,7 +116,7 @@ styled-components 등)으로 옮기십시오. 모든 스타일은 현재 인라�
     (`0%: scale(1) opacity .55 → 70%: scale(1.5) opacity 0`)
 - **카톡상담**: 동일 66px 원형, `radial-gradient(circle at 34% 26%, #FFF4A0, #FFE94A 70%)`,
   텍스트 `#2C2200`, 아이콘 💬
-  → `<a href="http://pf.kakao.com/_xdBVxaX/chat" target="_blank" rel="noopener">`
+  → `<a href="http://pf.kakao.com/_xgJFaX/chat" target="_blank" rel="noopener">`
 - **맨 위로**: 44px 원형, 흰 배경 `rgba(255,255,255,0.92)`, 1px 보더, `↑`
 - **부상 애니메이션 (두 버튼 동일 위상, 딜레이 없음)**:
   `floatY 3.4s ease-in-out infinite` — `0%,100%: translateY(0)` / `50%: translateY(-9px)`
@@ -403,7 +403,7 @@ styled-components 등)으로 옮기십시오. 모든 스타일은 현재 인라�
 
 ## 연락처 · 링크
 - 대표번호: **010-9850-2293** → `tel:010-9850-2293`
-- 카카오 채널: **`http://pf.kakao.com/_xdBVxaX/chat`** (새 창)
+- 카카오 채널: **`http://pf.kakao.com/_xgJFaX/chat`** (새 창)
 - 사업자: 상호 프로어앤코 / 대표 김동준 / 사업자등록번호 241-10-02476
 
 ## Files

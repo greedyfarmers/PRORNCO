@@ -139,7 +139,7 @@ function ctaBlock() {
     + '<div style="font-size:14px; color:' + BRAND.soft + '; line-height:1.8; margin-bottom:22px;">셀프견적으로 예상 금액을 먼저 확인하시거나,<br>카카오톡으로 편하게 상담받으실 수 있습니다.</div>'
     + '<div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">'
     + '<a href="/상세견적.dc.html" style="display:inline-flex; align-items:center; min-height:48px; padding:0 22px; border-radius:999px; background:' + BRAND.accent + '; color:#fff; font-size:14px; font-weight:800; text-decoration:none;">셀프견적 시작하기</a>'
-    + '<a href="http://pf.kakao.com/_xdBVxaX/chat" style="display:inline-flex; align-items:center; min-height:48px; padding:0 22px; border-radius:999px; background:' + BRAND.dark + '; color:#fff; font-size:14px; font-weight:800; text-decoration:none;">카카오로 상담하기</a>'
+    + '<a href="http://pf.kakao.com/_xgJFaX/chat" style="display:inline-flex; align-items:center; min-height:48px; padding:0 22px; border-radius:999px; background:' + BRAND.dark + '; color:#fff; font-size:14px; font-weight:800; text-decoration:none;">카카오로 상담하기</a>'
     + '</div></div>';
 }
 
