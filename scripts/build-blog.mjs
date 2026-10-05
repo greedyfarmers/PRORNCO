@@ -148,7 +148,7 @@ async function main() {
   if (items === null) {
     log('AEOLO_KEY 없음 — 블로그 없이 사이트만 빌드합니다');
     await writeFile(path.join(DIST, 'robots.txt'), robotsTxt(), 'utf8');
-    await writeFile(path.join(DIST, 'sitemap.xml'), sitemapXml([], await listSitePages()), 'utf8');
+    await writeFile(path.join(DIST, 'sitemap.xml'), sitemapXml([], indexableUrls()), 'utf8');
   } else {
     await writeBlog(items);
   }
