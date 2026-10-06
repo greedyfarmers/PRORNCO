@@ -2,7 +2,7 @@
 // PRORNCO 빌드: 기존 정적 사이트를 dist/로 복사하고, Aeolo 피드로 /blog·sitemap·robots를 생성한다.
 // 기존 파일은 읽기만 한다. 검증 태그도 dist/ 산출물에만 삽입한다.
 //
-//   npm run build                                   키 없으면 사이트만 빌드
+//   npm run build                                   유효한 AEOLO_KEY 필수
 //   AEOLO_FIXTURE=scripts/fixture.json npm run build  로컬 fixture로 검증
 //
 // 환경변수: AEOLO_KEY(비밀), AEOLO_VERIFICATION, AEOLO_FIXTURE, BLOG_PATH
@@ -49,7 +49,9 @@ async function fetchAllItems() {
   }
 
   const key = process.env.AEOLO_KEY;
-  if (!key) return null;
+  if (!key?.trim()) {
+    throw new Error('AEOLO_KEY가 없습니다. Vercel 프로젝트의 배포 환경에 사이트 연동 키를 설정한 뒤 다시 빌드하세요. 로컬 확인은 AEOLO_FIXTURE=scripts/fixture.json을 사용하세요.');
+  }
 
   const base = SITE + BLOG_PATH;
   let url = FEED + '?base=' + encodeURIComponent(base);
@@ -133,25 +135,12 @@ async function listSitePages() {
 
 async function main() {
   const t0 = Date.now();
+  // 피드를 모두 받은 뒤 산출물을 교체한다. 키/피드 오류는 최상위 catch에서
+  // 빌드를 실패시켜 블로그가 빠진 배포가 기존 사이트를 덮지 못하게 한다.
+  const items = await fetchAllItems();
   await copySite();
   log('사이트 파일 복사 완료 → dist/');
-
-  let items = null;
-  try {
-    items = await fetchAllItems();
-  } catch (err) {
-    console.error('[aeolo] 피드 오류:', err?.message ?? err);
-    // 피드가 실패해도 사이트 배포는 막지 않는다.
-    items = null;
-  }
-
-  if (items === null) {
-    log('AEOLO_KEY 없음 — 블로그 없이 사이트만 빌드합니다');
-    await writeFile(path.join(DIST, 'robots.txt'), robotsTxt(), 'utf8');
-    await writeFile(path.join(DIST, 'sitemap.xml'), sitemapXml([], indexableUrls()), 'utf8');
-  } else {
-    await writeBlog(items);
-  }
+  await writeBlog(items);
 
   await injectAll(process.env.AEOLO_VERIFICATION);
   log('빌드 완료 (' + ((Date.now() - t0) / 1000).toFixed(1) + 's)');
