@@ -5,6 +5,7 @@
   "type": "module",
   "engines": { "node": ">=20" },
   "scripts": {
-    "build": "node scripts/build-blog.mjs"
+    "build": "node scripts/build-blog.mjs",
+    "test": "node --test scripts/build-blog.test.mjs"
   }
 }
