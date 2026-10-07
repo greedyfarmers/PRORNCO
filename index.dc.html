@@ -26,7 +26,6 @@
     @keyframes spin{to{transform:rotate(360deg);}}
     @keyframes blobFloat{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,20px) scale(1.08);}}
     @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
-    [data-r="revgrid"]::-webkit-scrollbar{display:none;width:0;height:0;}
     @keyframes ringPulse{0%{transform:scale(1);opacity:.55;}70%{transform:scale(1.5);opacity:0;}100%{transform:scale(1.5);opacity:0;}}
     [data-fab]{position:relative; width:66px; height:66px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; font-size:11.5px; font-weight:800; letter-spacing:-0.3px; line-height:1.2; text-align:center; box-shadow:0 14px 30px rgba(15,20,32,0.20); transition:transform .18s ease, box-shadow .18s ease; animation:floatY 3.4s ease-in-out infinite;}
 
@@ -44,27 +43,17 @@
       [data-r="pad"]{padding-left:20px !important;padding-right:20px !important;}
     }
     @media (max-width: 720px){
-      [data-r="ticker"]{height:44px !important;border-radius:12px !important;margin:14px 16px 0 !important;}
-      [data-r="ticker"] > div:first-child{padding:0 14px !important;font-size:12px !important;gap:6px !important;}
-      [data-r="ticker"] > div:first-child > span{width:6px !important;height:6px !important;}
-      [data-r="ticker"] [style*="font-size:15px"]{font-size:12.5px !important;}
-      [data-r="grid4"]{display:flex !important;grid-template-columns:none !important;gap:12px !important;overflow-x:auto !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;margin-right:-1rem !important;padding-right:1rem !important;scrollbar-width:none !important;-ms-overflow-style:none !important;}
-      [data-r="grid4"]::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
-      [data-r="grid4"] > div{flex:0 0 76% !important;scroll-snap-align:start !important;}
-      [data-r="pkgsave"]{min-height:2.5rem !important;}
-
+      [data-r="grid4"]{grid-template-columns:1fr !important;gap:12px !important;}
       [data-r="revgrid"]{display:flex !important;grid-template-columns:none !important;gap:10px !important;overflow-x:auto !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;margin-right:-1rem !important;padding-right:1rem !important;scrollbar-width:none !important;-ms-overflow-style:none !important;}
       [data-r="revgrid"]::-webkit-scrollbar{display:none !important;width:0 !important;height:0 !important;}
-      [data-r="revgrid"] > a{flex:0 0 78% !important;scroll-snap-align:start !important;}
-      [data-r="revbtn"]{min-height:38px !important;padding:0 14px !important;font-size:12.5px !important;}
+      [data-r="revgrid"] > div{flex:0 0 68% !important;scroll-snap-align:start !important;}
       [data-r="grid4"] > div{padding:18px !important;border-radius:16px !important;}
-      /* 카드마다 각 줄 높이를 고정해 가로 슬라이드 시 요소가 같은 선에 정렬되게 한다 */
-      [data-r="pkgname"]{min-height:2.6em !important;font-size:20px !important;margin-bottom:8px !important;align-items:flex-start !important;}
+      [data-r="pkgname"]{min-height:0 !important;font-size:22px !important;margin-bottom:8px !important;}
       [data-r="pkglist"]{display:none !important;}
-      [data-r="pkgbadges"]{min-height:2.25rem !important;align-items:center !important;margin-bottom:10px !important;}
+      [data-r="pkgbadges"]{min-height:0 !important;align-items:center !important;margin-bottom:10px !important;}
       [data-r="pkgbtn"]{margin-top:10px !important;min-height:40px !important;padding:8px 12px !important;border-radius:10px !important;font-size:15px !important;display:flex !important;align-items:center !important;justify-content:center !important;}
-      [data-r="pkgmeta"]{display:-webkit-box !important;-webkit-line-clamp:4 !important;-webkit-box-orient:vertical !important;overflow:hidden !important;min-height:6.8em !important;margin-bottom:12px !important;}
-      [data-r="pkgprice"]{min-height:2.75rem !important;border-top:0 !important;padding-top:0 !important;margin-bottom:12px !important;flex-direction:row !important;align-items:baseline !important;justify-content:flex-end !important;gap:10px !important;flex-wrap:wrap !important;}
+      [data-r="pkgmeta"]{display:block !important;}
+      [data-r="pkgprice"]{min-height:0 !important;border-top:0 !important;padding-top:0 !important;margin-bottom:12px !important;flex-direction:row !important;align-items:baseline !important;justify-content:flex-end !important;gap:10px !important;}
       [data-r="pkgnow"]{font-size:21px !important;order:2 !important;}
       [data-r="pkgwas"]{margin-top:0 !important;order:1 !important;}
       [data-r="pkgsave"]{display:flex !important;}
@@ -84,14 +73,14 @@
       [data-r="bar-input"]{flex:1 1 auto !important;min-width:0 !important;}
       [data-r="bar-kakao"]{flex:0 0 auto !important;padding:11px 16px !important;}
       [data-r="float"]{right:12px !important;bottom:84px !important;gap:8px !important;}
-      [data-fab]{width:60px !important;height:60px !important;font-size:10.5px !important;gap:2px !important;}
-      [data-fab] [data-ico]{font-size:20px !important;}
-      [data-r="float"] > button{width:44px !important;height:44px !important;font-size:16px !important;}
+      [data-fab]{width:50px !important;height:50px !important;font-size:9px !important;gap:1px !important;}
+      [data-fab] [data-ico]{font-size:17px !important;}
+      [data-r="float"] > button{width:38px !important;height:38px !important;font-size:14px !important;}
       [data-fab] [data-ring]{display:none !important;}
       [data-r="mbr"]{display:inline !important;}
       [data-r="pkgsect"]{padding-top:36px !important;margin-top:14px !important;}
-      [data-r="h1"]{font-size:27px !important;line-height:1.32 !important;letter-spacing:-0.04em !important;max-width:12em !important;margin-left:auto !important;margin-right:auto !important;}
-      [data-r="h2"]{font-size:27px !important;line-height:1.32 !important;letter-spacing:-0.04em !important;}
+      [data-r="h1"]{font-size:30px !important;line-height:1.28 !important;letter-spacing:-0.05em !important;max-width:11em !important;margin-left:auto !important;margin-right:auto !important;}
+      [data-r="h2"]{font-size:26px !important;line-height:1.3 !important;letter-spacing:-0.04em !important;}
       [data-r="rows5"]{grid-template-columns:96px 1fr 56px !important;}
       [data-r="rows5"] > :nth-child(4), [data-r="rows5"] > :nth-child(5){display:none !important;}
       [data-r="testi"] > :nth-child(3){display:none !important;}
@@ -228,7 +217,7 @@
   </div>
 
   <!-- TICKER -->
-  <div data-r="ticker" style="background:#0E1526; display:flex; align-items:center; overflow:hidden; height:68px; margin:20px 24px 0; border-radius:18px;">
+  <div style="background:#0E1526; display:flex; align-items:center; overflow:hidden; height:68px; margin:20px 24px 0; border-radius:18px;">
     <div style="flex:0 0 auto; padding:0 28px; height:100%; display:flex; align-items:center; gap:9px; color:#fff; font-size:14.5px; font-weight:700; white-space:nowrap; z-index:2; border-right:1px solid rgba(255,255,255,0.12);">
       <span style="width:8px; height:8px; border-radius:50%; background:var(--accent); animation:pulse 1.4s infinite;"></span>실시간 예약 현황
     </div>
@@ -246,7 +235,7 @@
     <div style="width:100%;">
       <div style="overflow:hidden; position:relative;">
         <div style="text-align:center; color:var(--ink); margin-bottom:32px; position:relative; z-index:2;">
-          <h2 data-r="h1" style="font-size:34px; margin:0 0 14px; font-weight:800; letter-spacing:-0.04em; line-height:1.3; color:#1B2A66;">우리 집에 맞는<br data-r="mbr" style="display:none;"/> 시공 패키지 찾기</h2>
+          <h2 data-r="h1" style="font-size:44px; margin:0 0 14px; font-weight:800; letter-spacing:-2px; line-height:1.15; color:#1B2A66;">우리 집에 맞는<br data-r="mbr" style="display:none;"/> 시공 패키지 찾기</h2>
           <div style="color:var(--ink-soft); font-size:17px; font-weight:600;">10명 중 7명이 우물천장 패키지를 선택합니다</div>
         </div>
 
@@ -299,7 +288,7 @@
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div style="text-align:center; margin-bottom:40px;">
         <div style="display:inline-block; font-size:11px; font-weight:700; letter-spacing:1px; color:var(--accent); border:1px solid rgba(47,111,237,0.3); background:rgba(47,111,237,0.06); padding:6px 14px; border-radius:999px; margin-bottom:14px;">SELF ESTIMATE</div>
-        <h2 data-r="h2" style="font-size:34px; margin:0 0 10px; font-weight:800; letter-spacing:-0.04em; line-height:1.3; color:#1B2A66;">상담 없이도,<br data-r="mbr" style="display:none;"/> 우리 집 견적을 3분 안에</h2>
+        <h2 data-r="h2" style="font-size:27px; margin:0 0 10px; font-weight:800; letter-spacing:-0.3px;">상담 없이도,<br data-r="mbr" style="display:none;"/> 우리 집 견적을 3분 안에</h2>
         <div style="color:var(--ink-soft); font-size:14px;">원하는 항목만 담으면 정찰제 금액이 바로 합산됩니다.<br data-r="mbr" style="display:none;"/> 지금도 여러 고객님이 견적을 내고 계세요.</div>
       </div>
       <div data-r="grid2" style="display:grid; grid-template-columns:1fr 1.15fr; gap:20px; align-items:stretch;">
@@ -358,23 +347,16 @@
   <section data-reveal style="opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease; padding:96px 0;">
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px; flex-wrap:wrap; gap:16px;">
-        <h2 data-r="h2" style="font-size:34px; margin:0; font-weight:800; letter-spacing:-0.04em; line-height:1.3; color:#1B2A66;">실제 시공 고객님들의 솔직한 후기</h2>
-        <a href="./시공후기.dc.html" data-r="revbtn" style="flex:0 0 auto; display:inline-flex; align-items:center; gap:7px; min-height:44px; padding:0 20px; border-radius:999px; background:#0E1526; color:#fff; font-size:13.5px; font-weight:700; white-space:nowrap;" style-hover="background:var(--accent);">시공후기 더 보기 <span style="font-size:15px;">›</span></a>
+        <h2 data-r="h2" style="font-size:27px; margin:0; font-weight:800; letter-spacing:-0.3px;">실제 시공 고객님들의 솔직한 후기</h2>        <a href="./시공후기.dc.html" style="font-size:13.5px; color:var(--ink-soft); border-bottom:1px solid var(--line); padding-bottom:2px;" style-hover="color:var(--accent);border-color:var(--accent);">시공후기 전체보기 →</a>
       </div>
-      <div data-r="revgrid" style="display:flex; gap:24px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; -ms-overflow-style:none; margin-right:-32px; padding-right:32px;">
-        <sc-for list="{{ showcase }}" as="sc" hint-placeholder-count="3">
-          <a href="./시공후기.dc.html" style="flex:0 0 calc(33.333% - 16px); scroll-snap-align:start; display:flex; flex-direction:column; color:inherit;">
-            <div style="position:relative; width:100%; aspect-ratio:4/3; border-radius:6px; overflow:hidden; background:#F2F4F7;">
-              <image-slot id="{{ sc.photo }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="{{ sc.hint }}"></image-slot>
-            </div>
-            <div style="font-size:16.5px; font-weight:800; letter-spacing:-0.03em; color:var(--ink); margin-top:16px;">{{ sc.title }}</div>
-            <div style="font-size:13px; color:var(--ink-soft); line-height:1.7; margin-top:7px;">{{ sc.desc }}</div>
-            <div style="font-size:13px; font-weight:700; color:var(--ink); margin-top:12px;">{{ sc.meta }}</div>
-          </a>
+      <div data-r="revgrid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:16px;">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="8">
+          <div style="aspect-ratio:1/1; border-radius:16px; position:relative; overflow:hidden;">
+            <image-slot id="review-{{ $index }}" style="position:absolute; inset:0; width:100%; height:100%;" shape="rect" placeholder="시공후기 사진 · {{ r }}"></image-slot>
+            <div style="position:absolute; inset:0; background:linear-gradient(0deg, rgba(0,0,0,0.55), transparent 55%); pointer-events:none;"></div>
+            <span style="position:absolute; left:16px; bottom:16px; color:rgba(255,255,255,0.95); font-size:12.5px; font-weight:600;">{{ r }}</span>
+          </div>
         </sc-for>
-      </div>
-      <div data-r="revbar" style="position:relative; height:2px; margin-top:26px; background:var(--line);">
-        <div data-r="revbar-fill" style="position:absolute; left:0; top:0; height:100%; width:33%; background:var(--ink); transition:left .15s linear, width .15s linear;"></div>
       </div>
 
       <div data-r="testi" style="margin-top:56px; display:flex; gap:16px; max-height:560px; overflow:hidden; -webkit-mask-image:linear-gradient(to bottom, transparent, black 15%, black 85%, transparent); mask-image:linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);">
@@ -399,7 +381,7 @@
     <div style="max-width:1240px; margin:0 auto; padding:0 32px;">
       <div data-r="grid2" style="display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center;">
         <div>
-          <h2 data-r="h2" style="font-size:34px; font-weight:800; line-height:1.3; letter-spacing:-0.04em; color:#1B2A66; margin:0 0 14px;">상담부터 시공까지,<br/>딱 4단계면 끝나요</h2>
+          <h2 data-r="h2" style="font-size:28px; font-weight:800; line-height:1.35; margin:0 0 14px;">상담부터 시공까지,<br/>딱 4단계면 끝나요</h2>
           <p style="color:var(--ink-soft); font-size:14.5px; line-height:1.8;">상담부터 시공까지, 카톡 한 번이면 시작됩니다.<br/>정찰제라 추가 비용 걱정 없이 진행하실 수 있어요.</p>
           <a href="#hero" style="display:inline-flex; align-items:center; gap:8px; margin-top:26px; background:var(--accent); color:#fff; padding:13px 22px; border-radius:999px; font-size:13.5px; font-weight:600;">카카오톡으로 상담 시작하기 →</a>
         </div>
@@ -460,15 +442,6 @@ class Component extends DCLogic {
     { key: 'umulfan', name: '우물천장 + 실링팬 패키지', variant: '한방 / 무몰딩 선택', items: ['실링팬 + 설치 및 보강', '실링팬 단독배선', '한방PVC or 무몰딩 직각 우물조명', '다운라이트 8개', '욕실조명 2곳', '4구 무선 스위치'], pitch: '공기 순환과 공간의 무드 둘 다 중요한 분들께', was: '1,430,000', now: '1,230,000', detailHref: './우물천장실링팬패키지.dc.html' },
     { key: 'fan', name: '실링팬 패키지', variant: null, items: ['실링팬 + 설치 및 보강', '실링팬 단독배선', '3인치 다운라이트 8개', '우물천장 안쪽 실크도배'], pitch: '사계절 공기순환이 우선인 분께 추천', was: '990,000', now: '880,000', detailHref: './실링팬패키지.dc.html' },
   ];
-  showcase = [
-    { photo: 'review-0', hint: '우물천장 시공 후기 사진', title: '우물천장 + 실링팬 시공', desc: '거실 우물천장에 실링팬까지 한 번에 마무리했습니다', meta: '서울 마포 · 34평' },
-    { photo: 'review-1', hint: '간접조명 시공 후기 사진', title: '도배 없이 끝낸 간접조명', desc: '커튼박스와 센서조명만으로 분위기를 바꿨습니다', meta: '인천 부평 · 25평' },
-    { photo: 'review-2', hint: 'COB 다운라이트 시공 후기 사진', title: 'COB 다운라이트 포인트 시공', desc: '벽면에 빛을 주는 스팟 연출로 공간이 깊어졌습니다', meta: '경기 성남 · 32평' },
-    { photo: 'review-3', hint: '실링팬 시공 후기 사진', title: '실링팬 단독 시공', desc: '천장 보강과 단독배선까지 하루 만에 끝냈습니다', meta: '부산 해운대 · 28평' },
-    { photo: 'review-4', hint: '커튼조명 시공 후기 사진', title: '커튼박스 무드등', desc: '거실 전체를 부드럽게 감싸는 간접광을 더했습니다', meta: '대구 수성 · 24평' },
-    { photo: 'review-5', hint: '무몰딩 우물천장 시공 후기 사진', title: '무몰딩 우물천장', desc: '몰딩을 없앤 직각 마감으로 미니멀하게 정리했습니다', meta: '서울 송파 · 41평' },
-  ];
-
   reviews = ['서울 마포 · 우물조명', '인천 부평 · 실링팬', '대구 수성 · COB간접등', '부산 해운대 · 커튼조명', '천안 서북 · 커튼조명', '서울 강동 · 다운라이트', '서울 송파 · COB간접등', '인천 계양 · 우물조명'];
   testimonials = [
     { text: '견적이 투명하게 공개돼 있어서 상담 전부터 믿음이 갔어요. 실측 후 금액도 그대로였습니다.', name: '김O훈', role: '서울 마포' },
@@ -518,33 +491,14 @@ class Component extends DCLogic {
   ];
   categoryQuickLinks = ['우물천장 / 조명', 'COB, 다운라이트', '커튼'];
 
-  startReviewProgress() {
-    const el = document.querySelector('[data-r="revgrid"]');
-    const fill = document.querySelector('[data-r="revbar-fill"]');
-    if (!el || !fill) return;
-    const sync = () => {
-      const max = el.scrollWidth - el.clientWidth;
-      const ratio = el.clientWidth / el.scrollWidth;
-      const w = Math.max(0.18, Math.min(1, ratio)) * 100;
-      const p = max > 2 ? el.scrollLeft / max : 0;
-      fill.style.width = w + '%';
-      fill.style.left = (p * (100 - w)) + '%';
-    };
-    el.addEventListener('scroll', sync, { passive: true });
-    window.addEventListener('resize', sync);
-    sync();
-  }
-
   startReviewAutoScroll() {
     const el = document.querySelector('[data-r="revgrid"]');
     if (!el) return;
     let paused = false;
     const pause = () => { paused = true; clearTimeout(el._rt); el._rt = setTimeout(() => { paused = false; }, 3000); };
     ['pointerdown', 'touchstart', 'wheel'].forEach(ev => el.addEventListener(ev, pause, { passive: true }));
-    el.addEventListener('mouseenter', () => { paused = true; });
-    el.addEventListener('mouseleave', () => { paused = false; });
     this._revTimer = setInterval(() => {
-      if (paused) return;
+      if (paused || window.innerWidth > 720) return;
       const max = el.scrollWidth - el.clientWidth;
       if (max <= 2) return;
       const card = el.firstElementChild;
@@ -555,7 +509,7 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
-    setTimeout(() => { this.startReviewAutoScroll(); this.startReviewProgress(); }, 400);
+    setTimeout(() => this.startReviewAutoScroll(), 400);
     const els = document.querySelectorAll('[data-reveal]');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -799,7 +753,6 @@ class Component extends DCLogic {
       toggleAll: this.toggleAll.bind(this),
       packages,
       reviews: this.reviews,
-      showcase: this.showcase,
       steps: this.steps.map(st => ({
         ...st,
         orbStyle: 'flex:0 0 auto; width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:#fff; background:radial-gradient(circle at 32% 28%, #a9c2ff, var(--accent) 55%, #1b3ea8 100%); box-shadow:0 0 16px rgba(47,111,237,0.55);',
