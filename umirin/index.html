@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>프로어앤코 · 우미린 시공 정보 입력</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+:root{--blue:#1446D8;--ink:#111418;--mut:#6B7380;--sub:#4A5260;--line:#E3E7EE;--bg:#F4F6FA;--yel:#FFF6DA;--yelb:#F0D98A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15px;line-height:1.5;-webkit-text-size-adjust:100%}
+.app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.top{background:var(--ink);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:5}
+.top .back{color:#fff;font-size:22px;line-height:1;background:none;border:0;padding:0 4px;cursor:pointer}
+.top .brand{font-weight:700;letter-spacing:.06em;font-size:15px}.top .brand span{font-weight:400;letter-spacing:0;opacity:.75;margin-left:6px}
+.top .stepn{margin-left:auto;font-size:12px;opacity:.75}
+.prog{display:flex;gap:6px;padding:14px 20px 0}.prog i{flex:1;height:4px;border-radius:2px;background:#D6DCE6}.prog i.on{background:var(--blue)}
+.wrap{padding:0 20px 28px;display:flex;flex-direction:column;gap:14px;flex:1}
+h1{font-size:21px;font-weight:700;line-height:1.4;margin:18px 0 0}
+.lead{font-size:14px;color:var(--sub);margin:0}
+.unit{font-size:13px;color:var(--blue);font-weight:600;margin-top:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.card h2{font-size:16px;font-weight:600;margin:0;display:flex;justify-content:space-between;align-items:baseline}.card h2 small{font-size:12px;color:var(--mut);font-weight:400}
+.note{background:var(--yel);border:1px solid var(--yelb)}
+.row{display:flex;justify-content:space-between;gap:12px;font-size:14px}.row b{font-weight:600}.row .r{color:var(--sub);text-align:right}
+.hint{font-size:12px;color:var(--mut)}
+.btn{display:flex;align-items:center;justify-content:center;height:54px;border-radius:12px;background:var(--blue);color:#fff;font-size:16px;font-weight:600;border:0;font-family:inherit;cursor:pointer;width:100%;text-decoration:none}
+.btn.sec{background:#fff;color:var(--blue);border:1px solid var(--blue)}.btn:disabled{opacity:.45;cursor:not-allowed}
+.pill{height:50px;border-radius:10px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;background:#fff;color:var(--ink);border:1px solid #C9D0DB}.pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+input[type=text],input[type=tel],select,textarea{width:100%;height:48px;border:1px solid #C9D0DB;border-radius:10px;padding:0 12px;font-size:16px;font-family:inherit;background:#fff}textarea{height:auto;padding:10px 12px;resize:vertical}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--sub)}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:13.5px}.chk input{width:20px;height:20px;margin:0;flex:none}
+.opt{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px 8px;background:#fff;border:1px solid #E2E2E2;border-radius:6px;font-family:inherit;color:var(--ink);cursor:pointer;font-size:12px}.opt.on{border:1.5px solid #111}.opt:disabled{opacity:.45;border-style:dashed;cursor:not-allowed}
+.opt .badge{position:absolute;top:4px;right:4px;font-size:10px;font-weight:700;color:#6A4A00;background:#FFC93C;padding:0 5px;border-radius:8px}
+.opt img{width:100%;height:50px;object-fit:contain}.opt small{color:var(--mut);font-size:10.5px}
+.sw{display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0;border:0;background:none;font-family:inherit;cursor:pointer}.sw:disabled{opacity:.4;cursor:not-allowed}
+.sw i{display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;border:1.5px solid transparent}.sw.on i{border-color:#111}
+.sw i b{display:block;width:38px;height:38px;border-radius:50%;border:1px solid #E0E0E0;background-size:cover}.sw span{font-size:10.5px;color:var(--sub);white-space:nowrap}
+.tabs{display:flex;gap:8px}.tabs button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:10px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;background:#fff;border:1px solid #C9D0DB;color:var(--ink)}.tabs button.on{background:var(--ink);color:#fff;border-color:var(--ink)}.tabs button span{font-size:11.5px;font-weight:400;opacity:.8}
+.preview{width:100%;aspect-ratio:500/221;border-radius:6px;background:#fff no-repeat;border:1px solid #eee}
+.modelbar{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:8px 12px;border-radius:8px;font-size:12.5px;background:#EEF1F6}.modelbar.iot{background:var(--ink);color:#fff}
+.ledb{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:48px;border-radius:6px;font-size:13px;font-family:inherit;background:#fff;border:1px solid #E2E2E2;cursor:pointer;color:var(--ink)}.ledb.on{border:1.5px solid #111}.ledb:disabled{background:#F5F5F5;color:#aaa;border-style:dashed;cursor:not-allowed}.ledb small{font-size:11px;color:var(--mut)}.ledb.fix small{color:var(--blue)}
+.total{background:var(--ink);color:#fff;border-radius:14px;padding:16px 20px;display:flex;flex-direction:column;gap:6px}.total .row{opacity:.85;font-size:13px}.total .big{font-size:16px;font-weight:700}
+.plan{position:relative;width:100%}.plan svg{width:100%;height:auto;display:block;border-radius:8px}
+.mk{position:absolute;border-radius:50%;box-sizing:border-box;border:2px dashed var(--blue);background:rgba(20,70,216,.12);pointer-events:none}.mk.on{background:rgba(20,70,216,.4);animation:pk 1.2s infinite}
+.ln{position:absolute;height:6px;margin-top:-3px;border-radius:3px;border:2px dashed #8DA6EE;background:rgba(20,70,216,.04);box-sizing:border-box;pointer-events:none}.ln.on{border-color:var(--blue);background:rgba(20,70,216,.18)}
+@keyframes pk{0%{box-shadow:0 0 0 0 rgba(20,70,216,.55)}100%{box-shadow:0 0 0 10px rgba(20,70,216,0)}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--sub)}.legend i{display:inline-block;vertical-align:-1px;margin-right:5px}
+.xrow{display:flex;align-items:center;gap:10px;padding:10px;margin:0 -10px;border-radius:10px}.xrow.on{background:#F0F4FF}.xrow .t{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}.xrow .t b{font-size:14.5px;font-weight:600}.xrow .t small{font-size:12.5px;color:var(--mut)}
+.qty{display:flex;align-items:center;gap:6px}.qty button{width:36px;height:36px;border-radius:18px;font-size:18px;line-height:1;font-family:inherit;cursor:pointer;background:#fff;color:#9AA3AF;border:1px solid #C9D0DB}.qty button.on{background:var(--blue);color:#fff;border:0}.qty span{min-width:18px;text-align:center;font-weight:700;font-size:15px}
+.chip{padding:8px 12px;border-radius:99px;font-size:13px;font-family:inherit;cursor:pointer;background:#fff;color:var(--ink);border:1px solid #C9D0DB}.chip.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cct{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 4px 8px;border-radius:8px;font-family:inherit;cursor:pointer;background:#fff;color:var(--ink);border:1px solid #E2E2E2}.cct.on{border:1.5px solid #111}.cct i{display:block;width:100%;aspect-ratio:227/360;border-radius:6px;background-size:cover;background-position:center}.cct b{font-size:12px}.cct small{font-size:11px;color:var(--mut)}
+.mode{display:flex;flex-direction:column;padding:0;overflow:hidden;border-radius:10px;font-size:14px;font-family:inherit;cursor:pointer;background:#fff;color:var(--ink);border:1px solid #C9D0DB}.mode.on{background:var(--ink);color:#fff;border:1.5px solid var(--ink)}.mode img{width:100%;aspect-ratio:225/190;object-fit:cover}.mode span{display:flex;flex-direction:column;align-items:center;padding:8px 0 10px}.mode span small{font-size:11.5px;opacity:.8}
+.day{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 0;border-radius:10px;font-family:inherit;cursor:pointer;background:#fff;color:var(--ink);border:1px solid #C9D0DB}.day.on{background:var(--blue);color:#fff;border-color:var(--blue)}.day b{font-size:15px}.day span{font-size:12px}
+.doc{position:fixed;inset:0;background:rgba(10,12,16,.94);z-index:20;display:flex;flex-direction:column;padding:14px;gap:10px}.doc .bar{display:flex;align-items:center;justify-content:space-between;color:#fff;font-weight:600}.doc .x{width:44px;height:44px;border-radius:22px;border:0;background:#fff;font-size:20px;cursor:pointer}.doc .img{flex:1;overflow:auto;background:#fff;border-radius:8px;display:flex;align-items:flex-start;justify-content:center}.doc .img img{width:100%;height:auto}.doc .pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:8px}.doc .pg button{height:44px;border-radius:10px;border:0;background:#fff;font-family:inherit;font-size:14px;cursor:pointer}.doc .pg button.on{background:var(--blue);color:#fff}
+.tl{display:flex;flex-direction:column}.tl div{display:flex;gap:12px;align-items:flex-start;padding-bottom:14px}.tl i{width:22px;height:22px;flex:none;border-radius:50%;border:2px solid #C9D0DB;display:flex;align-items:center;justify-content:center;font-size:12px;font-style:normal;color:#fff}.tl .done i{background:#1F7A3D;border-color:#1F7A3D}.tl .now i{background:var(--blue);border-color:var(--blue)}.tl b{font-weight:600;font-size:14px}.tl small{display:block;font-size:12.5px;color:var(--mut)}
+.err{color:#B4232C;font-size:13px}.foot{text-align:center;font-size:13px;color:var(--sub);padding-top:10px}
+.hide{display:none!important}.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:99px;font-size:13px;z-index:30;opacity:0;transition:opacity .2s}.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="top"><button class="back" id="back" aria-label="이전" style="display:none">‹</button><div class="brand">PROR.CO <span id="ttl">프로어앤코</span></div><div class="stepn" id="stepn"></div></div>
+  <div class="prog hide" id="prog"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap" id="view"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbywgcxEwIJziFxYYqmMvCZLVBZ1gAXor00LQrVAA4_phsnkPUbQb9PJbKqu9tun3d9o/exec';
+const PLAN = {"walls":{"A":{"w":13800,"h":9051,"walls":[[0,0,557,89],[1449,0,513,67],[2742,0,557,89],[4102,0,1248,89],[6443,0,825,89],[7335,0,2430,89],[1471,67,490,22],[0,89,134,7669],[1494,89,111,22],[3010,89,111,713],[4593,89,89,1137],[8494,89,89,736],[9609,89,156,2564],[1494,111,89,713],[9586,156,22,67],[2987,691,22,134],[1583,713,379,89],[1962,736,22,89],[1583,803,223,22],[1828,803,134,22],[3010,803,89,22],[1828,825,89,2542],[1917,1516,45,67],[8494,1627,89,2519],[1917,1650,1427,134],[3344,1672,22,1271],[3255,1784,89,847],[4593,1940,89,67],[4570,1984,22,89],[3233,2006,22,624],[3366,2006,1204,67],[4593,2006,67,67],[3366,2073,67,22],[3545,2073,490,22],[4124,2073,134,45],[4280,2073,67,22],[4459,2073,89,22],[3366,2096,22,22],[4169,2118,89,2073],[8628,2430,67,223],[1917,2452,22,178],[9765,2452,22,201],[1940,2475,1293,156],[8583,2475,45,178],[8695,2475,914,178],[9787,2475,981,67],[11481,2475,2319,156],[9787,2542,914,22],[9787,2564,892,67],[3300,2631,45,312],[9787,2631,691,22],[12106,2631,89,1962],[12262,2631,67,22],[13711,2631,89,6398],[3366,2809,67,134],[4124,2809,45,134],[134,2854,535,111],[1494,2854,334,89],[3433,2854,691,89],[1494,2943,156,22],[1761,2943,67,22],[12195,3032,1516,89],[4258,3456,401,736],[4659,3545,22,424],[10389,3567,89,580],[8583,3589,1137,111],[8583,3701,67,22],[9609,3701,111,446],[8583,3723,45,424],[9720,3924,67,223],[8628,4013,713,134],[9787,4013,602,134],[9341,4035,268,111],[1828,4080,111,134],[134,4102,22,134],[3322,4102,67,111],[4147,4102,22,89],[156,4124,490,89],[1940,4124,1382,89],[3389,4124,758,67],[3389,4191,357,22],[3522,4214,178,22],[134,4258,45,67],[3545,4972,134,4080],[3679,4994,22,4058],[12106,5306,89,134],[8070,5328,111,111],[8918,5328,2029,89],[11682,5328,424,89],[12195,5328,1516,89],[8048,5351,22,3701],[8918,5417,178,22],[9542,5417,156,22],[10679,5417,245,22],[11838,5417,134,22],[13689,5417,22,22],[8070,5440,67,3612],[10679,5440,89,22],[10813,5440,111,22],[10835,5462,89,67],[10835,5529,67,3522],[10902,5574,22,557],[10902,6153,22,111],[3389,7625,67,134],[134,7647,45,111],[3500,7647,45,111],[178,7669,1672,89],[3456,7669,45,89],[0,7758,89,1293],[1694,7758,89,45],[10902,7892,22,847],[10813,8048,22,67],[1694,8516,89,535],[3389,8895,67,67],[89,8940,401,111],[1405,8940,290,111],[1784,8940,67,111],[3456,8940,89,111],[8026,8940,22,111],[8137,8940,490,111],[10300,8940,535,111],[10902,8940,557,111],[13131,8940,580,111],[3411,8962,45,89],[3701,8962,691,89],[7424,8962,602,89],[3389,8984,22,67],[10278,8984,22,67],[13711,9029,67,22]],"labels":[["드레스룸",981,1471,"1.10M × 3.00M"],["다용도실",3835,914,"1.42M"],["파우더룸",1204,3522,""],["안방 욕실",3054,3478,""],["주방·식당",6510,1360,"3.99M × 2.30M"],["알파룸",9074,1360,"1.57M × 2.34M"],["팬트리",9453,3366,""],["현관",11303,3478,"1.23M"],["공용 욕실",12908,4191,"1.71M"],["복도",9965,4816,""],["안방",1717,5930,"3.49M (세로)"],["거실",5841,6599,"4.49M × 3.60M"],["침실 2",9408,7179,"2.81M × 3.47M"],["침실 3",12239,7179,"2.91M × 2.84M"],["발코니",2653,8383,"1.71M × 1.12M"]]},"B":{"w":13580,"h":8230,"walls":[[4158,0,1819,108],[6996,0,541,108],[4137,22,22,3834],[7537,22,823,87],[8360,65,585,87],[9638,65,476,87],[11111,65,87,87],[8945,87,22,65],[9616,87,22,65],[10115,87,22,65],[10873,87,238,65],[11198,87,43,325],[4158,108,65,3747],[4808,108,87,801],[8295,108,65,1018],[11133,152,65,260],[11241,325,1668,87],[12909,347,22,1516],[12844,412,65,1581],[4830,910,65,22],[4808,1473,87,87],[4808,1559,65,2296],[12800,1689,43,65],[8295,1819,65,2036],[11306,1819,173,173],[11652,1819,173,173],[12021,1819,173,173],[12367,1819,173,173],[12735,1819,108,173],[13082,1863,173,130],[13450,1863,108,130],[11479,1928,173,65],[11826,1928,195,65],[12194,1928,173,65],[12540,1928,195,65],[12909,1928,173,65],[13255,1928,195,65],[11306,1993,87,325],[11436,1993,87,22],[13472,1993,87,325],[11263,2058,43,65],[11392,2058,43,65],[13450,2058,22,65],[10959,2166,347,217],[8360,2188,2599,65],[13558,2188,22,195],[4093,2209,43,65],[8360,2253,22,22],[9010,2253,152,22],[9508,2253,1451,22],[9963,2274,996,108],[11306,2317,65,758],[13515,2317,43,65],[0,2339,2014,87],[2729,2339,1408,87],[2014,2361,22,65],[4223,2382,585,1473],[9963,2382,87,347],[11284,2382,22,152],[0,2426,87,5805],[108,2426,87,22],[1364,2426,65,22],[1473,2426,108,22],[2859,2426,1278,22],[1473,2447,87,1711],[4029,2447,65,43],[9097,2447,65,195],[9032,2469,65,173],[11284,2556,22,520],[9941,2621,22,108],[9118,2642,823,87],[9118,2729,130,1148],[9097,2816,22,195],[87,2837,1386,87],[9032,2837,65,152],[11371,2881,65,65],[11371,2946,22,130],[11436,2946,65,130],[11392,2989,43,87],[11501,2989,217,65],[12389,2989,1083,87],[11501,3054,195,22],[13472,3054,108,130],[2859,3162,520,693],[9032,3184,87,173],[13472,3184,87,3899],[13558,3249,22,390],[3379,3335,43,65],[3379,3465,758,390],[9032,3530,87,173],[9097,3704,22,22],[11284,3747,108,108],[1559,3769,303,87],[8360,3769,671,87],[9248,3769,2036,108],[11392,3769,22,87],[13558,3769,22,3227],[4592,3855,65,22],[11284,3855,87,22],[1451,4852,130,108],[87,4873,1364,87],[1581,4895,238,65],[2512,4895,1841,65],[5046,4895,108,87],[2556,4960,108,43],[5068,4981,87,65],[2556,5003,87,130],[5090,5046,65,3184],[2577,5133,65,3097],[2556,5653,22,390],[5068,5805,22,217],[5068,6519,22,368],[9053,6758,108,173],[5068,6909,22,87],[12216,6909,65,152],[9140,6931,65,65],[9616,6931,87,108],[9746,6931,130,108],[10115,6931,585,108],[12345,6931,130,108],[9205,6952,412,87],[9703,6952,43,87],[9876,6952,238,87],[12151,6952,65,87],[12280,6952,65,87],[12475,6952,996,130],[9162,6996,43,22],[9183,7017,22,22],[9248,7039,65,43],[10548,7039,108,43],[12367,7039,108,43],[5068,7061,22,563],[2556,7082,22,217],[9053,7082,65,1148],[12367,7082,87,22],[9118,7104,22,1126],[12389,7104,65,1126],[9140,7126,22,1105],[12367,7169,22,1061],[2556,7407,22,87],[12324,7732,43,65],[10548,7797,87,433],[5068,7884,22,217],[5046,8014,22,87],[2556,8035,22,65],[10634,8079,22,152],[9248,8100,65,130],[2556,8122,22,108],[5068,8122,22,108],[9032,8122,22,108],[87,8144,498,87],[2036,8144,520,87],[2642,8144,498,87],[4700,8144,65,87],[4787,8144,282,87],[9010,8144,22,87],[9162,8144,87,87],[9313,8144,152,87],[10266,8144,282,87],[10656,8144,43,87],[12151,8144,217,87],[4613,8165,87,65],[4765,8165,22,65],[5155,8165,606,65],[8490,8165,520,65]],"labels":[["주방·식당",6303,1278,"3.99M × 2.45M"],["다용도실",9876,1278,"1.42M"],["공용 욕실",780,3227,"1.21M"],["현관",2188,3335,""],["복도",2621,4418,""],["침실 2",1213,6693,"2.91M × 3.45M"],["침실 3",3812,6693,"2.81M × 3.45M"],["거실",7104,6043,"4.49M × 3.70M"],["안방 욕실",10245,3011,""],["파우더룸",12519,3444,"2.46M"],["안방",10743,5393,"3.42M (세로)"],["드레스룸",12735,5393,"1.08M"],["발코니",10743,7602,"1.71M × 1.18M"]]}},"plans":{"plA":[{"k":"dl3c","x":4300,"y":5300},{"k":"dl3c","x":5900,"y":5300},{"k":"dl3c","x":7500,"y":5300},{"k":"dl3c","x":4300,"y":8350},{"k":"dl3c","x":5900,"y":8350},{"k":"dl3c","x":7500,"y":8350},{"k":"dl3c","x":5200,"y":2400},{"k":"dl3c","x":6600,"y":2400},{"k":"dl3c","x":7900,"y":2400},{"k":"curtain","x":3900,"y":8750,"x2":7900,"y2":8750},{"k":"sensor","x":3054,"y":3780},{"k":"sensor","x":12908,"y":4490},{"k":"sw4","x":10500,"y":4200}],"plB":[{"k":"dl3c","x":4300,"y":5300},{"k":"dl3c","x":5900,"y":5300},{"k":"dl3c","x":7500,"y":5300},{"k":"dl3c","x":4300,"y":8350},{"k":"dl3c","x":5900,"y":8350},{"k":"dl3c","x":7500,"y":8350},{"k":"dl3c","x":5200,"y":2400},{"k":"dl3c","x":6600,"y":2400},{"k":"dl3c","x":7900,"y":2400},{"k":"curtain","x":3900,"y":8750,"x2":7900,"y2":8750},{"k":"sensor","x":3054,"y":3780},{"k":"sensor","x":12908,"y":4490},{"k":"sw4","x":10500,"y":4200},{"k":"woo","x":4500,"y":5700,"x2":7300,"y2":8000,"wtype":"han","lines":1}],"plC":[{"k":"dl3c","x":4600,"y":5600},{"k":"dl3c","x":4600,"y":6700},{"k":"dl3c","x":4600,"y":7800},{"k":"dl3c","x":7200,"y":5600},{"k":"dl3c","x":7200,"y":6700},{"k":"dl3c","x":7200,"y":7800},{"k":"dl3c","x":5900,"y":5300},{"k":"dl3c","x":5900,"y":8200},{"k":"dl3c","x":5200,"y":2400},{"k":"dl3c","x":6600,"y":2400},{"k":"dl3c","x":7900,"y":2400},{"k":"dl3c","x":6600,"y":1300},{"k":"fan","x":5900,"y":6700,"sku":"fan5"}],"plD":[{"k":"woo","x":4500,"y":5700,"x2":7300,"y2":8000,"wtype":"han","lines":1},{"k":"fan","x":5900,"y":6850,"sku":"fan5"}],"plE":[{"k":"dl3c","x":900,"y":5100},{"k":"dl3c","x":2500,"y":5100},{"k":"dl3c","x":900,"y":6800},{"k":"dl3c","x":2500,"y":6800},{"k":"fan","x":1717,"y":5930,"sku":"fan0"}],"plF":[{"k":"fan","x":5900,"y":6700,"sku":"fan5"}]}};
+const IMG = { sprite: 'img/fan_preview_sprite2.jpg', spriteIot: 'img/iot_preview_sprite.jpg', ic: k => 'img/ic_' + k + '.png', cct: k => 'img/cct_' + k + '.jpg', combo: k => 'img/combo_' + k + '.jpg' };
+const won = n => (n || 0).toLocaleString('ko-KR') + '원';
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const qs = new URLSearchParams(location.search);
+const S = { code: (qs.get('c') || '').toUpperCase(), last4: '', data: null, prev: null, locked: false, rounds: [], cfg: {}, step: 'auth', ans: null, cur: 0, docPage: 1, editBal: false, editMove: false };
+const toast = m => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 2200); };
+async function api(params, body) {
+  const u = new URL(API_URL); Object.entries(params).forEach(([k, v]) => u.searchParams.set(k, v));
+  const r = body ? await fetch(u, { method: 'POST', body: JSON.stringify(body), headers: { 'Content-Type': 'text/plain;charset=utf-8' } }) : await fetch(u);
+  return r.json();
+}
+function defaultAns(d) {
+  const fans = (d.fans || []).map(f => {
+    const iot = f.model === 'IoT', living = (f.loc || '') === '거실';
+    const ledInc = iot || (/포함/.test(f.led || '') && !/미포함/.test(f.led || ''));
+    return { loc: f.loc && !/\?|확인/.test(f.loc) ? f.loc : '', iot, ledInc, size: living ? 'sena52' : 'sena42', body: 'white', blade: 'white', led: ledInc ? 'led' : 'noled' };
+  });
+  const bal = isoDate(d.bal_date), mv = isoDate(d.move_date);
+  return { step: '임시', contractOk: null, contractDiff: '', balDate: bal, balKnown: !!bal, moveDate: mv, moveKnown: !!mv, cct: '3500', cctMode: 'A', cctZones: { a: '3000', b: '4000' }, quick: false, extras: {}, extraNote: '', fans, fanExtra: 0, offRounds: {}, noneReason: '', present: '본인', callTime: '언제든 괜찮아요', request: '', c1: false, c2: false, c3: false, c4: false };
+}
+function isoDate(s) { const m = /(\d{4})-(\d\d)-(\d\d)/.exec(s || ''); return m ? `${m[1]}-${m[2]}-${m[3]}` : ''; }
+function fmtDate(iso) { if (!iso) return ''; const d = new Date(iso + 'T00:00:00'); return `${d.getMonth() + 1}/${d.getDate()} (${'일월화수목금토'[d.getDay()]})`; }
+/* ---------- 화면 ---------- */
+const STEPS = ['contract', 'floor', 'spec', 'schedule'];
+function go(step) { S.step = step; render(); window.scrollTo(0, 0); }
+function head(title, n) {
+  $('#ttl').textContent = title; $('#stepn').textContent = n ? n + ' / 4' : '';
+  $('#back').style.display = (STEPS.indexOf(S.step) > 0 || S.step === 'lookup' && false) ? '' : 'none';
+  const p = $('#prog'); if (n) { p.classList.remove('hide'); [...p.children].forEach((i, k) => i.classList.toggle('on', k < n)); } else p.classList.add('hide');
+}
+$('#back').onclick = () => { const i = STEPS.indexOf(S.step); if (i > 0) { saveDraft(); go(STEPS[i - 1]); } };
+function render() {
+  const v = $('#view'); const d = S.data;
+  if (S.step === 'auth') return renderAuth(v);
+  if (S.step === 'contract') return renderContract(v, d);
+  if (S.step === 'floor') return renderFloor(v, d);
+  if (S.step === 'spec') return renderSpec(v, d);
+  if (S.step === 'schedule') return renderSchedule(v, d);
+  if (S.step === 'done') return renderDone(v, d);
+  if (S.step === 'lookup') return renderLookup(v, d);
+}
+/* ---------- 1. 본인 확인 ---------- */
+function renderAuth(v) {
+  head('프로어앤코');
+  v.innerHTML = `<h1>서사 우미린 더 시그니처<br>시공 정보 확인</h1>
+  <p class="lead">입주박람회에서 계약해 주셔서 감사합니다. 안내가 늦어져 죄송합니다. 보다 만족스러운 시공을 위해 <b>조명 색온도와 설치 위치, 실링팬 사양, 잔금·이사 일정</b>을 최종 확인하고 있어요. 입력해 주신 내용은 담당자가 확인한 뒤 문자로 알려드리고, 필요한 경우에만 전화드립니다.</p>
+  <div class="card" style="background:var(--ink);color:#fff;border:0;gap:4px"><div class="hint" style="color:#fff;opacity:.75">입력 기한</div><div style="font-size:18px;font-weight:700" id="dl">${qs.get('d') ? esc(qs.get('d')) + '까지 입력해 주세요' : '문자에 안내된 날짜까지 입력해 주세요'}</div><div class="hint" style="color:#fff;opacity:.9">잔금·입주 일정을 빨리 확정해 주실수록 <b style="color:#FFD84D">시공 일정이 우선적으로 매칭</b>됩니다.</div></div>
+  <div class="card"><h2>본인 확인</h2>
+    ${S.code ? '' : '<label class="f">문자에 있는 개인 코드<input type="text" id="code" placeholder="예) AB12CD" autocapitalize="characters"></label>'}
+    <label class="f">계약서에 적은 전화번호 뒤 4자리<input type="tel" id="last4" inputmode="numeric" maxlength="4" placeholder="1234"></label>
+    <div class="err hide" id="aerr"></div>
+    <button class="btn" id="go">확인하고 시작하기</button>
+    <div class="hint">입력 시간 약 3분 · 같은 링크로 언제든 다시 들어와 확인·수정할 수 있어요.</div></div>
+  <div class="foot">문의 · 카카오채널 '프로어앤코' · 010-2528-8821</div>`;
+  $('#go').onclick = async () => {
+    const code = S.code || ($('#code').value || '').trim().toUpperCase(), last4 = ($('#last4').value || '').trim();
+    if (!code || last4.length !== 4) { $('#aerr').textContent = '코드와 뒤 4자리를 확인해 주세요.'; $('#aerr').classList.remove('hide'); return; }
+    $('#go').disabled = true; $('#go').textContent = '확인 중…';
+    try {
+      const r = await api({ action: 'load', code, last4 });
+      if (!r.ok) { $('#aerr').textContent = r.error || '확인에 실패했어요.'; $('#aerr').classList.remove('hide'); $('#go').disabled = false; $('#go').textContent = '확인하고 시작하기'; return; }
+      S.code = code; S.last4 = last4; S.data = r.data; S.prev = r.prev; S.locked = r.locked; S.rounds = r.rounds || []; S.cfg = r.cfg || {};
+      S.ans = r.prev && r.prev.fans ? Object.assign(defaultAns(r.data), r.prev) : defaultAns(r.data);
+      go(r.prev && r.prev.step === '제출' ? 'lookup' : 'contract');
+    } catch (e) { $('#aerr').textContent = '연결이 원활하지 않아요. 잠시 후 다시 시도해 주세요.'; $('#aerr').classList.remove('hide'); $('#go').disabled = false; $('#go').textContent = '확인하고 시작하기'; }
+  };
+}
+/* ---------- 2. 계약 내용 ---------- */
+const PKGNAME = { A: 'A 간접조명 패키지', B: 'B 우물조명 패키지', C: 'C 실링팬 다운라이트 패키지', D: 'D 실링팬 우물조명 패키지', E: 'E 방 실링팬 패키지', F: 'F 거실 실링팬 단품 설치' };
+function fanDesc(f, a) {
+  if (a.iot) return 'IoT 52인치 · 화이트/화이트 · LED 3색 변환 · 앱 제어 포함';
+  return `에센셜 ${f.loc === '거실' ? '52' : '42'}인치 · 화이트/화이트 · LED ${a.ledInc ? '포함' : '미포함'}`;
+}
+function renderContract(v, d) {
+  head('계약 내용 확인', 1); const a = S.ans;
+  const pk = (d.packages || []).map(p => `<div class="row"><b>${esc(p.name || PKGNAME[p.code] || p.raw)}${p.count > 1 ? ' × ' + p.count : ''}</b><span class="r">${esc(p.contents || '')}</span></div>`).join('');
+  const fans = (d.fans || []).map((f, i) => `<div class="row"><b>${esc(f.loc || '방 (위치 확인)')} 실링팬</b><span class="r">${esc(f.pkg || '')}<br>${fanDesc(f, a.fans[i])}</span></div>`).join('');
+  const ex = (d.extras || []).filter(x => !/^TOTAL/i.test(x.name || '')).map(x => `<div class="row"><b>${esc(x.name)}${x.qty > 1 ? ' × ' + x.qty : ''}</b><span class="r">${x.amount ? won(x.amount) : (x.amount === 0 ? '포함' : '금액 확인 중')}</span></div>`).join('');
+  const pr = (d.promises || []).filter(([k]) => k !== '계약서 손글씨').map(([k, t]) => `<div class="row"><span>• [${esc(k)}] ${esc(t)}</span></div>`).join('');
+  const dateRow = (label, iso, known, editing, key) => `<div style="display:flex;align-items:center;gap:10px"><div style="flex:1;display:flex;flex-direction:column;gap:2px"><span class="hint">${label}</span><b style="font-size:16px">${known && iso ? fmtDate(iso) + ' · ' + iso.slice(0, 4) + '년' : '미정 · 정해지면 알려주세요'}</b></div><button class="pill" data-edit="${key}" style="height:40px;padding:0 12px;font-size:13px;color:var(--blue);border-color:var(--blue)">${editing ? '확인' : (known ? '맞아요 · 고치기' : '입력하기')}</button></div>${editing ? `<div style="display:grid;grid-template-columns:1fr auto;gap:8px"><input type="date" id="in_${key}" value="${iso || ''}"><button class="pill" data-unknown="${key}" style="height:48px;padding:0 14px;font-size:13px">아직 몰라요</button></div>` : ''}`;
+  v.innerHTML = `<div class="unit">${esc(d.unit)} · ${esc(d.type)} 타입</div><h1>${esc(d.customer)} 고객님,<br>계약 내용을 확인해 주세요</h1><p class="lead">계약서에 적힌 내용을 그대로 옮겼어요. 다르면 아래 "다른 부분이 있어요"를 눌러 주세요.</p>
+  <div class="card"><h2>계약 정보 <small>${esc(d.contract_date || '')} · 담당 ${esc(d.staff || '')}</small></h2>
+    <div class="row"><span style="color:var(--mut)">계약금 (결제 완료)</span><b>${won(d.deposit)}</b></div>
+    <div class="row"><span style="color:var(--mut)">시공 잔금 (시공 완료 후 결제)</span><b>${won(d.balance)}</b></div></div>
+  <div class="card"><h2>계약하신 시공</h2>${pk || '<div class="hint">패키지 정보 확인 중</div>'}</div>
+  <div class="card"><h2>실링팬 <small>${(d.fans || []).length}대 · 계약서 기준</small></h2>${fans}<div class="hint">색상·크기는 다음 단계에서 고르세요. 위에 적힌 건 기본값이에요.</div></div>
+  ${ex ? `<div class="card"><h2>그 밖의 시공 · 추가 단품</h2>${ex}</div>` : ''}
+  ${pr ? `<div class="card note"><h2>계약서에 적어 둔 약속</h2>${pr}<div class="hint">계약서 메모를 그대로 옮겼어요.</div></div>` : ''}
+  <div class="g2"><button class="pill ${a.contractOk === true ? 'on' : ''}" id="ok">맞아요</button><button class="pill ${a.contractOk === false ? 'on' : ''}" id="diff">다른 부분이 있어요</button></div>
+  ${a.contractOk === false ? `<label class="f">어떤 부분이 다른지 적어주세요<textarea rows="3" id="difftxt" placeholder="예) 안방 실링팬은 취소하기로 했어요">${esc(a.contractDiff)}</textarea></label><button class="btn sec" id="doc" style="height:44px;font-size:14px">계약서 원본과 비교하기 (${d.pages || 0}쪽)</button>` : ''}
+  <div class="card"><h2>아파트 잔금일 · 이사일 <small>계약서에 적힌 대로</small></h2>
+    <div class="hint" style="background:#EAF0FF;border-radius:8px;padding:10px 12px;color:var(--sub)">시공은 <b>아파트 잔금(열쇠 수령) 후, 이사 전</b>에 해요. 두 날짜가 정확할수록 시공 일정을 빨리 잡아드릴 수 있어요.</div>
+    ${dateRow('아파트 잔금(열쇠 수령)일', a.balDate, a.balKnown, S.editBal, 'bal')}
+    ${dateRow('이사(입주) 예정일', a.moveDate, a.moveKnown, S.editMove, 'move')}
+    ${(!a.balKnown || !a.moveKnown) ? `<div class="note" style="border-radius:10px;padding:12px;font-size:13px;line-height:1.55"><b>아직 모르셔도 괜찮아요.</b> 나머지는 지금 정해두고, 날짜는 정해지는 대로 같은 링크에서 적어주세요. <b>${esc(S.cfg.lastDate || '12/19')}까지 잔금일을 알려주지 않으면 1월 회차로 자동 배정</b>돼요. (2주마다 안내 문자를 드려요)</div>` : ''}</div>
+  <div style="flex:1"></div><button class="btn" id="next">다음 · 색온도 · 도면</button>`;
+  const keep = () => { const t = $('#difftxt'); if (t) a.contractDiff = t.value; ['bal', 'move'].forEach(k => { const i = $('#in_' + k); if (i && i.value) { a[k + 'Date'] = i.value; a[k + 'Known'] = true; } }); };
+  $('#ok').onclick = () => { keep(); a.contractOk = true; render(); }; $('#diff').onclick = () => { keep(); a.contractOk = false; render(); };
+  const dc = $('#doc'); if (dc) dc.onclick = () => openDoc(d);
+  v.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => { keep(); const k = b.dataset.edit; if (k === 'bal') S.editBal = !S.editBal; else S.editMove = !S.editMove; a[k + 'Known'] = true; render(); });
+  v.querySelectorAll('[data-unknown]').forEach(b => b.onclick = () => { const k = b.dataset.unknown; a[k + 'Known'] = false; a[k + 'Date'] = ''; if (k === 'bal') S.editBal = false; else S.editMove = false; render(); });
+  $('#next').onclick = () => { keep(); if (a.contractOk == null) { toast('"맞아요" 또는 "다른 부분이 있어요"를 눌러 주세요'); return; } saveDraft(); go('floor'); };
+}
+async function openDoc(d) {
+  const n = d.pages || 0; if (!n) { toast('원본 이미지가 아직 준비되지 않았어요'); return; }
+  const box = document.createElement('div'); box.className = 'doc'; document.body.appendChild(box);
+  const show = async p => {
+    S.docPage = p;
+    box.innerHTML = `<div class="bar"><span>계약서 원본 · ${p} / ${n}쪽</span><button class="x">×</button></div><div class="img"><span style="color:#888;padding:40px;font-size:13px">불러오는 중…</span></div><div class="pg">${Array.from({ length: n }, (_, i) => `<button class="${i + 1 === p ? 'on' : ''}" data-p="${i + 1}">${i + 1}쪽</button>`).join('')}</div>`;
+    box.querySelector('.x').onclick = () => box.remove(); box.querySelectorAll('[data-p]').forEach(b => b.onclick = () => show(+b.dataset.p));
+    try { const r = await api({ action: 'page', code: S.code, last4: S.last4, n: p }); box.querySelector('.img').innerHTML = r.ok ? `<img src="${r.src}" alt="계약서 ${p}쪽">` : `<span style="padding:40px;color:#888">${esc(r.error)}</span>`; } catch (e) { box.querySelector('.img').innerHTML = '<span style="padding:40px;color:#888">불러오지 못했어요</span>'; }
+  };
+  show(1);
+}
+/* ---------- 3. 색온도 · 도면 · 추가 ---------- */
+const CCT = [['3000', '전구색', '따뜻하고 아늑한 분위기예요.'], ['3500', '전주백색', '따뜻함과 밝음이 조화로운 분위기예요. 가장 많이 고르세요.'], ['4000', '주백색', '노란빛이 적고 자연스러운 분위기예요.'], ['6000', '주광색', '차갑고 선명한 백색 분위기예요.']];
+const MENU = [
+  { id: 'dl', name: '다운라이트 추가', sub: '거실·주방 · 개당 30,000원', price: 30000, max: 7, kind: 'ok' },
+  { id: 'cur', name: '커튼박스 무드등', sub: '거실 창 · 100,000원', price: 100000, max: 1, kind: 'ok' },
+  { id: 'kb', name: '주방 하부장 조명', sub: '주방 · 120,000원', price: 120000, max: 1, kind: 'ok' },
+  { id: 'shoe', name: '신발장 하부 조명', sub: '현관 · 100,000원', price: 100000, max: 1, kind: 'ok' },
+  { id: 'sw', name: '무선스위치 4구 → 6구 변경', sub: '거실 스위치 · 30,000원', price: 30000, max: 1, kind: 'ok' },
+  { id: 'pend', name: '식탁 펜던트 조명 교체', sub: '식탁 · 50,000원 (조명은 고객 준비)', price: 50000, max: 1, kind: 'ok' },
+  { id: 'woo', name: '우물천장 조명 1줄 추가', sub: '거실 우물 · 200,000원', price: 200000, max: 1, kind: 'chk' },
+  { id: 'hid', name: '하부장 간접조명 · 히든센서', sub: '주방 · 180,000원', price: 180000, max: 1, kind: 'chk' },
+  { id: 'fan', name: '방 실링팬 추가 (E 패키지)', sub: '침실 · 실당 500,000원', price: 500000, max: 2, kind: 'chk' }
+];
+function planSvg(d) {
+  const t = PLAN.walls[d.type === '84B' ? 'B' : 'A']; if (!t) return { svg: '' };
+  const X0 = -300, Y0 = -300, VW = t.w + 600, VH = t.h + 600;
+  const walls = t.walls.map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}"/>`).join('');
+  const labels = t.labels.map(([n, x, y]) => `<text x="${x}" y="${y}">${esc(n)}</text>`).join('');
+  const fan = (x, y, r) => `<g transform="translate(${x} ${y})"><circle r="${r}" fill="#FDECEC" stroke="#D0202A" stroke-width="70"/><path d="M0 0 L0 -${r * .8} M0 0 L${r * .7} ${r * .4} M0 0 L-${r * .7} ${r * .4}" stroke="#D0202A" stroke-width="70" stroke-linecap="round"/></g>`;
+  let items = '';
+  const lab = n => (t.labels.find(l => l[0] === n) || [null, 0, 0]);
+  if (d.type !== '84B') {
+    (d.plans || []).forEach(pid => (PLAN.plans[pid] || []).forEach(it => {
+      if (it.k === 'woo') items += `<rect x="${it.x}" y="${it.y}" width="${it.x2 - it.x}" height="${it.y2 - it.y}" fill="rgba(217,119,6,.08)" stroke="#D97706" stroke-width="80" stroke-dasharray="220 120"/>`;
+      else if (it.k === 'fan') items += fan(it.x, it.y, pid === 'plE' ? 420 : 520);
+      else if (it.k === 'curtain' || it.k === 'ind') items += `<line x1="${it.x}" y1="${it.y}" x2="${it.x2}" y2="${it.y2}" stroke="#3FB36B" stroke-width="120"/>`;
+      else if (/^dl/.test(it.k)) items += `<circle cx="${it.x}" cy="${it.y}" r="170" fill="#0E5E8C"/>`;
+      else if (it.k === 'sensor') items += `<circle cx="${it.x}" cy="${it.y}" r="170" fill="#5BC8F0"/>`;
+      else if (/^sw/.test(it.k)) items += `<rect x="${it.x - 150}" y="${it.y - 110}" width="300" height="220" rx="30" fill="#fff" stroke="#444" stroke-width="40"/>`;
+    }));
+    const eCount = (d.packages || []).filter(p => p.code === 'E').reduce((a, p) => a + (p.count || 1), 0);
+    ['침실 2', '침실 3'].slice(0, Math.max(0, eCount - 1)).forEach(n => { const [, x, y] = lab(n); if (x) items += fan(x, y - 200, 420); });
+  } else {
+    (d.fans || []).forEach((f, i) => { const n = f.loc === '거실' ? '거실' : (f.loc && lab(f.loc)[1] ? f.loc : (i === 0 ? '거실' : '안방')); const [, x, y] = lab(n); if (x) items += fan(x, y - 200, n === '거실' ? 520 : 420); });
+  }
+  return { svg: `<svg viewBox="${X0} ${Y0} ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg"><rect x="${X0}" y="${Y0}" width="${VW}" height="${VH}" fill="#fff"/><g fill="#1C2126">${walls}</g>${items}<g fill="#6B7380" font-size="360" font-weight="600" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif">${labels}</g></svg>` };
+}
+function renderFloor(v, d) {
+  head('색온도 · 내 집 도면', 2); const a = S.ans;
+  const { svg } = planSvg(d);
+  const pk = (d.packages || []).map(p => `<div class="row"><b>${esc(p.name || p.raw)}${p.count > 1 ? ' × ' + p.count : ''}</b><span class="r">${esc((p.contents || '').split('+').slice(0, 2).join('+'))}</span></div>`).join('');
+  const total = MENU.reduce((s, m) => s + (a.extras[m.id] || 0) * m.price, 0), count = MENU.filter(m => a.extras[m.id]).length;
+  const zone = (id, name) => `<div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:13px;font-weight:600">${name}</div><div class="g4">${CCT.map(([k, nm]) => `<button class="chip ${a.cctZones[id] === k ? 'on' : ''}" data-zone="${id}" data-k="${k}" style="border-radius:8px;padding:8px 2px;font-size:12px">${nm} ${k}</button>`).join('')}</div></div>`;
+  v.innerHTML = `<div class="unit">${esc(d.unit)} · ${esc(d.type)} 타입</div><h1>조명 색온도와<br>설치 위치를 확인해 주세요</h1>
+  <div class="card" style="background:var(--ink);color:#fff;border:0"><div style="font-size:15px;font-weight:700">고민 없이 추천대로 할게요</div><div class="hint" style="color:#fff;opacity:.85">전주백색 3500K 밸런스형 · 패키지 기본 배치 · 추가 시공 없음. 대부분 이렇게 하세요. 누르면 바로 실링팬 단계로 넘어가요.</div><button class="btn" id="quick" style="height:46px;background:#FFD84D;color:var(--ink);font-size:14.5px">추천대로 진행 · 다음으로</button></div>
+  <div class="card"><h2>① 조명 색온도 <small>기본 전주백색 3500K</small></h2><div class="hint" style="color:var(--sub)">전체 조명을 한 가지 색온도로 맞추면 공간이 더 깔끔해 보여요. 따로 고르지 않으면 <b>전주백색(3500K)</b>으로 시공돼요.</div>
+    <div class="g2">${CCT.map(([k, nm]) => `<button class="cct ${a.cct === k ? 'on' : ''}" data-cct="${k}"><i style="background-image:url(${IMG.cct(k)});aspect-ratio:3/2;position:relative">${k === '3500' ? '<span class="badge" style="position:absolute;top:6px;right:6px;font-size:10px;font-weight:700;color:#6A4A00;background:#FFC93C;padding:1px 6px;border-radius:8px">BEST</span>' : ''}</i><b style="font-size:13px">${nm} <span style="font-weight:400;color:var(--mut)">${k}K</span></b></button>`).join('')}</div>
+    <div class="hint">${CCT.find(c => c[0] === a.cct)[1]} ${a.cct}K · ${CCT.find(c => c[0] === a.cct)[2]}</div>
+    <div class="g2"><button class="mode ${a.cctMode === 'A' ? 'on' : ''}" data-mode="A"><img src="${IMG.combo('balance')}" alt="" style="aspect-ratio:3/2"><span><b>밸런스형</b><small>집 전체를 한 가지 색온도로</small></span></button><button class="mode ${a.cctMode === 'B' ? 'on' : ''}" data-mode="B"><img src="${IMG.combo('unique')}" alt="" style="aspect-ratio:3/2"><span><b>개성형</b><small>공간마다 다른 색온도로</small></span></button></div>
+    ${a.cctMode === 'B' ? `<div style="display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:10px">${zone('b', '우물천장 간접조명')}${zone('a', '커튼박스 · 욕실 · 다운라이트')}<div class="hint">예) 우물천장 간접조명은 주백색, 커튼박스·욕실·다운라이트는 전구색</div></div>` : ''}</div>
+  <div class="card" style="padding:10px"><div class="plan">${svg}</div>
+    <div class="legend" style="padding:0 6px 4px"><span><i style="width:12px;height:12px;border-radius:50%;border:2px solid #D0202A"></i>실링팬</span><span><i style="width:14px;height:10px;border:2px dashed #D97706"></i>우물천장</span><span><i style="width:9px;height:9px;border-radius:50%;background:#0E5E8C"></i>다운라이트</span><span><i style="width:10px;height:3px;background:#3FB36B"></i>커튼박스</span></div>
+    ${d.type === '84B' ? '<div class="hint" style="padding:0 6px 4px">84B 타입은 실링팬 위치만 표시돼요.</div>' : ''}</div>
+  <div class="card"><h2>② 계약하신 구성 · 설치 위치</h2><div class="hint" style="color:var(--sub)">다운라이트·커튼박스는 <b>패키지 기본 배치</b>로 시공해요. 도면의 위치는 시공팀이 표준으로 잡은 자리예요.</div>${pk}<div class="hint">계약서와 다르면 이전 화면에서 "다른 부분이 있어요"로 알려주세요.</div></div>
+  <div class="card"><h2>③ 추가로 원하시는 게 있나요? <small>선택 안 해도 돼요</small></h2>
+    <div style="display:flex;gap:10px;font-size:11.5px"><span style="padding:2px 8px;border-radius:99px;background:#E7F5EC;color:#1F7A3D;font-weight:600">바로 확정</span><span class="hint">고르면 그대로 시공</span><span style="padding:2px 8px;border-radius:99px;background:var(--yel);color:#8A6A00;font-weight:600">확인 후 안내</span><span class="hint">현장 확인 뒤 전화</span></div>
+    ${MENU.map(m => { const n = a.extras[m.id] || 0; return `<div class="xrow"><div class="t"><b>${m.name} <span style="font-size:10.5px;padding:1px 6px;border-radius:99px;font-weight:600;${m.kind === 'ok' ? 'background:#E7F5EC;color:#1F7A3D' : 'background:var(--yel);color:#8A6A00'}">${m.kind === 'ok' ? '바로 확정' : '확인 후 안내'}</span></b><small>${m.sub}</small></div><div class="qty"><button class="${n > 0 ? 'on' : ''}" data-minus="${m.id}">−</button><span>${n}</span><button class="${n < m.max ? 'on' : ''}" data-plus="${m.id}">+</button></div></div>`; }).join('')}
+    <label class="f" style="margin-top:6px">그 밖에 요청하실 것<textarea rows="2" id="extratxt" placeholder="예) 침대 위 간접조명도 상담받고 싶어요">${esc(a.extraNote)}</textarea></label></div>
+  <div class="card" style="background:#EAF0FF;border:0"><div class="row" style="font-weight:700;font-size:15px"><span>추가 요청 ${count}건</span><span>예상 ${won(total)}</span></div><div class="hint" style="color:var(--sub)">금액은 계약서의 개별 시공 단가와 같아요. "바로 확정" 항목은 고른 대로 시공되고, "확인 후 안내" 항목만 담당자가 현장 조건을 확인한 뒤 전화드려요. 시공 후 잔금과 함께 결제해요.</div></div>
+  <button class="btn" id="next">다음 · 실링팬 사양</button>`;
+  const keepTxt = () => { const e = $('#extratxt'); if (e) a.extraNote = e.value; };
+  $('#quick').onclick = () => { a.cct = '3500'; a.cctMode = 'A'; a.extras = {}; a.quick = true; saveDraft(); go('spec'); };
+  v.querySelectorAll('[data-cct]').forEach(b => b.onclick = () => { keepTxt(); a.cct = b.dataset.cct; render(); });
+  v.querySelectorAll('[data-mode]').forEach(b => b.onclick = () => { keepTxt(); a.cctMode = b.dataset.mode; render(); });
+  v.querySelectorAll('[data-zone]').forEach(b => b.onclick = () => { keepTxt(); a.cctZones[b.dataset.zone] = b.dataset.k; render(); });
+  v.querySelectorAll('[data-plus],[data-minus]').forEach(b => b.onclick = () => { keepTxt(); const id = b.dataset.plus || b.dataset.minus, m = MENU.find(x => x.id === id); a.extras[id] = Math.max(0, Math.min(m.max, (a.extras[id] || 0) + (b.dataset.plus ? 1 : -1))); render(); });
+  $('#next').onclick = () => { keepTxt(); saveDraft(); go('spec'); };
+}
+/* ---------- 4. 실링팬 사양 ---------- */
+const SIZES = { sena42: ['SENA', '42˝ · 106cm'], vane48: ['VANE', '48˝ · 122cm'], sena52: ['SENA', '52˝ · 132cm'], moah52: ['MOAH', '52˝ · 132cm'] };
+const BODY_ESS = [['white', '화이트', 0], ['satin', '새틴실버', 30000], ['shsilver', '샤이닝실버', 30000], ['shblack', '샤이닝블랙', 30000]];
+const BODY_IOT = [['white', '화이트', 0], ['black', '블랙 (무광)', 30000], ['satin', '새틴실버', 30000]];
+const BLADE = [['white', '화이트', 0, '#F2F2F0'], ['black', '블랙', 10000, '#1C1C1C'], ['oak', '베이지오크', 10000, ''], ['maple', '메이플', 10000, ''], ['walnut', '다크월넛', 10000, ''], ['clear', '반투명', 30000, '']];
+const M = ['sena42', 'vane48', 'sena52', 'moah52'], WW = ['white', 'black', 'oak', 'maple', 'walnut'];
+const KEYS_ESS = M.flatMap(m => ['white', 'satin', 'shsilver', 'shblack'].flatMap(b => WW.map(x => `${m}_${b}_${x}_led`))).concat(M.flatMap(m => WW.map(x => `${m}_white_${x}_noled`))).concat(['vane48_white_clear_led', 'vane48_satin_clear_led', 'vane48_shsilver_clear_led', 'vane48_shblack_clear_led', 'vane48_white_clear_noled']);
+const KEYS_IOT = M.flatMap(m => ['white', 'black', 'satin'].flatMap(b => WW.map(x => `${m}_${b}_${x}`))).concat(['vane48_white_clear', 'vane48_black_clear', 'vane48_satin_clear']);
+const ROOMS = ['안방', '침실 2', '침실 3', '알파룸'];
+const bodyOf = x => (x.iot ? BODY_IOT : BODY_ESS).find(b => b[0] === x.body) || ['white', '화이트', 0];
+const extraOf = x => bodyOf(x)[2] + BLADE.find(b => b[0] === x.blade)[2] + (!x.ledInc && x.led === 'led' ? 20000 : 0);
+function renderSpec(v, d) {
+  head('실링팬 사양 선택', 3); const a = S.ans, fans = d.fans || [];
+  if (!fans.length) { a.fanExtra = 0; saveDraft(); return go('schedule'); }
+  const i = Math.min(S.cur, fans.length - 1), f = fans[i], x = a.fans[i], iot = x.iot, living = (f.loc || '') === '거실';
+  const BODY = iot ? BODY_IOT : BODY_ESS;
+  const sizes = living ? ['vane48', 'sena52', 'moah52'] : ['sena42', 'vane48'], reco = living ? ['sena52'] : ['sena42'];
+  const ledOn = x.ledInc || x.led === 'led', w = WW.includes(x.blade) || (x.blade === 'clear' && x.size === 'vane48') ? x.blade : 'white';
+  const key = iot ? `${x.size}_${x.body}_${w}` : (ledOn || x.body !== 'white' ? `${x.size}_${x.body}_${w}_led` : `${x.size}_white_${w}_noled`);
+  const KEYS = iot ? KEYS_IOT : KEYS_ESS, rowsN = Math.ceil(KEYS.length / 10);
+  const idx = Math.max(0, KEYS.indexOf(key)), col = idx % 10, row = Math.floor(idx / 10);
+  const roomOf = (ff, xx) => xx.loc || ff.loc || '방';
+  const total = a.fans.reduce((s, y) => s + extraOf(y), 0); a.fanExtra = total;
+  const quickDesc = fans.map((ff, k) => `${roomOf(ff, a.fans[k])} ${a.fans[k].iot ? 'IoT' : '에센셜'} SENA ${(ff.loc || '') === '거실' ? 52 : 42}`).join(' · ') + ' · 화이트/화이트';
+  v.innerHTML = `<h1>계약하신 실링팬 ${fans.length}대의<br>사양을 골라주세요</h1><p class="lead">${iot ? '이 실링팬은 IoT 모델이에요. 앱·리모컨 제어와 글라스 LED가 기본이고, 날개 크기·형태는 추가금이 없어요. 색상은 휘휘 홈페이지와 같은 금액이 더해집니다.' : '설치 위치와 대수는 계약서 기준이에요. 날개 크기·형태는 추가금이 없고, 색상과 LED는 휘휘 홈페이지와 같은 금액이 더해집니다.'}</p>
+  <div class="card" style="background:var(--ink);color:#fff;border:0;flex-direction:row;align-items:center"><div style="flex:1;display:flex;flex-direction:column;gap:2px"><b style="font-size:14.5px">추천 사양 그대로 할게요</b><span class="hint" style="color:#fff;opacity:.8">${esc(quickDesc)}</span></div><button class="btn" id="quick" style="flex:none;width:auto;height:40px;padding:0 14px;background:#FFD84D;color:var(--ink);font-size:13.5px">추가금 0원 · 다음</button></div>
+  ${fans.length > 1 ? `<div class="tabs">${fans.map((ff, k) => `<button class="${k === i ? 'on' : ''}" data-tab="${k}">${esc(roomOf(ff, a.fans[k]))} 실링팬<span>${SIZES[a.fans[k].size][0]} ${SIZES[a.fans[k].size][1].split(' ')[0]}</span></button>`).join('')}</div>` : ''}
+  <div class="card" style="padding:16px;gap:16px">
+    <div class="row"><b style="font-size:17px">${esc(roomOf(f, x))} 실링팬</b><small style="color:var(--mut);font-size:12px">계약서: ${esc(f.pkg || '')}${f.note ? ' · ' + esc(f.note) : ''}</small></div>
+    <div class="modelbar ${iot ? 'iot' : ''}"><b>${iot ? 'IoT 실링팬' : '에센셜 실링팬'}</b><span style="opacity:.85">${iot ? '앱 연동 원격 제어 · 글라스 LED 내장' : '리모컨 제어 · LED 선택'}</span></div>
+    ${!f.loc || /\?|확인/.test(f.loc) ? `<div class="note" style="border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px"><b style="font-size:13px">이 실링팬은 어느 방에 달까요?</b><div class="hint">계약서에 방 위치가 적혀 있지 않아요. 골라 주시면 담당자가 확인해요.</div><div class="g4">${ROOMS.map(r => `<button class="chip ${x.loc === r ? 'on' : ''}" data-room="${r}" style="border-radius:8px;padding:9px 2px">${r}</button>`).join('')}</div></div>` : ''}
+    <div><div class="preview" style="background-image:url(${iot ? IMG.spriteIot : IMG.sprite});background-position:${col / 9 * 100}% ${rowsN > 1 ? row / (rowsN - 1) * 100 : 0}%;background-size:1000% ${rowsN * 100}%"></div><div class="row hint"><span>선택 조합 미리보기 · 휘휘 실제 사진</span><span>${SIZES[x.size][0]} ${SIZES[x.size][1].split(' ')[0]} · ${bodyOf(x)[1]} · ${BLADE.find(b => b[0] === x.blade)[1]}</span></div></div>
+    <div><div class="row" style="margin-bottom:8px"><b style="font-size:13px">날개 크기 · 형태</b><span class="hint">${living ? '거실은 48·52인치' : '방은 42·48인치'} · 추가금 없음</span></div><div class="g3">${sizes.map(z => `<button class="opt ${x.size === z ? 'on' : ''}" data-size="${z}">${reco.includes(z) ? '<span class="badge">BEST</span>' : ''}<img src="${IMG.ic(z)}" alt="" style="width:22px;height:52px"><b>${SIZES[z][0]}</b><small>${SIZES[z][1]}</small><small>${reco.includes(z) ? '가장 많이 선택' : '추가금 없음'}</small></button>`).join('')}</div></div>
+    <div><div class="row" style="margin-bottom:8px"><b style="font-size:13px">바디 색상</b><span class="hint">화이트 외 +30,000</span></div><div style="display:grid;grid-template-columns:repeat(${BODY.length},1fr);gap:6px">${BODY.map(([k, l, p]) => `<button class="opt ${x.body === k ? 'on' : ''}" data-body="${k}"><img src="${IMG.ic(k)}" alt=""><b style="font-size:11px">${l}</b><small>${p ? '+30,000' : '기본'}</small></button>`).join('')}</div></div>
+    <div><div class="row" style="margin-bottom:8px"><b style="font-size:13px">날개 색상</b><span class="hint">화이트 외 +10,000 · 반투명(VANE 전용) +30,000</span></div><div class="g6">${BLADE.map(([k, l, p, c]) => { const dis = k === 'clear' && x.size !== 'vane48'; return `<button class="sw ${x.blade === k ? 'on' : ''}" data-blade="${k}" ${dis ? 'disabled' : ''}><i><b style="${k === 'clear' ? 'background-image:repeating-conic-gradient(#E6E6E6 0 25%,#fff 0 50%);background-size:10px 10px' : c ? 'background:' + c : 'background-image:url(' + IMG.ic(k) + ')'}"></b></i><span>${dis ? 'VANE 전용' : l}</span></button>`; }).join('')}</div></div>
+    <div><div class="row" style="margin-bottom:8px"><b style="font-size:13px">${iot ? 'LED · 제어' : 'LED'}</b><span class="hint">${iot ? '계약에 포함 · 선택 없음' : x.ledInc ? '계약에 포함된 실링팬이에요' : 'LED 미포함(캡)은 화이트 바디만 재고'}</span></div><div class="g2">${iot ? `<button class="ledb on fix" disabled><b>글라스 LED 내장</b><small>리모컨으로 색 변경</small></button><button class="ledb on fix" disabled><b>앱 · 리모컨 제어</b><small>IoT 기본 포함</small></button>` : x.ledInc ? `<button class="ledb on fix" disabled><b>LED 포함</b><small>계약서에 포함</small></button>` : `<button class="ledb ${x.led === 'noled' ? 'on' : ''}" data-led="noled" ${x.body !== 'white' ? 'disabled' : ''}><b>LED 미포함</b><small>${x.body === 'white' ? '캡 마감' : '품절 (화이트 바디만)'}</small></button><button class="ledb ${x.led === 'led' ? 'on' : ''}" data-led="led"><b>LED 추가</b><small>+20,000</small></button>`}</div></div>
+    <div class="row" style="padding-top:12px;border-top:1px solid var(--line)"><span style="color:var(--sub)">${esc(roomOf(f, x))} 실링팬 추가금</span><b>${extraOf(x) ? '+' + won(extraOf(x)) : '추가금 없음'}</b></div></div>
+  <div class="total"><div class="row"><span>시공 잔금 (계약서)</span><span>${won(d.balance)}</span></div><div class="row"><span>실링팬 선택 추가금 (${fans.length}대)</span><span>${won(total)}</span></div><div class="row big"><span>시공 후 결제 예정</span><span>${won((d.balance || 0) + total)}</span></div><div class="hint" style="color:#fff;opacity:.7">추가 시공 요청 금액은 확인 후 더해져요.</div></div>
+  ${i < fans.length - 1 ? `<button class="btn" id="nextfan">다음 실링팬 · ${esc(roomOf(fans[i + 1], a.fans[i + 1]))}</button>` : `<button class="btn" id="next">다음 · 시공 회차</button>`}`;
+  const set = p => { Object.assign(x, p); if (x.blade === 'clear' && x.size !== 'vane48') x.blade = 'white'; if (!iot && x.body !== 'white' && x.led === 'noled' && !x.ledInc) x.led = 'led'; if (!BODY.find(b => b[0] === x.body)) x.body = 'white'; render(); };
+  const goNext = () => { const miss = fans.findIndex((ff, k) => (!ff.loc || /\?|확인/.test(ff.loc)) && !a.fans[k].loc); if (miss >= 0) { S.cur = miss; render(); toast('실링팬을 달 방을 골라 주세요'); return; } saveDraft(); go('schedule'); };
+  $('#quick').onclick = () => { a.fans.forEach((y, k) => { y.size = (fans[k].loc || '') === '거실' ? 'sena52' : 'sena42'; y.body = 'white'; y.blade = 'white'; if (!y.ledInc) y.led = 'noled'; }); goNext(); };
+  v.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { S.cur = +b.dataset.tab; render(); });
+  v.querySelectorAll('[data-room]').forEach(b => b.onclick = () => set({ loc: b.dataset.room }));
+  v.querySelectorAll('[data-size]').forEach(b => b.onclick = () => set({ size: b.dataset.size }));
+  v.querySelectorAll('[data-body]').forEach(b => b.onclick = () => set({ body: b.dataset.body }));
+  v.querySelectorAll('[data-blade]').forEach(b => b.onclick = () => set({ blade: b.dataset.blade }));
+  v.querySelectorAll('[data-led]').forEach(b => b.onclick = () => set({ led: b.dataset.led }));
+  const nf = $('#nextfan'); if (nf) nf.onclick = () => { S.cur = i + 1; render(); window.scrollTo(0, 0); };
+  const nx = $('#next'); if (nx) nx.onclick = goNext;
+}
+/* ---------- 5. 시공 회차 ---------- */
+function roundsFor(a) {
+  // S.rounds: [{name, from, to, label}] · 고객 창 = 잔금일 ~ 이사일 (모르면 전부 가능)
+  const bal = a.balKnown && a.balDate ? a.balDate : null, mv = a.moveKnown && a.moveDate ? a.moveDate : null;
+  return S.rounds.map(r => { let st = 'ok'; if (bal && r.to <= bal) st = 'before'; else if (mv && r.from >= mv) st = 'after'; return { ...r, st }; });
+}
+function renderSchedule(v, d) {
+  head('시공 회차 확인', 4); const a = S.ans;
+  const rounds = roundsFor(a), okR = rounds.filter(r => r.st === 'ok'), n = okR.filter(r => !a.offRounds[r.name]).length;
+  const windowTxt = (a.balKnown && a.balDate ? '아파트 잔금 ' + fmtDate(a.balDate) + ' 이후' : '잔금일 미정') + ' ~ ' + (a.moveKnown && a.moveDate ? '이사 ' + fmtDate(a.moveDate) + ' 이전' : '이사일 미정');
+  v.innerHTML = `<h1>시공 회차를<br>확인해 주세요</h1><div class="lead note" style="border-radius:10px;padding:12px 14px;font-size:13px">부산지점 시공팀이 <b>같은 단지를 묶어서 작업하는 공동구매 방식</b>이라, 시공일은 잔금·이사 일정에 맞춰 저희가 배정해 드려요. 아래 회차 중 <b>정말 안 되는 회차만 꺼 주세요.</b> 그대로 두시면 전부 가능한 걸로 봐요.</div>
+  <div style="font-size:12.5px;color:var(--blue);font-weight:600">고객님 시공 가능 기간 · ${windowTxt}</div>
+  <div class="card"><h2>가능한 회차 <small>안 되는 것만 끄기</small><small style="color:${n ? '#1F7A3D' : '#B4232C'}">${n}개 가능</small></h2>
+    <div style="display:flex;flex-direction:column;gap:8px">${rounds.map(r => { const dis = r.st !== 'ok', on = !dis && !a.offRounds[r.name]; return `<button class="pill" data-round="${esc(r.name)}" ${dis ? 'disabled' : ''} style="display:flex;justify-content:space-between;align-items:center;height:auto;padding:12px 14px;text-align:left;${dis ? 'background:#F7F8FA;color:#9AA3AF;border:1px dashed #C9D0DB' : on ? 'background:var(--blue);color:#fff;border-color:var(--blue)' : 'color:#9AA3AF;text-decoration:line-through'}"><span style="display:flex;flex-direction:column;gap:1px"><b style="font-size:15px">${esc(r.name)}</b><span style="font-size:12px;opacity:.85">${esc(r.label)}</span></span><span style="font-size:11px;padding:2px 8px;border-radius:99px;${dis ? 'background:#F1F3F6;color:#9AA3AF' : on ? 'background:rgba(255,255,255,.2);color:#fff' : 'background:#FDECEC;color:#B4232C'}">${r.st === 'before' ? '잔금 전' : r.st === 'after' ? '이사 후' : on ? '가능 ✓' : '안 돼요'}</span></button>`; }).join('')}</div>
+    <div class="hint">회차 안에서 <b>정확한 날짜·시간은 배정 후 문자로</b> 알려드려요. 그날이 어려우면 그때 답장만 주시면 돼요. 집이 비어 있으면 고객님이 계시지 않아도 시공할 수 있어요.</div>
+    ${n === 0 ? `<div class="note" style="border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px"><b style="font-size:13.5px">${okR.length ? '가능한 회차가 하나도 없네요 · 담당자가 전화로 조율할게요' : '잔금·이사일 기준으로 맞는 회차가 아직 없어요 · 담당자가 전화로 조율할게요'}</b><label class="f">어려운 이유나 가능한 시기<textarea rows="2" id="nonetxt" placeholder="예) 1월 20일 이후 입주라 그 뒤로 가능해요">${esc(a.noneReason)}</textarea></label></div>` : ''}</div>
+  <div class="card"><h2>시공 당일</h2>
+    <label class="f">현장에 계실 분<select id="present">${['본인', '가족 (번호 따로 적기)', '아무도 없음 (출입 방법은 전화로)'].map(o => `<option ${a.present === o ? 'selected' : ''}>${o}</option>`).join('')}</select></label>
+    <div class="hint" style="background:var(--bg);border-radius:8px;padding:10px 12px">현관 비밀번호는 여기에 적지 마세요. 시공 전날 담당자가 전화로 확인합니다.</div>
+    <label class="f">통화하기 편한 시간<select id="call">${['언제든 괜찮아요', '오전', '점심시간 (12~1시)', '오후', '저녁 6시 이후'].map(o => `<option ${a.callTime === o ? 'selected' : ''}>${o}</option>`).join('')}</select></label>
+    <label class="f">요청사항<textarea rows="3" id="req" placeholder="예) 침실 간접조명 추가 상담 원해요">${esc(a.request)}</textarea></label></div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <label class="chk"><input type="checkbox" id="c1" ${a.c1 ? 'checked' : ''}><span><b>[필수]</b> 시공 일정 안내와 A/S를 위한 개인정보 수집·이용에 동의합니다.</span></label>
+    <label class="chk"><input type="checkbox" id="c2" ${a.c2 ? 'checked' : ''}><span><b>[필수]</b> 공동구매 할인 금액과 계약 조건은 세대별로 달라서, 입주민 단톡방 등 외부에 공유하면 <b>할인이 취소되거나 계약이 해지될 수 있음</b>을 확인했습니다.</span></label>
+    <label class="chk"><input type="checkbox" id="c3" ${a.c3 ? 'checked' : ''}><span><b>[필수]</b> 도면 화면에서 고른 색온도(기본 전주백색 3500K)와 <b>패키지 기본 배치</b>로 시공하는 데 동의합니다. 배치 변경은 시공일 7일 전까지 담당자에게 전화로만 요청할 수 있어요.</span></label>
+    <label class="chk"><input type="checkbox" id="c4" ${a.c4 ? 'checked' : ''}><span><b>[필수]</b> 시공일은 가능한 회차 안에서 저희가 배정해 문자로 안내하며, 잔금일을 <b>${esc(S.cfg.lastDate || '12/19')}까지 알려주지 않으면 1월 회차로 자동 배정</b>되는 데 동의합니다.</span></label>
+    <label class="chk"><input type="checkbox" id="c5" ${a.c5 ? 'checked' : ''}><span>[선택] 시공 사진을 후기로 쓰는 데 동의합니다. (얼굴·호수 비공개)</span></label></div>
+  <div class="err hide" id="serr"></div>
+  <button class="btn" id="submit">제출하기</button>`;
+  const keep = () => { a.present = $('#present').value; a.callTime = $('#call').value; a.request = $('#req').value; const t = $('#nonetxt'); if (t) a.noneReason = t.value; ['c1', 'c2', 'c3', 'c4', 'c5'].forEach(k => a[k] = $('#' + k).checked); };
+  v.querySelectorAll('[data-round]').forEach(b => b.onclick = () => { keep(); const nm = b.dataset.round; a.offRounds[nm] = !a.offRounds[nm]; render(); });
+  $('#submit').onclick = async () => {
+    keep();
+    if (!(a.c1 && a.c2 && a.c3 && a.c4)) return showErr('[필수] 동의 항목 4개를 체크해 주세요.');
+    a.okRounds = okR.filter(r => !a.offRounds[r.name]).map(r => r.name);
+    $('#submit').disabled = true; $('#submit').textContent = '보내는 중…';
+    const r = await save('제출');
+    if (!r.ok) { $('#submit').disabled = false; $('#submit').textContent = '제출하기'; return showErr(r.error || '저장에 실패했어요. 다시 시도해 주세요.'); }
+    S.prev = { ...a, step: '제출', at: r.at }; go('done');
+  };
+  function showErr(m) { $('#serr').textContent = m; $('#serr').classList.remove('hide'); }
+}
+/* ---------- 6. 완료 · 7. 조회 ---------- */
+function renderDone(v, d) {
+  head('제출 완료');
+  v.innerHTML = `<div style="padding:40px 4px 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px"><div style="width:64px;height:64px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h1 style="margin:0">입력해 주셔서 감사합니다</h1><p class="lead">담당자가 내용을 확인한 뒤<br><b style="color:var(--ink)">확인이 끝나면 문자로</b> 알려드려요.<br>추가로 여쭤볼 게 있는 세대만 따로 전화드립니다.</p></div>
+  <div class="card"><h2>다음 순서</h2>${['담당자 확인 (영업일 1~2일) → 확인 완료 문자', '확인이 더 필요한 경우에만 전화 (확인 후 안내 항목 · 계약 내용이 다른 경우)', '시공일 배정 문자 (회차 안에서 날짜·시간) · 어려우면 답장만', '시공 전날 전화 1통 (출입 방법 확인)', '시공 · 시공 잔금 결제'].map((t, i) => `<div class="row" style="justify-content:flex-start;gap:10px"><b style="color:var(--blue)">${i + 1}</b><span>${t}</span></div>`).join('')}</div>
+  <div style="flex:1"></div><button class="btn sec" id="look">내 계약 다시 보기</button><div class="foot">같은 문자 링크로 언제든 다시 조회·수정할 수 있어요.<br>문의 · 카카오채널 '프로어앤코' · 010-2528-8821</div>`;
+  $('#look').onclick = () => go('lookup');
+}
+function renderLookup(v, d) {
+  head('내 계약 조회'); const p = S.prev || S.ans, fans = d.fans || [];
+  const step = S.locked ? 3 : (p && p.step === '제출' ? 2 : 1);
+  const tl = [['계약 · 계약금 결제', `${esc(d.contract_date || '')} · ${won(d.deposit)}`], ['시공 정보 입력', p && p.step === '제출' ? '사양 · 가능 날짜 제출 완료' : '아직 제출 전이에요'], ['담당자 확인', S.locked ? '확인 완료 · 수정 잠김' : '확인되면 문자로 알려드려요 · 필요한 경우만 전화'], ['시공일 배정 문자', '회차 안에서 날짜·시간 · 확정되면 여기 나와요'], ['시공', '전날 출입 확인 전화 1통'], ['시공 잔금 결제 · A/S 12개월', '']];
+  const fanRows = fans.map((f, i) => { const x = (p.fans || [])[i]; if (!x) return ''; return `<div class="row"><span>${esc(x.loc || f.loc || '방')} · ${SIZES[x.size][0]} ${SIZES[x.size][1].split(' ')[0]}</span><span class="r">${bodyOf(x)[1]} / ${BLADE.find(b => b[0] === x.blade)[1]} · ${x.iot ? 'IoT LED 포함' : (x.ledInc || x.led === 'led' ? 'LED' : 'LED 없음')}</span></div>`; }).join('');
+  const exRows = MENU.filter(m => (p.extras || {})[m.id]).map(m => `${m.name} ×${p.extras[m.id]}`).join(', ');
+  v.innerHTML = `<div class="unit">${esc(d.unit)} · ${esc(d.type)}</div><h1 style="margin-top:4px">${esc(d.customer)} 고객님 계약</h1>
+  <div class="card"><h2>진행 상황</h2><div class="tl">${tl.map(([t, s], i) => `<div class="${i < step ? 'done' : i === step ? 'now' : ''}"><i>${i < step ? '✓' : i === step ? '●' : ''}</i><span><b style="${i > step ? 'color:var(--mut)' : ''}">${t}</b><small>${s}</small></span></div>`).join('')}</div></div>
+  <div class="card"><h2>내가 고른 것 ${S.locked ? '<small>확정 · 수정 잠김</small>' : '<small><a href="#" id="edit" style="color:var(--blue)">수정하기</a></small>'}</h2>
+    <div class="row"><span style="color:var(--mut)">색온도</span><span>${CCT.find(c => c[0] === (p.cct || '3500'))[1]} ${p.cct || 3500}K ${p.cctMode === 'B' ? '(공간별)' : ''}</span></div>
+    ${fanRows}<div class="row"><span style="color:var(--mut)">실링팬 선택 추가금</span><span>${won(p.fanExtra)}</span></div>
+    <div class="row"><span style="color:var(--mut)">아파트 잔금 · 이사</span><span>${p.balKnown && p.balDate ? fmtDate(p.balDate) : '미정'} · ${p.moveKnown && p.moveDate ? fmtDate(p.moveDate) : '미정'}</span></div>
+    <div class="row"><span style="color:var(--mut)">추가 시공 요청</span><span class="r">${exRows || '없음'}${exRows ? ' (확인 중)' : ''}</span></div>
+    <div class="row"><span style="color:var(--mut)">가능한 회차</span><span class="r">${(p.okRounds || []).join(' · ') || '전화 조율'}</span></div>
+    <div class="hint">${S.locked ? '담당자 확인이 끝나 수정이 잠겼어요. 바꾸실 내용은 담당자에게 전화 주세요.' : '담당자 확인이 끝나면 수정이 잠겨요. 그 뒤 변경은 전화로만 돼요.'}</div></div>
+  <div class="card"><h2>계약 내용</h2><div class="row"><span style="color:var(--mut)">시공 내용</span><span class="r">${(d.packages || []).map(x => esc(x.name || x.raw)).join(' · ')}</span></div><div class="row"><span style="color:var(--mut)">시공 잔금 (시공 후)</span><span>${won(d.balance)}</span></div><button class="btn sec" id="doc" style="height:46px;font-size:14px">계약서 원본 보기</button></div>
+  <div class="foot">문의 · 카카오채널 '프로어앤코' · 010-2528-8821</div>`;
+  $('#doc').onclick = () => openDoc(d); const e = $('#edit'); if (e) e.onclick = ev => { ev.preventDefault(); S.ans = Object.assign(defaultAns(d), p, { step: '임시' }); go('contract'); };
+}
+/* ---------- 저장 ---------- */
+async function save(step) { S.ans.step = step; try { return await api({}, { action: 'save', code: S.code, last4: S.last4, payload: S.ans }); } catch (e) { return { ok: false, error: '연결이 원활하지 않아요.' }; } }
+let draftT = null; function saveDraft() { clearTimeout(draftT); draftT = setTimeout(() => save('임시'), 400); }
+render();
+</script>
+</body>
+</html>
