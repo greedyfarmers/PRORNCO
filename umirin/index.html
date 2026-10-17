@@ -228,7 +228,12 @@ function planSvg(d) {
 function renderFloor(v, d) {
   head('색온도 · 내 집 도면', 2); const a = S.ans;
   const { svg } = planSvg(d);
-  const pk = (d.packages || []).map(p => `<div class="row"><b>${esc(p.name || p.raw)}${p.count > 1 ? ' × ' + p.count : ''}</b><span class="r">${esc((p.contents || '').split('+').slice(0, 2).join('+'))}</span></div>`).join('');
+  const pkRows = (d.packages || []).map(p => `<div class="row"><b>${esc(p.name || p.raw)}${p.count > 1 ? ' × ' + p.count : ''}</b><span class="r">${esc((p.contents || '').split('+').slice(0, 2).join('+'))}</span></div>`).join('');
+  // 계약서에 추가로 적힌 변경·추가 작업 (패키지 메모 + 추가 단품 + 도면에 표시된 추가 항목)
+  const chg = [];
+  (d.packages || []).forEach(p => { const m = /\(([^)]*)\)/.exec(p.raw || ''); const note = m ? m[1].replace(/^(변경|추정)\s*[:：]?\s*/, '').replace(/^[,，·\s]+/, '') : ''; if (note && /→|변경|추가/.test(note)) chg.push([`${p.code} 패키지 변경`, note]); });
+  (d.extras || []).forEach(e => { if (e && e.name && !/^TOTAL/.test(e.name)) chg.push([e.name, [e.location, e.qty ? e.qty + '개' : '', e.amount ? Number(e.amount).toLocaleString('ko-KR') + '원' : (e.amount === 0 ? '무상' : '')].filter(Boolean).join(' · ')]); });
+  const pk = pkRows + (chg.length ? `<div class="hint" style="margin-top:10px;font-weight:600;color:var(--ink)">계약서에 추가로 적힌 변경·추가 작업</div>` + chg.map(([k, v]) => `<div class="row"><b>${esc(k)}</b><span class="r">${esc(v)}</span></div>`).join('') : '');
   const total = MENU.reduce((s, m) => s + (a.extras[m.id] || 0) * m.price, 0), count = MENU.filter(m => a.extras[m.id]).length;
   const zone = (id, name) => `<div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:13px;font-weight:600">${name}</div><div class="g4">${CCT.map(([k, nm]) => `<button class="chip ${a.cctZones[id] === k ? 'on' : ''}" data-zone="${id}" data-k="${k}" style="border-radius:8px;padding:8px 2px;font-size:12px">${nm} ${k}</button>`).join('')}</div></div>`;
   v.innerHTML = `<div class="unit">${esc(d.unit)} · ${esc(d.type)} 타입</div><h1>조명 색온도와<br>설치 위치를 확인해 주세요</h1>
