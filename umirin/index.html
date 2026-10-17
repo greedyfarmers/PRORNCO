@@ -76,7 +76,8 @@ const won = n => (n || 0).toLocaleString('ko-KR') + '원';
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const qs = new URLSearchParams(location.search);
-const S = { code: (qs.get('c') || '').toUpperCase(), last4: '', data: null, prev: null, locked: false, rounds: [], cfg: {}, step: 'auth', ans: null, cur: 0, docPage: 1, editBal: false, editMove: false };
+const PREVIEW = qs.get('preview') || '';
+const S = { code: (qs.get('c') || '').toUpperCase(), last4: '', preview: false, data: null, prev: null, locked: false, rounds: [], cfg: {}, step: 'auth', ans: null, cur: 0, docPage: 1, editBal: false, editMove: false };
 const toast = m => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); setTimeout(() => t.classList.remove('on'), 2200); };
 async function api(params, body) {
   const u = new URL(API_URL); Object.entries(params).forEach(([k, v]) => u.searchParams.set(k, v));
@@ -116,6 +117,7 @@ function render() {
 /* ---------- 1. 본인 확인 ---------- */
 function renderAuth(v) {
   head('프로어앤코');
+  if (PREVIEW && S.code && !S._pv) { S._pv = true; setTimeout(() => { const g = document.getElementById('go'); if (g) g.click(); }, 50); }
   v.innerHTML = `<h1>서사 우미린 더 시그니처<br>시공 정보 확인</h1>
   <p class="lead">입주박람회에서 계약해 주셔서 감사합니다. 안내가 늦어져 죄송합니다. 보다 만족스러운 시공을 위해 <b>조명 색온도와 설치 위치, 실링팬 사양, 잔금·이사 일정</b>을 최종 확인하고 있어요. 입력해 주신 내용은 담당자가 확인한 뒤 문자로 알려드리고, 필요한 경우에만 전화드립니다.</p>
   <div class="card" style="background:var(--ink);color:#fff;border:0;gap:4px"><div class="hint" style="color:#fff;opacity:.75">입력 기한</div><div style="font-size:18px;font-weight:700" id="dl">${qs.get('d') ? esc(qs.get('d')) + '까지 입력해 주세요' : '문자에 안내된 날짜까지 입력해 주세요'}</div><div class="hint" style="color:#fff;opacity:.9">잔금·입주 일정을 빨리 확정해 주실수록 <b style="color:#FFD84D">시공 일정이 우선적으로 매칭</b>됩니다.</div></div>
@@ -127,12 +129,13 @@ function renderAuth(v) {
     <div class="hint">입력 시간 약 3분 · 같은 링크로 언제든 다시 들어와 확인·수정할 수 있어요.</div></div>
   <div class="foot">문의 · 카카오채널 '프로어앤코' · 010-2528-8821</div>`;
   $('#go').onclick = async () => {
-    const code = S.code || ($('#code').value || '').trim().toUpperCase(), last4 = ($('#last4').value || '').trim();
+    const code = S.code || ($('#code').value || '').trim().toUpperCase(), last4 = PREVIEW && S.code ? PREVIEW : ($('#last4').value || '').trim();
     if (!code || last4.length !== 4) { $('#aerr').textContent = '코드와 뒤 4자리를 확인해 주세요.'; $('#aerr').classList.remove('hide'); return; }
     $('#go').disabled = true; $('#go').textContent = '확인 중…';
     try {
       const r = await api({ action: 'load', code, last4 });
       if (!r.ok) { $('#aerr').textContent = r.error || '확인에 실패했어요.'; $('#aerr').classList.remove('hide'); $('#go').disabled = false; $('#go').textContent = '확인하고 시작하기'; return; }
+      S.preview = !!r.preview; if (S.preview) { const b = document.createElement('div'); b.textContent = '미리보기 · 담당자용 — 열람 기록·저장·제출 안 됨'; b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99;background:#B3261E;color:#fff;text-align:center;font-size:12px;padding:6px'; document.body.appendChild(b); }
       if (r.plan && r.plan.plans) { PLAN.plans = r.plan.plans; if (r.plan.walls) PLAN.walls = r.plan.walls; if (r.plan.bg) PLAN.bg = r.plan.bg; } S.code = code; S.last4 = last4; S.data = r.data; S.prev = r.prev; S.locked = r.locked; S.rounds = r.rounds || []; S.cfg = r.cfg || {};
       S.ans = r.prev && r.prev.fans ? Object.assign(defaultAns(r.data), r.prev) : defaultAns(r.data);
       go(r.prev && r.prev.step === '제출' ? 'lookup' : 'contract');
@@ -328,11 +331,10 @@ function renderSchedule(v, d) {
     <label class="chk"><input type="checkbox" id="c1" ${a.c1 ? 'checked' : ''}><span><b>[필수]</b> 시공 일정 안내와 A/S를 위한 개인정보 수집·이용에 동의합니다.</span></label>
     <label class="chk"><input type="checkbox" id="c2" ${a.c2 ? 'checked' : ''}><span><b>[필수]</b> 계약 금액 및 시공 조건은 각 세대의 상담 내용과 현장 상황을 기준으로 확정됩니다. <b>다른 세대의 계약 조건이 동일하게 적용되는 것은 아님</b>을 확인했습니다.</span></label>
     <label class="chk"><input type="checkbox" id="c3" ${a.c3 ? 'checked' : ''}><span><b>[필수]</b> 도면 화면에서 고른 색온도(기본 전주백색 3500K)와 <b>패키지 기본 배치</b>로 시공하는 데 동의합니다. 배치 변경은 시공일 7일 전까지 담당자에게 전화로만 요청할 수 있어요.</span></label>
-    <label class="chk"><input type="checkbox" id="c4" ${a.c4 ? 'checked' : ''}><span><b>[필수]</b> 시공일은 가능한 회차 안에서 저희가 배정해 문자로 안내하며, 잔금일을 <b>${esc(S.cfg.lastDate || '12/19')}까지 알려주지 않으면 1월 회차로 자동 배정</b>되는 데 동의합니다.</span></label>
-    <label class="chk"><input type="checkbox" id="c5" ${a.c5 ? 'checked' : ''}><span>[선택] 시공 사진을 후기로 쓰는 데 동의합니다. (얼굴·호수 비공개)</span></label></div>
+    <label class="chk"><input type="checkbox" id="c4" ${a.c4 ? 'checked' : ''}><span><b>[필수]</b> 시공일은 가능한 회차 안에서 저희가 배정해 문자로 안내하며, 잔금일을 <b>${esc(S.cfg.lastDate || '12/19')}까지 알려주지 않으면 1월 회차로 자동 배정</b>되는 데 동의합니다.</span></label></div>
   <div class="err hide" id="serr"></div>
-  <button class="btn" id="submit">제출하기</button>`;
-  const keep = () => { a.present = $('#present').value; a.callTime = $('#call').value; a.request = $('#req').value; const t = $('#nonetxt'); if (t) a.noneReason = t.value; ['c1', 'c2', 'c3', 'c4', 'c5'].forEach(k => a[k] = $('#' + k).checked); };
+  <button class="btn" id="submit" ${S.preview ? 'disabled' : ''}>${S.preview ? '미리보기 — 제출 불가' : '제출하기'}</button>`;
+  const keep = () => { a.present = $('#present').value; a.callTime = $('#call').value; a.request = $('#req').value; const t = $('#nonetxt'); if (t) a.noneReason = t.value; ['c1', 'c2', 'c3', 'c4'].forEach(k => a[k] = $('#' + k).checked); };
   v.querySelectorAll('[data-round]').forEach(b => b.onclick = () => { keep(); const nm = b.dataset.round; a.offRounds[nm] = !a.offRounds[nm]; render(); });
   $('#submit').onclick = async () => {
     keep();
@@ -373,8 +375,8 @@ function renderLookup(v, d) {
   $('#doc').onclick = () => openDoc(d); const e = $('#edit'); if (e) e.onclick = ev => { ev.preventDefault(); S.ans = Object.assign(defaultAns(d), p, { step: '임시' }); go('contract'); };
 }
 /* ---------- 저장 ---------- */
-async function save(step) { S.ans.step = step; try { return await api({}, { action: 'save', code: S.code, last4: S.last4, payload: S.ans }); } catch (e) { return { ok: false, error: '연결이 원활하지 않아요.' }; } }
-let draftT = null; function saveDraft() { clearTimeout(draftT); draftT = setTimeout(() => save('임시'), 400); }
+async function save(step) { if (S.preview) return { ok: false, error: '미리보기 모드예요 — 저장·제출되지 않습니다.' }; S.ans.step = step; try { return await api({}, { action: 'save', code: S.code, last4: S.last4, payload: S.ans }); } catch (e) { return { ok: false, error: '연결이 원활하지 않아요.' }; } }
+let draftT = null; function saveDraft() { if (S.preview) return; clearTimeout(draftT); draftT = setTimeout(() => save('임시'), 400); }
 render();
 </script>
 </body>
