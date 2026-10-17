@@ -130,7 +130,7 @@ function renderAuth(v) {
   <div class="foot">문의 · 카카오채널 '프로어앤코' · 010-2528-8821</div>`;
   $('#go').onclick = async () => {
     const code = S.code || ($('#code').value || '').trim().toUpperCase(), last4 = PREVIEW && S.code ? PREVIEW : ($('#last4').value || '').trim();
-    if (!code || last4.length !== 4) { $('#aerr').textContent = '코드와 뒤 4자리를 확인해 주세요.'; $('#aerr').classList.remove('hide'); return; }
+    if (!code || (last4.length !== 4 && last4 !== PREVIEW)) { $('#aerr').textContent = '코드와 뒤 4자리를 확인해 주세요.'; $('#aerr').classList.remove('hide'); return; }
     $('#go').disabled = true; $('#go').textContent = '확인 중…';
     try {
       const r = await api({ action: 'load', code, last4 });
