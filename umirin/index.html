@@ -326,7 +326,7 @@ function renderSchedule(v, d) {
     <label class="f">요청사항<textarea rows="3" id="req" placeholder="예) 침실 간접조명 추가 상담 원해요">${esc(a.request)}</textarea></label></div>
   <div style="display:flex;flex-direction:column;gap:10px">
     <label class="chk"><input type="checkbox" id="c1" ${a.c1 ? 'checked' : ''}><span><b>[필수]</b> 시공 일정 안내와 A/S를 위한 개인정보 수집·이용에 동의합니다.</span></label>
-    <label class="chk"><input type="checkbox" id="c2" ${a.c2 ? 'checked' : ''}><span><b>[필수]</b> 공동구매 할인 금액과 계약 조건은 세대별로 달라서, 입주민 단톡방 등 외부에 공유하면 <b>할인이 취소되거나 계약이 해지될 수 있음</b>을 확인했습니다.</span></label>
+    <label class="chk"><input type="checkbox" id="c2" ${a.c2 ? 'checked' : ''}><span><b>[필수]</b> 계약 금액 및 시공 조건은 각 세대의 상담 내용과 현장 상황을 기준으로 확정됩니다. <b>다른 세대의 계약 조건이 동일하게 적용되는 것은 아님</b>을 확인했습니다.</span></label>
     <label class="chk"><input type="checkbox" id="c3" ${a.c3 ? 'checked' : ''}><span><b>[필수]</b> 도면 화면에서 고른 색온도(기본 전주백색 3500K)와 <b>패키지 기본 배치</b>로 시공하는 데 동의합니다. 배치 변경은 시공일 7일 전까지 담당자에게 전화로만 요청할 수 있어요.</span></label>
     <label class="chk"><input type="checkbox" id="c4" ${a.c4 ? 'checked' : ''}><span><b>[필수]</b> 시공일은 가능한 회차 안에서 저희가 배정해 문자로 안내하며, 잔금일을 <b>${esc(S.cfg.lastDate || '12/19')}까지 알려주지 않으면 1월 회차로 자동 배정</b>되는 데 동의합니다.</span></label>
     <label class="chk"><input type="checkbox" id="c5" ${a.c5 ? 'checked' : ''}><span>[선택] 시공 사진을 후기로 쓰는 데 동의합니다. (얼굴·호수 비공개)</span></label></div>
