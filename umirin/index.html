@@ -220,7 +220,7 @@ function planSvg(d) {
   }));
   const eCount = (d.packages || []).filter(p => p.code === 'E').reduce((a, p) => a + (p.count || 1), 0);
   if (!d.plan_items) { const [, ax, ay] = lab('안방'); ['침실 2', '침실 3'].slice(0, Math.max(0, eCount - 1)).forEach(n => { const [, rx, ry] = lab(n); if (!rx) return; (PL.plE || []).forEach(it => { const x = it.x - ax + rx, y = it.y - ay + ry; if (it.k === 'fan') over += fan(x, y, 420); else if (it.k === 'dld') over += `<circle cx="${x}" cy="${y}" r="95" fill="#F0338A"/>`; }); }); }
-  return { svg: `<svg viewBox="${X0} ${Y0} ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg"><rect x="${X0}" y="${Y0}" width="${VW}" height="${VH}" fill="#fff"/>${under}<g fill="#1C2126">${walls}</g><g fill="#B0B7C3" font-size="320" font-weight="600" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif">${labels}</g>${over}</svg>` };
+  return { svg: `<svg viewBox="${X0} ${Y0} ${VW} ${VH}" xmlns="http://www.w3.org/2000/svg"><rect x="${X0}" y="${Y0}" width="${VW}" height="${VH}" fill="#fff"/><g fill="#1C2126">${walls}</g>${under}<g fill="#B0B7C3" font-size="320" font-weight="600" text-anchor="middle" font-family="IBM Plex Sans KR, sans-serif">${labels}</g>${over}</svg>` };
 }
 function renderFloor(v, d) {
   head('색온도 · 내 집 도면', 2); const a = S.ans;
