@@ -147,6 +147,8 @@ function renderAuth(v) {
       S.preview = !!r.preview; if (S.preview) { const b = document.createElement('div'); b.textContent = '미리보기 · 담당자용 — 열람 기록·저장·제출 안 됨'; b.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99;background:#B3261E;color:#fff;text-align:center;font-size:12px;padding:6px'; document.body.appendChild(b); }
       if (r.plan && r.plan.plans) { PLAN.plans = r.plan.plans; if (r.plan.walls) PLAN.walls = r.plan.walls; if (r.plan.bg) PLAN.bg = r.plan.bg; } S.code = code; S.last4 = last4; S.data = r.data; S.prev = r.prev; S.locked = r.locked; S.rounds = r.rounds || []; S.cfg = r.cfg || {};
       S.ans = r.prev && r.prev.fans ? Object.assign(defaultAns(r.data), r.prev) : defaultAns(r.data);
+      // 계약 변경으로 실링팬 구성이 바뀐 경우: 이전 답변 중 위치·모델이 달라진 실링팬은 새 계약 기본값으로, 대수도 새 계약에 맞춤
+      { const D = defaultAns(r.data).fans; S.ans.fans = D.map((d0, i) => { const y = (r.prev && r.prev.fans || [])[i]; const fl = (r.data.fans[i] || {}).loc || ''; if (!y || y.iot !== d0.iot || (fl && !/\?|확인/.test(fl) && y.loc && y.loc !== d0.loc)) return d0; y.iot = d0.iot; y.ledInc = d0.ledInc; return y; }); }
       // 계약 확정 사양(fixed)이 있는 실링팬: 이전 답변이 기본값(화이트/화이트·기본 크기)이면 확정 사양으로 맞춤 — 확정 옵션에는 추가금이 붙지 않게
       (r.data.fans || []).forEach((f, i) => { const fx = f.fixed, y = S.ans.fans[i]; if (!fx || !y) return; const living = (f.loc || '') === '거실'; const def = { size: living ? 'sena52' : 'sena42', body: 'white', blade: 'white' };
         if (y.size === def.size && fx.size) y.size = fx.size; if (y.body === def.body && fx.body) y.body = fx.body; if (y.blade === def.blade && fx.blade) y.blade = fx.blade; if (fx.led === 'led') { y.ledInc = true; y.led = 'led'; } });
