@@ -151,7 +151,8 @@ function renderAuth(v) {
       { const D = defaultAns(r.data).fans; S.ans.fans = D.map((d0, i) => { const y = (r.prev && r.prev.fans || [])[i]; const fl = (r.data.fans[i] || {}).loc || ''; if (!y || y.iot !== d0.iot || (fl && !/\?|확인/.test(fl) && y.loc && y.loc !== d0.loc)) return d0; y.iot = d0.iot; y.ledInc = d0.ledInc; return y; }); }
       // 계약 확정 사양(fixed)이 있는 실링팬: 이전 답변이 기본값(화이트/화이트·기본 크기)이면 확정 사양으로 맞춤 — 확정 옵션에는 추가금이 붙지 않게
       (r.data.fans || []).forEach((f, i) => { const fx = f.fixed, y = S.ans.fans[i]; if (!fx || !y) return; const living = (f.loc || '') === '거실'; const def = { size: living ? 'sena52' : 'sena42', body: 'white', blade: 'white' };
-        if (y.size === def.size && fx.size) y.size = fx.size; if (y.body === def.body && fx.body) y.body = fx.body; if (y.blade === def.blade && fx.blade) y.blade = fx.blade; if (fx.led === 'led') { y.ledInc = true; y.led = 'led'; } });
+        if (y.size === def.size && fx.size) y.size = fx.size; if (y.body === def.body && fx.body) y.body = fx.body; if (y.blade === def.blade && fx.blade) y.blade = fx.blade; if (fx.led === 'led') { y.ledInc = true; y.led = 'led'; }
+        if (fx.rev && y.fxrev !== fx.rev) { y.size = fx.size || y.size; y.body = fx.body || y.body; y.blade = fx.blade || y.blade; y.fxrev = fx.rev; } }); // 담당자가 확정 사양을 다시 바꾼 경우(rev 변경) 한 번만 새 사양으로 맞춤
       go(r.prev && r.prev.step === '제출' ? 'lookup' : 'contract');
     } catch (e) { $('#aerr').textContent = '연결이 원활하지 않아요. 잠시 후 다시 시도해 주세요.'; $('#aerr').classList.remove('hide'); $('#go').disabled = false; $('#go').textContent = '확인하고 시작하기'; }
   };
@@ -301,6 +302,7 @@ function renderSpec(v, d) {
   const i = Math.min(S.cur, fans.length - 1), f = fans[i], x = a.fans[i], iot = x.iot, living = (f.loc || '') === '거실';
   const BODY = iot ? BODY_IOT : BODY_ESS;
   const sizes = living ? ['vane48', 'sena52', 'moah52'] : ['sena42', 'vane48'], reco = living ? ['sena52'] : ['sena42'];
+  if (f.fixed && f.fixed.size && !sizes.includes(f.fixed.size)) sizes.push(f.fixed.size); // 계약 확정 크기가 기본 목록 밖이면 추가 (예: 방에 52인치)
   const ledOn = x.ledInc || x.led === 'led', w = WW.includes(x.blade) || (x.blade === 'clear' && x.size === 'vane48') ? x.blade : 'white';
   const key = iot ? `${x.size}_${x.body}_${w}` : (ledOn || x.body !== 'white' ? `${x.size}_${x.body}_${w}_led` : `${x.size}_white_${w}_noled`);
   const KEYS = iot ? KEYS_IOT : KEYS_ESS, rowsN = Math.ceil(KEYS.length / 10);
